@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf8" />
+
         <title>A Compiler Demo</title>
-        <link rel="stylesheet" href="compiler_demo.css" type="text/css" />
+        <link rel="stylesheet" href="css/index.css" type="text/css" />
+
         <script type="text/javascript" src="lib/jquery-1.6.4.min.js"></script>
+
+        <script type="text/javascript" src="ui/index.js"></script>
+
         <script type="text/javascript" src="algo/array.js"></script>
         <script type="text/javascript" src="algo/stack.js"></script>
         <script type="text/javascript" src="algo/structures.js"></script>
@@ -11,20 +17,75 @@
         <script type="text/javascript" src="algo/compiler_demo.js"></script>
     </head>
     <body>
+
         <h1>Compiler Demo</h1>
+
+        <div id="introductionBar">
+            <h3>
+                <div class="triangle"></div>
+                <div class="triangle"></div>
+                Introduction:
+            </h3>
+            <p>Compilers plays amazing magic, but the course of compiler theorem disappoints the crowd. Maybe you still have some passion to know something about this fantastic area or you won't be in this site. Aiming at telling the story behind the complicated algorithms visually, I spent most of my time on creating this site, which I should have spent on homework. Please step around, grab something you need and your suggestion will be appreciated.</p>
+
+            <h3>
+                <div class="triangle"></div>
+                <div class="triangle"></div>
+                Instructions:
+            </h3>
+            <p>There are some rules you have to obey while playing here. I have made some default settings while creating the site. They are listed up above where they are suppose to be entered.</p>
+        </div>
+
+        <div id="indexPage">
+        <!--This is the index page. The page for the user to input the grammar and
+            the terminal set.-->
+
+        <div id="inputArea">
+
+        <!--Terminals input area-->
+        <h2>Terminals</h2>
+        <div class="instruction">
+            <ul>
+                <li>The "e" is used to represent the "&#603;" in Dragon Book.</li>
+                <li>The "$" is still valid in this site to represent the right endmarker.</li>
+                <li>The terminals should be enter one by one, separated by "," followed with a whitespace. For example: <code>+, *, id</code>.</li>
+            </ul>
+        </div>
+
         <div id="terminalInput">
-            <textarea id="terminal" name="terminal" rows="1" cols="100"></textarea>
-            <button id="terminalConfirm">Submit</button>
+            <textarea id="terminal" name="terminal" rows="1" cols="60"></textarea>
+        </div>
+        
+
+        <!--Grammar input area-->
+        <h2>Grammar</h2>
+        <div class="instruction">
+            <ul>
+                <li>Productions with different head should be listed in different line.</li>
+                <li>Productions with the same head can be listed in the same line, different bodies of the productions are separated by a " | ". Please pay attention to the whitespaces around the "|"</li>
+                <li>Terminals or nonterminals in the production body should be separated with whitespace.</li>
+            </ul>
         </div>
 
         <div id="grammarInput">
-            <textarea id="grammar" name="grammar" rows="10" cols="100"></textarea>
-            <button id="grammarConfirm">Submit</button>
+            <textarea id="grammar" name="grammar" rows="10" cols="60"></textarea>
+            <button id="grammarConfirm">Continue</button>
         </div>
 
+        </div>
+
+        </div>
+
+
+
+
+        <div id="ll_1">
+            
         <div id="sentenceInput">
-            <textarea id="sentence" name="sentence" rows="1" cols="100"></textarea>
+            <textarea id="sentence" name="sentence" rows="1" cols="60"></textarea>
             <button id="sentenceConfirm">Submit</button>
+        </div>
+
         </div>
     </body>
 </html>

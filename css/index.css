@@ -1,0 +1,108 @@
+body {
+    padding: 0;
+    margin: 0;
+    background-color: black;
+}
+
+h1, h2 {
+    color: #999999;
+    text-shadow: 0 0 5px #660099;
+}
+
+h1 {
+    font-size: 40pt;
+    text-align: left;
+    margin: 10px;
+}
+
+h3 {
+    color: #999999;
+    text-shadow: 0 0 5px #666666;
+}
+
+#introductionBar {
+    float: left;
+    width: 230px;
+    color: #666666;
+    padding: 10px;
+    margin-left: 40px;
+    border-right: solid 2px #111111;
+    text-align: left;
+}
+
+#inputArea {
+    float: left;
+    width: 800px;
+    padding: 10px;
+    margin: 0 20px 20px 20px;
+}
+
+.instruction {
+    color: #666666;
+    width: 800px;
+    font-size: small;
+}
+
+#grammarInput, #sentenceInput {
+    margin: 10px auto 10px auto;
+    padding: 0;
+    overflow: hidden;
+}
+
+
+textarea {
+    display: block;
+    width: 750px;
+    margin: 10px auto 10px auto;
+    padding: 10px;
+    color: white;
+    background-color: #333333;
+    border: solid 1px #666666;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-box-shadow: 0 0 5px #666666;
+    -webkit-box-shadow: 0 0 8px #666666;
+}
+
+textarea:focus {
+    color: white;
+    background-color: #333333;
+    border: solid 1px #999999;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-box-shadow: 0 0 5px #666FFF;
+    -webkit-box-shadow: 0 0 8px #666FFF;
+
+}
+
+button {
+    float: right;
+    width: 100px;
+    height: 30px;
+    margin: 10px 20px 20px 20px;
+    font-weight: bold;
+    color: #999999;
+    background-color: #333333;
+    border: solid 1px #666666;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-box-shadow: 0 0 5px #666666;
+    -webkit-box-shadow: 0 0 5px #666666;
+}
+
+button:hover {
+    color: #AAAAAA;
+    cursor: pointer;
+    text-shadow: 0 0 3px #666666;
+    -moz-box-shadow: 0 0 5px #666FFF;
+    -webkit-box-shadow: 0 0 8px #666FFF;
+}
+
+.triangle {
+    float: left;
+    width: 0;
+    height: 0;
+    border-top: solid 10px transparent;
+    border-left: solid 20px #333333;
+    border-bottom: solid 10px transparent;
+}
