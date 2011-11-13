@@ -68,6 +68,8 @@ function predictiveAnalysis(predictiveTable, input) {
     var matched = new Array();
     var rst = "";
     var action = "";
+    ID = 0;
+
     input.push("$");
     stack.push("$");
     stack.push(predictiveTable.startSymbol);

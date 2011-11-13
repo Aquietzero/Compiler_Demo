@@ -17,14 +17,14 @@ $(function() {
 
 
 function indexToNext() {
-    $("#indexPage").fadeOut("slow");
+    $("#indexPage").css("display", "none");
 
     getGrammar();
     showInput();
     showResult();
 
-    if ($("#indexPage").is(":animated"))
-        $("#ll_1").fadeIn("slow");
+    //if ($("#indexPage").is(":animated"))
+    $("#ll_1").fadeIn("slow");
 }
 
 function showInput() {
@@ -47,6 +47,9 @@ function parseSentence() {
     var id;
 
     $("#next, #prev, #showAll").show();
+
+    if ($("#predictiveAnalysisResult").length != 0)
+        $("#predictiveAnalysisResult").remove();
 
     $(result).insertAfter("#parsingResult");
 
@@ -75,10 +78,11 @@ function stepBackward() {
 
 function showAll() {
     for (var i = STEP; i < MAX_STEP; ++i) {
-        var id = "#predictiveAlgorithm" + STEP + "";
-        if ($(id)) {
+        STEP++;
+        var id = "#predictiveAlgorithm" + i + "";
+        if ($(id).length != 0) 
             $(id).fadeIn("fast");
-            STEP++;
-        }
+        else
+            STEP--;
     }
 }
