@@ -1,7 +1,14 @@
 var STEP,
-    MAX_STEP;
+    MAX_STEP,
+    DEFAULT_TERMINALS = "id, +, *, (, )",
+    DEFAULT_GRAMMAR = "E  -> T E'\nE' -> + T E' | e\nT  -> F T'\nT' -> * F T' | e\nF  -> ( E ) | id";
+    DEFAULT_SENTENCE = "id + id * id";
 
 $(function() {
+    document.getElementById("terminal").value = DEFAULT_TERMINALS;
+    document.getElementById("grammar").value  = DEFAULT_GRAMMAR;
+    document.getElementById("sentence").value  = DEFAULT_SENTENCE;
+
     $("#grammarConfirm").bind("click", indexToNext);
     $("#sentenceConfirm").bind("click", parseSentence);
 
