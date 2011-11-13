@@ -1,0 +1,71 @@
+#ll_1 {
+    display: none;
+}
+
+#inputDisplay, #resultDisplay {
+    font-family: monospace, serif, sans-serif;
+    font-size: 10pt;
+    color: #999999;
+    padding: 10px 20px 20px 20px;
+    margin: 0 20px 20px 20px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: dashed 1px #333333;
+    overflow: hidden;
+}
+
+#inputDisplay pre {
+    margin: 0 auto 20px 50px;
+    padding: 0;
+}
+
+hr {
+    border: solid 1px #111111;
+    clear: both;
+}
+
+#firstSetsColumn, #followSetsColumn {
+    float: left;
+    width: 350px;
+}
+
+#predictiveTable {
+    margin: 10px auto 10px auto;
+    padding: 5px;
+    color: #999999;
+    text-align: center;
+    border: solid 1px #333333;
+    border-collapse: collapse;
+}
+
+#predictiveTable td {
+    width: 100px;
+    border: solid 1px #333333;
+}
+ 
+#predictiveAnalysisResult {
+    font-family: monospace, serif, sans-serif;
+    margin: 10px auto 10px auto;
+    padding: 5px;
+    color: #999999;
+    border: solid 1px #333333;
+    border-collapse: collapse;
+}
+
+#predictiveAnalysisResult td {
+    border: solid 1px #333333;
+    padding: 3px 20px 3px 20px;
+}
+
+.matched, .action {
+    text-align: left;
+}
+
+.stack, .input {
+    text-align: right;
+}
+
+.tableHead {
+    text-align: center;
+    font-weight: bold;
+}
