@@ -4,17 +4,19 @@
         <meta charset="utf8" />
 
         <title>A Compiler Demo</title>
+        <link rel="stylesheet" href="css/framework.css" type="text/css" />
         <link rel="stylesheet" href="css/index.css" type="text/css" />
-
-        <script type="text/javascript" src="lib/jquery-1.6.4.min.js"></script>
-
-        <script type="text/javascript" src="ui/index.js"></script>
+        <link rel="stylesheet" href="css/second.css" type="text/css" />
 
         <script type="text/javascript" src="algo/array.js"></script>
         <script type="text/javascript" src="algo/stack.js"></script>
         <script type="text/javascript" src="algo/structures.js"></script>
         <script type="text/javascript" src="algo/ll_1.js"></script>
         <script type="text/javascript" src="algo/compiler_demo.js"></script>
+
+        <script type="text/javascript" src="lib/jquery-1.6.4.min.js"></script>
+
+        <script type="text/javascript" src="ui/index.js"></script>
     </head>
     <body>
 
@@ -64,6 +66,7 @@
                 <li>Productions with different head should be listed in different line.</li>
                 <li>Productions with the same head can be listed in the same line, different bodies of the productions are separated by a " | ". Please pay attention to the whitespaces around the "|"</li>
                 <li>Terminals or nonterminals in the production body should be separated with whitespace.</li>
+                <li>Using "-&gt;" to denote the arrow.</li>
             </ul>
         </div>
 
@@ -78,9 +81,30 @@
 
 
 
-
+        <!--This is the LL(1) page. In this page, the input of the previous page
+            is displayed, the first and follow sets of the nonterminals in the
+            grammar is also calculated and displayed. Then follows a predictive
+            analysis table, which gives instructions when the predictive analysis
+            algorithm is undergoing.-->
         <div id="ll_1">
             
+        <div id="inputDisplay">
+            <h3 id="terminalsDisplay">Terminals:</h3>            
+            <h3 id="grammarDisplay">Grammar:</h3>            
+            <hr />
+
+            <div id="firstSetsColumn">
+                <h3 id="firstSetsDisplay">First Sets:</h3>
+            </div>
+            <div id="followSetsColumn">
+                <h3 id="followSetsDisplay">Follow Sets:</h3>
+            </div>
+            <hr />
+
+            <h3 id="predictiveTableDisplay">Predictive Analysis Table:</h3>
+
+        </div>
+
         <div id="sentenceInput">
             <textarea id="sentence" name="sentence" rows="1" cols="60"></textarea>
             <button id="sentenceConfirm">Submit</button>

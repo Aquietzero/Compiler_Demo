@@ -1,0 +1,8 @@
+#indexPage, #ll_1 {
+    float: left;
+    width: 800px;
+}
+
+#ll_1 {
+    display: none;
+}

@@ -21,6 +21,7 @@ h3 {
 }
 
 #introductionBar {
+    font-family: monospace, serif, sans-serif;
     float: left;
     width: 230px;
     color: #666666;
@@ -28,6 +29,7 @@ h3 {
     margin-left: 40px;
     border-right: solid 2px #111111;
     text-align: left;
+    font-size: 10pt;
 }
 
 #inputArea {
@@ -41,6 +43,7 @@ h3 {
     color: #666666;
     width: 800px;
     font-size: small;
+    font-family: monospace, serif, sans-serif;
 }
 
 #grammarInput, #sentenceInput {
