@@ -17,7 +17,7 @@ h1 {
 
 h3 {
     color: #999999;
-    text-shadow: 0 0 5px #666666;
+    text-shadow: 0 0 3px #666666;
 }
 
 #introductionBar {
@@ -34,14 +34,14 @@ h3 {
 
 #inputArea {
     float: left;
-    width: 800px;
+    width: 750px;
     padding: 10px;
     margin: 0 20px 20px 20px;
 }
 
 .instruction {
     color: #666666;
-    width: 800px;
+    width: 750px;
     font-size: small;
     font-family: monospace, serif, sans-serif;
 }
@@ -55,7 +55,7 @@ h3 {
 
 textarea {
     display: block;
-    width: 750px;
+    width: 700px;
     margin: 10px auto 10px auto;
     padding: 10px;
     color: white;
@@ -67,7 +67,7 @@ textarea {
     -webkit-box-shadow: 0 0 8px #666666;
 }
 
-textarea:focus {
+textarea:hover, textarea:focus {
     color: white;
     background-color: #333333;
     border: solid 1px #999999;

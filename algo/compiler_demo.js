@@ -1,15 +1,14 @@
 var TERMINALS,
     GRAMMAR,
-    SENTENCE;
+    SENTENCE,
+    PREDICTIVE_TABLE,
+    RESULT;
 
 function getSentence() {
     var sentenceInput = document.getElementById("sentence").value.toString();
     SENTENCE = sentenceInput.split(" ");
 
-    var predictiveTable = new PredictiveTable(GRAMMAR);
-
-    console.log(predictiveTable);
-    predictiveAnalysis(predictiveTable, SENTENCE);
+    RESULT = predictiveAnalysis(PREDICTIVE_TABLE, SENTENCE);
 }
 
 function getGrammar() {
@@ -22,6 +21,9 @@ function getGrammar() {
     GRAMMAR.getFollowSets();
 
     console.log(GRAMMAR);
+
+    PREDICTIVE_TABLE = new PredictiveTable(GRAMMAR);
+    console.log(PREDICTIVE_TABLE);
 }
 
 function first(nonterminal) {
@@ -104,9 +106,46 @@ function followSetsToHtml() {
     return "<pre>" + rst + "</pre>";
 }
 
-function PredictiveTableToHtml() {
+function predictiveTableToHtml() {
     var rst = "";
+    var nonterminal, terminal;
+    var production;
     
+    // Table head
+    rst += "<tr><td rowspan='2'>Nonterminals</td>";
+    rst += "<td colspan='" + GRAMMAR.terminals.length + 1 + 
+           "'>Inputs</td></tr>";
+    rst += "<tr>";
+    
+    for (var i = 0; i < GRAMMAR.terminals.length; ++i) {
+        rst += "<td>" + GRAMMAR.terminals[i] + "</td>";
+    }
+
+    rst += "<td>$</td></tr>";
+
+    GRAMMAR.terminals.push("$");
+    for (var i = 0; i < GRAMMAR.productions.length; ++i) {
+        nonterminal = GRAMMAR.productions[i].head;
+        rst += "<tr>"
+        rst += "<td>" + nonterminal + "</td>";
+        for (var j = 0; j < GRAMMAR.terminals.length; ++j) {
+            terminal = GRAMMAR.terminals[j];
+            production = PREDICTIVE_TABLE.table[[nonterminal, terminal]];
+            if (production) 
+                rst += "<td>" + nonterminal + " -> " + production.join("") + "</td>";
+            else
+                rst += "<td></td>";
+        }
+        rst += "</tr>"
+    }
+    GRAMMAR.terminals.excludes("$");
+
+    return "<table id='predictiveTable'>" + rst + "</table>";
+}
+
+function resultToHtml() {
+    RESULT = "<tr class='tableHead'><td>Matched</td><td>Stack</td><td>Input</td><td>Action</td></tr>" + RESULT;
+    return "<table id='predictiveAnalysisResult'>" + RESULT + "</table>";
 }
 
 function headMaxLength() {
@@ -125,5 +164,4 @@ function headMaxLength() {
 
 
 window.onload = function() {
-    document.getElementById("sentenceConfirm").onclick = getSentence;
 };

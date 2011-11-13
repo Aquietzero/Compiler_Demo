@@ -44,8 +44,10 @@ PredictiveTable.prototype.generateTable = function(grammar) {
                 first.excludes("e");
                 follow = production.follow;
 
-                for (var n = 0; n < follow.length; ++n)
-                    this.table[[production.head, follow[n]]] = body;
+                for (var n = 0; n < follow.length; ++n) {
+                    if (!this.table[[production.head, follow[n]]])
+                        this.table[[production.head, follow[n]]] = body;
+                }
                 if (follow.contains("$"))
                     this.table[[production.head, "$"]] = body;
             }
@@ -57,33 +59,71 @@ PredictiveTable.prototype.generateTable = function(grammar) {
 }
 
 
+var ID = 0;
 
 /* The predictive analysis algorithm based on the predictive table.
  */
 function predictiveAnalysis(predictiveTable, input) {
     var stack = new Array();
+    var matched = new Array();
+    var rst = "";
+    var action = "";
     input.push("$");
     stack.push("$");
     stack.push(predictiveTable.startSymbol);
 
     var X = stack[stack.length - 1];
     var ip = 0;
+    rst = updateResult(rst, matched, stack, input, ip, action);
     while (X != "$") {
         if (X == "e")
             stack.pop();
         else if (X == input[ip]) {
-            ip++;
+            matched.push(input[ip]);
             stack.pop();
+            action = "Matched " + input[ip];
+            ip++;
         }
-        else if (predictiveTable.terminals.contains(X))
+        else if (predictiveTable.terminals.contains(X)) {
+            action = "error";
             break;
-        else if (!predictiveTable.table[[X, input[ip]]])
+        }
+        else if (!predictiveTable.table[[X, input[ip]]]) {
+            action = "error";
             break;
+        }
         else if (predictiveTable.table[[X, input[ip]]]) {
-            console.log(X + " -> " + predictiveTable.table[[X, input[ip]]].join(" "));
+            action = X + " -> " + predictiveTable.table[[X, input[ip]]].join("");
             stack.pop();
             stack.pushArray(predictiveTable.table[[X, input[ip]]]);
         }
         X = stack[stack.length - 1];
+        rst = updateResult(rst, matched, stack, input, ip, action);
     }
+
+    return rst;
+}
+
+function updateResult(currRst, matched, stack, input, ip, action) {
+    var currRow = "";
+
+    if (stack[stack.length - 1] != "e") {
+        currRow += "<td class='matched'>" + matched.join(" ") + "</td>"; 
+
+        currRow += "<td class='stack'>"; 
+        for (var i = stack.length - 1; i >= 0; --i)
+        currRow += stack[i] + " ";
+        currRow += "</td>";
+
+        currRow += "<td class='input'>";
+        for  (var i = ip; i < input.length; ++i)
+        currRow += input[i] + " ";
+        currRow += "</td>";
+
+        currRow += "<td class='action'>" + action + "</td>";
+        ID++;
+        return currRst + "<tr id='predictiveAlgorithm" + ID + "'>" + currRow + "</tr>";
+    }
+
+    return currRst + "";
 }

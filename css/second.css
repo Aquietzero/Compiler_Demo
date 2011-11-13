@@ -1,4 +1,8 @@
-#inputDisplay {
+#ll_1 {
+    display: none;
+}
+
+#inputDisplay, #resultDisplay {
     font-family: monospace, serif, sans-serif;
     font-size: 10pt;
     color: white;
@@ -23,4 +27,45 @@ hr {
 #firstSetsColumn, #followSetsColumn {
     float: left;
     width: 350px;
+}
+
+#predictiveTable {
+    margin: 10px auto 10px auto;
+    padding: 5px;
+    color: white;
+    text-align: center;
+    border: solid 1px #333333;
+    border-collapse: collapse;
+}
+
+#predictiveTable td {
+    width: 100px;
+    border: solid 1px #333333;
+}
+ 
+#predictiveAnalysisResult {
+    font-family: monospace, serif, sans-serif;
+    margin: 10px auto 10px auto;
+    padding: 5px;
+    color: #999999;
+    border: solid 1px #333333;
+    border-collapse: collapse;
+}
+
+#predictiveAnalysisResult td {
+    border: solid 1px #333333;
+    padding: 3px 20px 3px 20px;
+}
+
+.matched, .action {
+    text-align: left;
+}
+
+.stack, .input {
+    text-align: right;
+}
+
+.tableHead {
+    text-align: center;
+    font-weight: bold;
 }
