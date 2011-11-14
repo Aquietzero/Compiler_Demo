@@ -9,7 +9,6 @@
         <link rel="stylesheet" href="css/second.css" type="text/css" />
 
         <script type="text/javascript" src="algo/array.js"></script>
-        <script type="text/javascript" src="algo/stack.js"></script>
         <script type="text/javascript" src="algo/structures.js"></script>
         <script type="text/javascript" src="algo/ll_1.js"></script>
         <script type="text/javascript" src="algo/compiler_demo.js"></script>
@@ -89,8 +88,14 @@
         <div id="ll_1">
             
         <div id="inputDisplay">
-            <h3 id="terminalsDisplay">Terminals:</h3>            
-            <h3 id="grammarDisplay">Grammar:</h3>            
+            <p>If the grammr you input is left-recursive, then the program will altermatically eliminate the left-recursive grammar for you. If so, the modified grammar will be shown below. Otherwise, the modified grammar is just the same as the one you entered.</p>
+            <div id="inputLeft">
+                <h3 id="terminalsDisplay">Terminals:</h3>            
+                <h3 id="grammarDisplay">Grammar:</h3>            
+            </div>
+            <div id="inputRight">
+                <h3 id="modifiedGrammarDisplay">Modified Grammar:</h3>
+            </div>
             <hr />
 
             <div id="firstSetsColumn">
