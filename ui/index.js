@@ -37,6 +37,8 @@ function indexToNext() {
 function showInput() {
     $(terminalsToHtml()).insertAfter("#terminalsDisplay");
     $(grammarToHtml()).insertAfter("#grammarDisplay");
+    $("#modifiedGrammarDisplay").fadeIn("fast");
+    $(modifiedGrammarToHtml()).insertAfter("#modifiedGrammarDisplay");
 }
 
 function showResult() {

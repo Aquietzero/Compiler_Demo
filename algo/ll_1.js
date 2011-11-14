@@ -114,12 +114,12 @@ function updateResult(currRst, matched, stack, input, ip, action) {
 
         currRow += "<td class='stack'>"; 
         for (var i = stack.length - 1; i >= 0; --i)
-        currRow += stack[i] + " ";
+            currRow += stack[i] + " ";
         currRow += "</td>";
 
         currRow += "<td class='input'>";
         for  (var i = ip; i < input.length; ++i)
-        currRow += input[i] + " ";
+            currRow += input[i] + " ";
         currRow += "</td>";
 
         currRow += "<td class='action'>" + action + "</td>";

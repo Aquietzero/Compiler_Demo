@@ -25,7 +25,7 @@
  * where, for example, production2 is as follows:
  *
  *                 production1.head = "E'",
- *                 production1.body = [["+", "T", "E'"], [e]],
+ *                 production1.bodies = [["+", "T", "E'"], [e]],
  *                 production1.first  = [],
  *                 production1.follow = [];
  *
@@ -57,7 +57,7 @@ Grammar.prototype.getFirstSets = function() {
         production = this.productions[i];
         production.first = firstSet(this, production.head);
     }
-}
+};
 
 /* Calculate the follow sets of all the nonterminals in the grammar.
  */
@@ -67,9 +67,94 @@ Grammar.prototype.getFollowSets = function() {
         production = this.productions[i];
         production.follow = followSet(this, production.head);
     }
-}
+};
+
+/* Reduce the redundancy in the grammar. If the input is like the
+ * following way:
+ *
+ *              E' -> a
+ *              E' -> b
+ *              E' -> e
+ *
+ * Then this function will make it like this:
+ *
+ *          E' -> a | b | e
+ */
+Grammar.prototype.reduceRedundancy = function() {
+    var i = 1;
+    var j = i;
+
+    while (this.productions[i]) {
+        for (j = i - 1; j >= 0; --j) {
+            if (this.productions[j].head == this.productions[i].head) {
+
+                this.productions[j].bodies.pushArray(this.productions[i].bodies);
+                this.productions.excludes(this.productions[i]);
+
+                // The coming elements will shift one position forward after
+                // excludes, so i must decrease in order to make up the change
+                // of the current element.
+                i--;
+                break;
+            }
+        }
+        i++;
+    }
+};
 
 
+
+/* This algorithm only works if the given grammar is not cyclic or has no
+ * "e" productions. The resulting grammar is non-left-recursive.
+ */
+Grammar.prototype.leftRecursionElimination = function() {
+    var newProductions = new Array();    
+    var newBodies = new Array();
+    var prevHeads = new Array();
+    var production, rest, substitute, head, newProduction;
+
+    for (var i = 1; i < this.productions.length; ++i) {
+        newBodies = [];
+        // Current production.
+        production = this.productions[i];
+
+        // Get all of the nonterminals before the head of the current
+        // production.
+        for (var j = 0; j < i; ++j) 
+            prevHeads.push(this.productions[j].head);        
+
+        // Traverse the bodies of the current production.
+        for (var j = 0; j < production.bodies.length; ++j) {
+            // Get the head of the current body.
+            head = production.bodies[j][0];
+
+            if (prevHeads.contains(head)) {
+                substitute = this.productions[this.getNonterminalIndex(head)];
+
+                // Delete the head.
+                rest = production.bodies[j].clone();
+                rest.shift();
+
+                for (var n = 0; n < substitute.bodies.length; ++n)
+                    newBodies.push(substitute.bodies[n].concat(rest));
+
+                production.bodies.excludesArray(
+                    production.bodies[j]);
+                j--;
+            }
+        }
+
+        for (var j = 0; j < newBodies.length; ++j)
+            production.bodies.push(newBodies[j]);
+
+        newProduction = production.immediateLeftRecursionElimination();
+        if (newProduction)
+            newProductions.push(new Production(newProduction));
+    }
+
+    for (var i = 0; i < newProductions.length; ++i)
+        this.productions.push(newProductions[i]);
+};
 
 /* Valid Productions in my compile demo should have the following form:
  *
@@ -104,6 +189,55 @@ function Production(production) {
 }
 
 
+/* Immediate left recursion elimination deal with the situation when there
+ * are some production bodies begin with the production head. This is the
+ * production method. And it returns the new production if there are 
+ * necessity to excute the left recursion elimination.
+ */
+Production.prototype.immediateLeftRecursionElimination = function() {
+    // Immediate left recursion elimination only works while "e" production
+    // does not exsit.
+    //var hasEpsilon = false;
+    //if (this.bodies.containsArray(["e"]) != -1)
+    //    hasEpsilon = true;
+
+    var beginWithHead = new Array();
+    var otherBodies   = new Array();
+    var newHead       = this.head.toString() + "\'";
+
+    // Separate bodies into two groups. One with the head as the beginning,
+    // the other with other terminals or nonterminals as the beginning.
+    for (var i = 0; i < this.bodies.length; ++i) {
+        if (this.bodies[i][0] == this.head)
+            beginWithHead.push(this.bodies[i]);
+        else
+            otherBodies.push(this.bodies[i]);
+    }
+    // There are no immediate left recursion.
+    if (beginWithHead.length == 0) 
+        return null;
+
+    //if (hasEpsilon) 
+    //    otherBodies.excludesArray(["e"]);
+    for (var i = 0; i < otherBodies.length; ++i) {
+        if (otherBodies[i][0] == "e")
+            otherBodies[i][0] = newHead;
+        else
+            otherBodies[i].push(newHead); 
+    }
+
+    for (var i = 0; i < beginWithHead.length; ++i) {
+        // Remove head
+        beginWithHead[i].shift();
+        beginWithHead[i].push(newHead);
+        beginWithHead[i] = beginWithHead[i].join(" ");
+    }
+    beginWithHead.push(["e"]);
+
+    this.bodies = otherBodies;
+    beginWithHead = beginWithHead.join(" | ");
+    return newHead.toString() + " -> " + beginWithHead;
+};
 
 /* Calculate the first set of the given nonterminal according to the grammar.
  */
@@ -162,11 +296,19 @@ function firstSetGeneral(grammar, nonterminals) {
 
     var nonterminalIndex, firstSet;
     for (var i = 0; i < nonterminals.length; ++i) {
-        nonterminalIndex = grammar.getNonterminalIndex(nonterminals[i]);
-        firstSet = grammar.productions[nonterminalIndex].first;
-        firstSets.merge(firstSet);
-        if (!firstSet.contains("e"))
+        // Current symbol is terminal
+        if (grammar.terminals.contains(nonterminals[i])) {
+            firstSets.push(nonterminals[i]);
             break;
+        }
+        // Current symbol is nonterminal
+        else {
+            nonterminalIndex = grammar.getNonterminalIndex(nonterminals[i]);
+            firstSet = grammar.productions[nonterminalIndex].first;
+            firstSets.merge(firstSet);
+            if (!firstSet.contains("e"))
+                 break;
+        }
     }
 
     return firstSets;

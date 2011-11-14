@@ -69,3 +69,9 @@ hr {
     text-align: center;
     font-weight: bold;
 }
+
+#inputLeft, #inputRight {
+    float: left;
+    width: 350px;
+}
+
