@@ -270,10 +270,10 @@ function firstSet(grammar, nonterminal) {
         // For each nonterminal in the specific body.
         for (var j = 0; j < production.bodies[i].length; ++j) {
             subFirstSet = firstSet(grammar, production.bodies[i][j]);
+            firstSets.merge(subFirstSet);
             if (!subFirstSet.contains("e"))
                 break;
         }
-        firstSets.merge(subFirstSet);
     }
 
     return firstSets;
