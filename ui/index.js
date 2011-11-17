@@ -1,7 +1,8 @@
 var STEP,
     MAX_STEP,
     DEFAULT_TERMINALS = "id, +, *, (, )",
-    DEFAULT_GRAMMAR = "E  -> T E'\nE' -> + T E' | e\nT  -> F T'\nT' -> * F T' | e\nF  -> ( E ) | id";
+    //DEFAULT_GRAMMAR = "E  -> T E'\nE' -> + T E' | e\nT  -> F T'\nT' -> * F T' | e\nF  -> ( E ) | id";
+    DEFAULT_GRAMMAR = "E -> E + T | T\nT -> T * F | F\nF -> ( E ) | id";
     DEFAULT_SENTENCE = "id + id * id";
 
 $(function() {
@@ -28,7 +29,7 @@ function indexToNext() {
 
     getGrammar();
     showInput();
-    showResult();
+    //showResult();
 
     //if ($("#indexPage").is(":animated"))
     $("#ll_1").fadeIn("slow");

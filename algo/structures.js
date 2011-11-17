@@ -38,6 +38,16 @@ function Grammar(terminals, productions) {
         this.productions.push(new Production(productions[i]));
 }
 
+/* Converts a grammar to its augmented form. Namely, if the current start 
+ * nonterminal of the grammar is S, then its augmented form is the original
+ * grammar with a new production like this: S' -> S
+ */
+Grammar.prototype.augmentedGrammar = function() {
+    var currStart = this.productions[0].head;
+    var newStart = new Production(currStart + "\' -> " + currStart);
+    this.productions.unshift(newStart);
+}
+
 /* Given a nonterminal and returns its position in the productions 
  * array in grammar.
  */
@@ -113,7 +123,7 @@ Grammar.prototype.leftRecursionElimination = function() {
     var prevHeads = new Array();
     var production, rest, substitute, head, newProduction;
 
-    for (var i = 1; i < this.productions.length; ++i) {
+    for (var i = 0; i < this.productions.length; ++i) {
         newBodies = [];
         // Current production.
         production = this.productions[i];

@@ -20,16 +20,28 @@ function getGrammar() {
     GRAMMAR = new Grammar(TERMINALS, grammarInput.split("\n"));
     MODIFIED_GRAMMAR = new Grammar(TERMINALS, grammarInput.split("\n"));
 
-    MODIFIED_GRAMMAR.reduceRedundancy();
-    MODIFIED_GRAMMAR.leftRecursionElimination();
+    //MODIFIED_GRAMMAR.reduceRedundancy();
+    //MODIFIED_GRAMMAR.leftRecursionElimination();
 
     console.log(GRAMMAR);
 
     MODIFIED_GRAMMAR.getFirstSets();
     MODIFIED_GRAMMAR.getFollowSets();
 
-    PREDICTIVE_TABLE = new PredictiveTable(MODIFIED_GRAMMAR);
-    console.log(PREDICTIVE_TABLE);
+    //PREDICTIVE_TABLE = new PredictiveTable(MODIFIED_GRAMMAR);
+    //console.log(PREDICTIVE_TABLE);
+
+    //===============test======================================
+    var start = new Item("S", ["E"], 0);
+    var newItemSet = new ItemSet();
+    newItemSet.addItem(start);
+    GRAMMAR.augmentedGrammar();
+    newItemSet.closure(GRAMMAR);
+    console.log(newItemSet);
+
+    var gotoTest = newItemSet.goto(GRAMMAR, "(");
+    console.log(gotoTest);
+    //=========================================================
 }
 
 function first(nonterminal) {
