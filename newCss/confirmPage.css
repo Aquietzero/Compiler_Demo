@@ -1,0 +1,54 @@
+#confirmPage {
+    display: none;
+    margin: 10px 20px;
+    font-size: 12pt;
+    padding: 0 20px 20px 20px;
+    overflow: hidden;
+}
+
+#inputDisplay {
+    width: 90%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: 2.5%;;
+
+    background: url("../imgs/paper.jpg");
+    -moz-box-shadow: 0 0 15px #BBBBBB;
+    -webkit-box-shadow: 0 0 15px #BBBBBB;
+}
+
+#inputDisplay p {
+    margin: 0;
+    padding: 0;
+}
+
+#terminalsDisplay, #grammarDisplay {
+    font-variant: small-caps;
+    font-size: 15pt;
+    font-style: oblique;
+    font-weight: bold;
+    color: #666666;
+}
+
+#inputDisplay pre {
+    margin-left: 50px;
+    color: #666666;
+}
+
+p#confirmInstructions {
+    color: #666666;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+#bgGrammar.rotateTest {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    /*-moz-transform: rotate(30deg);*/
+    font-size: 30pt;
+    font-weight: bold;
+    font-family: serif;
+    opacity: 0.10;
+    z-index: 0;
+}

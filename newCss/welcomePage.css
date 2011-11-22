@@ -1,0 +1,47 @@
+#welcomePage {
+    margin: 20px;
+    font-size: 12pt;
+    font-style: oblique;
+
+    overflow: hidden;
+    clear: none;
+}
+
+#welcomePage h2 {
+    font-variant: small-caps;
+    font-size: 15pt;
+    text-shadow: 0 0 2px #666666;
+}
+
+#welcomePage p {
+    margin-left: 40px;
+    margin-right: 40px;
+    color: #333333;
+}
+
+#signature {
+    float: right;
+    width: 20%;
+    margin: 0 50px 0 0;
+}
+
+p#welcomePageToInputPage {
+    display: block;
+    width: 230px;
+    font-variant: small-caps;
+    font-size: 15pt;
+    font-weight: bold;
+    text-shadow: 0 0 2px #666666;
+    color: black;
+}
+
+p#welcomePageToInputPage:hover {
+    cursor: pointer;
+    color: black;
+    text-shadow: 0 0 3px #F08080;
+}
+
+hr {
+    border-color: #EEEEEE;
+    margin: 1px;
+}

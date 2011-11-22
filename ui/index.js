@@ -12,9 +12,16 @@ $(function() {
 
     $("#grammarConfirm").bind("click", indexToNext);
     $("#sentenceConfirm").bind("click", parseSentence);
+    // Grammar chosen
+    $("#ll_1Grammar").bind("click", showResultLL_1);
+    $("#lr_0Grammar").bind("click", showResultLR_0);
 
+    // Hide elements
+    $("#inputDisplay").css("display", "none");
+    $("#grammarMenu").css("display", "none");
     $("#ll_1").css("display", "none");
     $("#next, #prev, #showAll").css("display", "none");
+
     $("#next").bind("click", stepForward);
     $("#prev").bind("click", stepBackward);
     $("#showAll").bind("click", showAll);
@@ -29,10 +36,10 @@ function indexToNext() {
 
     getGrammar();
     showInput();
-    //showResult();
 
     //if ($("#indexPage").is(":animated"))
-    $("#ll_1").fadeIn("slow");
+    $("#inputDisplay").fadeIn("slow");
+    $("#grammarMenu").fadeIn("slow");
 }
 
 function showInput() {
@@ -42,12 +49,27 @@ function showInput() {
     $(modifiedGrammarToHtml()).insertAfter("#modifiedGrammarDisplay");
 }
 
-function showResult() {
+function showResultLL_1() {
+    $("#lr_0").hide("fast");
+
+    getLL_1Grammar();
+
     $(firstSetsToHtml()).insertAfter("#firstSetsDisplay");
     $(followSetsToHtml()).insertAfter("#followSetsDisplay");
     $(predictiveTableToHtml()).insertAfter("#predictiveTableDisplay");
+
+    $("#ll_1").fadeIn("slow");
 }
 
+function showResultLR_0() {
+    $("#ll_1").hide("fast");
+
+    getLR_0Grammar();
+
+    $(itemCollectionToHtml()).insertAfter("#itemSetCollection");
+
+    $("#lr_0").fadeIn("slow");
+}
 
 function parseSentence() {
     STEP = 1;

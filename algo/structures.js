@@ -44,8 +44,13 @@ function Grammar(terminals, productions) {
  */
 Grammar.prototype.augmentedGrammar = function() {
     var currStart = this.productions[0].head;
-    var newStart = new Production(currStart + "\' -> " + currStart);
+    var newStart = new Production(currStart + "\# -> " + currStart);
     this.productions.unshift(newStart);
+}
+
+Grammar.prototype.getAugmentedProduction = function() {
+    return this.productions[0].head.toString() + " -> " +
+           this.productions[0].bodies[0].toString();
 }
 
 /* Given a nonterminal and returns its position in the productions 

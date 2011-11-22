@@ -3,7 +3,8 @@ var TERMINALS,
     MODIFIED_GRAMMAR,
     SENTENCE,
     PREDICTIVE_TABLE,
-    RESULT;
+    RESULT,
+    ITEMCOLLECTION;
 
 function getSentence() {
     var sentenceInput = document.getElementById("sentence").value.toString();
@@ -13,36 +14,32 @@ function getSentence() {
 }
 
 function getGrammar() {
-    var terminalInput = document.getElementById("terminal").value.toString();
-    var grammarInput = document.getElementById("grammar").value.toString();
+    var terminalInput = document.getElementById("terminalsInput").value.toString();
+    var grammarInput = document.getElementById("grammarInput").value.toString();
 
     TERMINALS = terminalInput.split(", ");
     GRAMMAR = new Grammar(TERMINALS, grammarInput.split("\n"));
     MODIFIED_GRAMMAR = new Grammar(TERMINALS, grammarInput.split("\n"));
+}
 
-    //MODIFIED_GRAMMAR.reduceRedundancy();
-    //MODIFIED_GRAMMAR.leftRecursionElimination();
-
-    console.log(GRAMMAR);
+function getLL_1Grammar() {
+    MODIFIED_GRAMMAR.reduceRedundancy();
+    MODIFIED_GRAMMAR.leftRecursionElimination();
 
     MODIFIED_GRAMMAR.getFirstSets();
     MODIFIED_GRAMMAR.getFollowSets();
 
-    //PREDICTIVE_TABLE = new PredictiveTable(MODIFIED_GRAMMAR);
-    //console.log(PREDICTIVE_TABLE);
-
-    //===============test======================================
-    var start = new Item("S", ["E"], 0);
-    var newItemSet = new ItemSet();
-    newItemSet.addItem(start);
-    GRAMMAR.augmentedGrammar();
-    newItemSet.closure(GRAMMAR);
-    console.log(newItemSet);
-
-    var gotoTest = newItemSet.goto(GRAMMAR, "(");
-    console.log(gotoTest);
-    //=========================================================
+    PREDICTIVE_TABLE = new PredictiveTable(MODIFIED_GRAMMAR);
 }
+
+function getLR_0Grammar() {
+    MODIFIED_GRAMMAR.getFirstSets();
+    MODIFIED_GRAMMAR.getFollowSets();
+
+    MODIFIED_GRAMMAR.augmentedGrammar();
+    ITEMCOLLECTION = new ItemSetCollection(MODIFIED_GRAMMAR);
+}
+
 
 function first(nonterminal) {
     var firstRst = new Array();
@@ -206,7 +203,31 @@ function headMaxLength() {
     return maxlength;
 }
 
+function itemCollectionToHtml() {
+    var rst = "";
+    var currItemSet;
+    var currItem;
+    var currbody;
 
+    for (var i = 0; i < ITEMCOLLECTION.itemSets.length; ++i) {
+        // Show item set number
+        rst += "<p><strong>Item Set " + i + "</strong></p>";
+        currItemSet = ITEMCOLLECTION.itemSets[i];
+
+        rst += "<pre>";
+        for (var j = 0; j < currItemSet.items.length; ++j) {
+            currItem = currItemSet.items[j];
+            currbody = currItem.body.join("");
+            currbody = currbody.substring(0, currItem.position) + "." +
+                       currbody.substring(currItem.position, currItem.body.length);
+            rst += currItem.head.toString() + "\t->\t" + 
+                   currbody + "\n";
+        }
+        rst += "</pre>";
+    }
+
+    return rst;
+}
 
 window.onload = function() {
 };

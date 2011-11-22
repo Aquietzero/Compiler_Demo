@@ -20,10 +20,14 @@ function Item(head, body, position) {
 
 Item.prototype.equalsTo = function(otherItem) {
     if (this.head == otherItem.head &&
-        this.body == otherItem.body &&
+        this.body.equalsTo(otherItem.body) &&
         this.position == otherItem.position)
         return true;
     return false;
+}
+
+Item.prototype.clone = function() {
+    return new Item(this.head, this.body, this.position);
 }
 
 /* Item Set is a set of items. Initially, the Item Set has not items
@@ -31,6 +35,25 @@ Item.prototype.equalsTo = function(otherItem) {
  */
 function ItemSet() {
     this.items = new Array();
+}
+
+ItemSet.prototype.isEmpty = function() {
+    return this.items.length == 0;
+}
+
+/* Item sets are not ordered. The equality between two item sets is
+ * defined as below: Two item sets contains the same items regardless
+ * of the order they are organized in the item set.
+ */
+ItemSet.prototype.equalsTo = function(otherItemSet) {
+    if (this.items.length != otherItemSet.items.length)
+        return false;
+
+    for (var i = 0; i < this.items.length; ++i) {
+        if (!this.containsItem(otherItemSet.items[i]))
+            return false;
+    }
+    return true;
 }
 
 ItemSet.prototype.containsItem = function(item) {
@@ -61,6 +84,10 @@ ItemSet.prototype.getSymbols = function() {
     var currSymbol;
     for (var i = 0; i < this.items.length; ++i) {
         currSymbol = this.items[i];
+        // The stage is now the end of the body.
+        if (currSymbol.body.length <= currSymbol.position)
+            continue;
+
         if (!symbols.contains(currSymbol.body[currSymbol.position]))
             symbols.push(currSymbol.body[currSymbol.position]);
     }
@@ -84,10 +111,12 @@ ItemSet.prototype.closure = function(grammar) {
         for (var i = 0; i < this.items.length; ++i) {
 
             currItem = this.items[i];
-            bodyHead = currItem.body[currItem.position];
+            if (currItem.position >= currItem.body.length)
+                continue;
 
             // If the body head is terminal, then there is no need to traverse
             // the bodies.
+            bodyHead = currItem.body[currItem.position];
             index = grammar.getNonterminalIndex(bodyHead);
             if (index == -1)
                 continue;
@@ -115,16 +144,19 @@ ItemSet.prototype.goto = function(grammar, symbol) {
     var newItemSet = new ItemSet();
     var currItem;
 
+    if (!symbol)
+        return newItemSet;
+
     // Get the items whose dots are just right in front of the symbol.
     for (var i = 0; i < this.items.length; ++i) {
-        currItem = this.items[i];
-
-        if (symbol == currItem.body[currItem.position])
+        currItem = this.items[i].clone();
+        if (currItem.position < currItem.body.length && 
+            symbol == currItem.body[currItem.position])
             newItemSet.items.push(currItem);
     }
 
     // Move the stage one step forward.
-    for (var i = 0; i < newItemSet.items.length; ++i)
+    for (var i = 0; i < newItemSet.items.length; ++i) 
         newItemSet.items[i].position++;
     // Calculate the closure of the new item set.
     newItemSet.closure(grammar);
@@ -135,12 +167,58 @@ ItemSet.prototype.goto = function(grammar, symbol) {
 
 /* Item Set Collection is the collection of the item sets. Each of the
  * item set in the item set collection represents a state in the LR(0)
- * automaton.
+ * automaton. The constructor of the item set collection accepts the 
+ * grammar as the argument and builds up a item set according to the 
+ * given grammar. The grammar should be guarantee to be the augmented
+ * grammar.
  */
-function ItemSetCollection() {
+function ItemSetCollection(grammar) {
     this.itemSets = new Array();
+
+    this.canonical_LR_collection(grammar) 
+}
+
+ItemSetCollection.prototype.containsItemSet = function(itemSet) {
+    for (var i = 0; i < this.itemSets.length; ++i) {
+        if (this.itemSets[i].equalsTo(itemSet))
+            return true;
+    }    
+    return false;
 }
 
 ItemSetCollection.prototype.canonical_LR_collection = function(grammar) {
+    var firstProduction = new Production(grammar.getAugmentedProduction());
+    var firstItemSet = new ItemSet();
+    var symbols, nextItemSet, newItemSets, counter;
+
+    // Add the augmented production to the first item set.
+    firstItemSet.addItem(
+        new Item(firstProduction.head, firstProduction.bodies[0], 0));
+    firstItemSet.closure(grammar);
+
+    this.itemSets.push(firstItemSet);
+
+    do {
+        newItemSets = new Array();
+        counter = 0;
+
+        for (var i = 0; i < this.itemSets.length; ++i) {
+            symbols = this.itemSets[i].getSymbols();
+            for (var j = 0; j < symbols.length; ++j) {
+                nextItemSet = this.itemSets[i].goto(grammar, symbols[j]);
+                if (!nextItemSet.isEmpty())
+                    newItemSets.push(nextItemSet);
+            }
+        }
+
+        for (var i = 0; i < newItemSets.length; ++i) {
+            if (!this.containsItemSet(newItemSets[i])) {
+                this.itemSets.push(newItemSets[i]);
+                counter++;
+            }
+        }
     
+    } while (counter);
 }
+
+
