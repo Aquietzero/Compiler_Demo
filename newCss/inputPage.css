@@ -15,10 +15,10 @@
 }
 
 .inputInstruction {
-    width: 90%;
+    width: 95%;
     padding: 10px;
     margin-top: 10px;
-    margin-left: 2.5%;
+    margin-left: 0;
 
     font-family: serif;
     font-style: italic;
@@ -31,10 +31,10 @@
 }
 
 textarea {
-    width: 90%;
+    width: 95%;
     padding: 10px;
     margin-top: 10px;
-    margin-left: 2.5%;
+    margin-left: 0;
 
     border: none;
     -moz-box-shadow: 0 0 15px #BBBBBB;

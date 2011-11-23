@@ -8,10 +8,10 @@
 }
 
 #ll_1ResultDisplay, #ll_1ParsingResultDisplay {
-    width: 90%;
+    width: 95%;
     padding: 10px;
     margin-top: 10px;
-    margin-left: 2.5%;
+    margin-left: 0;
 
     background: url("../imgs/paper.jpg");
     -moz-box-shadow: 0 0 15px #BBBBBB;
@@ -51,9 +51,9 @@
 }
 
 #predictiveTable, #predictiveAnalysisResult {
-    width: 90%;
+    width: 95%;
     font-family: monospace, sans-serif, serif;
-    margin: 10px auto;
+    margin: 20px auto;
     padding: 5px;
     text-align: center;
     border: solid 1px #BBBBBB;
@@ -72,6 +72,12 @@
 #predictiveTable tr:nth-of-type(even), 
 #predictiveAnalysisResult tr:nth-of-type(even) {
     background-color: rgba(200, 200, 200, 0.15);
+}
+
+#predictiveTable tr:nth-of-type(1), 
+#predictiveTable tr:nth-of-type(2), 
+#predictiveTable td:first-child {
+    font-weight: bold;
 }
 
 .matched, .action {

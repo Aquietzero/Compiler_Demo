@@ -27,7 +27,7 @@ Item.prototype.equalsTo = function(otherItem) {
 }
 
 Item.prototype.clone = function() {
-    return new Item(this.head, this.body, this.position);
+    return new Item(this.head, this.body.clone(), this.position);
 }
 
 /* Item Set is a set of items. Initially, the Item Set has not items

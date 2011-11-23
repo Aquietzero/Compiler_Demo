@@ -106,7 +106,8 @@ body {
     font-weight: bold;
     text-align: center;
     line-height: 15pt;
-    color: #483d8b;
+    color: #483D8B;
+    text-shadow: 0 0 3px #483D8B;
     background-color: white;
     -moz-box-shadow: -10px 0 10px #999999;
     -webkit-box-shadow: -10px 0 10px #999999;
@@ -178,7 +179,7 @@ body {
 }
 
 button {
-    margin: 5%;
+    margin: 2.5%;
     float: right;
     width: 120px;
     height: 30px;
