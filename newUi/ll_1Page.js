@@ -1,12 +1,24 @@
+var STEP,
+    MAX_STEP = 1000;
+
 $(function() {
     $("#toLL_1Page").bind("click", showLL_1Page);
+    $("#sentenceConfirm").bind("click", parseSentence);
+    $("#ll_1Next").bind("click", stepForward);
+    $("#ll_1Prev").bind("click", stepBackward);
+    $("#ll_1ShowAll").bind("click", showAll);
 });
 
 function showLL_1Page() {
+    var bullet = $("#toLL_1Page");
     $("#introductionPart").css("display", "none");
+
     clearLL_1Page();
+    clearLR_0Page();
+
     modifyTitle();
-    modifyLL_1Bullet();
+    restoreAllBullets();
+    modifySelectedBullet(bullet);
     hideAllPages();
 
     getLL_1Grammar();
@@ -24,38 +36,48 @@ function clearLL_1Page() {
     $("#ll_1ResultDisplay table").remove();
 }
 
-function modifyTitle() {
-    var mainColumn = $("#mainColumn")
-    var title = $("#titleBar");
+function parseSentence() {
+    STEP = 1;
+    
+    getSentence();
+    var result = resultToHtml();
+    var id;
 
-    var offset = mainColumn.offset().left - 20 + "px";
-    title.animate({"width" : offset, "opacity" : "0.95"}, 400);
-    mainColumn.css("paddingTop", "20px");
+    if ($("#predictiveAnalysisResult").length != 0)
+        $("#predictiveAnalysisResult").remove();
+
+    $(result).insertAfter("#ll_1ParsingResult");
+
+    for (var i = STEP + 1; i < MAX_STEP; ++i) {
+        id = "#predictiveAlgorithm" + i + "";
+        $(id).css("display", "none");
+    }
 }
 
-function restoreTitle() {
-    var mainColumn = $("#mainColumn")
-    var title = $("#titleBar");
-
-    title.css("width", "55%");
-    mainColumn.css("paddingTop", "170px");
+function stepForward() {
+    STEP++;
+    var id = "#predictiveAlgorithm" + STEP + "";
+    if ($(id).length != 0)
+        $(id).fadeIn("fast");
+    else
+        STEP--;
 }
 
-function modifyLL_1Bullet() {
-    var mainColumn = $("#mainColumn")
-    var bullet = $("#toLL_1Page");
-    var newWidth;
-
-    bullet.addClass("clicked");
-    newWidth = mainColumn.offset().left - bullet.offset().left;
-    bullet.css("width", newWidth + "px");
-    bullet.removeClass("hover");
-    removeBulletHoverBehavior(bullet);
+function stepBackward() {
+    if (STEP > 1) {
+        var id = "#predictiveAlgorithm" + STEP + "";
+        $(id).fadeOut("fast");
+        STEP--;
+    }
 }
 
-function restoreLL_1Bullet() {
-    var bullet = $("#toLL_1Page");
-
-    bullet.removeClass("clicked");
-    bullet.css("width", "180px");
+function showAll() {
+    for (var i = STEP; i < MAX_STEP; ++i) {
+        STEP++;
+        var id = "#predictiveAlgorithm" + i + "";
+        if ($(id).length != 0)
+            $(id).fadeIn("fast");
+        else
+            STEP--;
+    }
 }

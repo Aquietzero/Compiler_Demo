@@ -189,7 +189,7 @@ button {
     font-family: serif, sans-serif;
     font-style: italic;
     font-weight: bold;
-    background-color: white;
+    background: rgba(255, 255, 255, 0.3);
 }
 
 button:hover {

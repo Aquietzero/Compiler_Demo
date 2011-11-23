@@ -10,9 +10,11 @@
         <link rel="stylesheet" href="newCss/inputPage.css" type="text/css" />
         <link rel="stylesheet" href="newCss/confirmPage.css" type="text/css" />
         <link rel="stylesheet" href="newCss/ll_1Page.css" type="text/css" />
+        <link rel="stylesheet" href="newCss/lr_0Page.css" type="text/css" />
 
         <script type="text/javascript" src="algo/array.js"></script>
-        <script type="text/javascript" src="algo/structures.js"></script>
+        <script type="text/javascript" src="algo/production.js"></script>
+        <script type="text/javascript" src="algo/grammar.js"></script>
         <script type="text/javascript" src="algo/ll_1.js"></script>
         <script type="text/javascript" src="algo/item.js"></script>
         <script type="text/javascript" src="algo/compiler_demo.js"></script>
@@ -24,6 +26,7 @@
         <script type="text/javascript" src="newUi/confirmPage.js"></script>
         <script type="text/javascript" src="newUi/navigation.js"></script>
         <script type="text/javascript" src="newUi/ll_1Page.js"></script>
+        <script type="text/javascript" src="newUi/lr_0Page.js"></script>
     </head>
 
     <body>
@@ -200,10 +203,11 @@
 
                 <div id="ll_1ParsingResultDisplay">
                     <p id="ll_1ParsingResult">✺ Predictive Analysis Result:</p>
+               </div>
                     <button id="ll_1Next">forward</button>
-                    <button id="ll_1Next">backward</button>
-                    <button id="ll_1Next">show all</button>
-                </div>
+                    <button id="ll_1Prev">backward</button>
+                    <button id="ll_1ShowAll">show all</button>
+ 
             </div>
 
 
@@ -211,7 +215,21 @@
             <!--
                 Page for LR(0) grammar.
             -->
-            <div id="lr_0Page"></div>
+            <div id="lr_0Page">
+            
+                <!--
+                    Display the items sets of the grammar.
+                -->
+                <div id="lr_0ItemSetsDisplay">
+
+                    <div id="itemSetsColumn">
+                        <p id="itemSetsDisplay">✺ Item Sets:</p>
+                    </div>
+
+                </div>
+
+            
+            </div>
 
             <div id="copyleft">
 

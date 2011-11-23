@@ -32,11 +32,13 @@ function PredictiveTable(grammar) {
 PredictiveTable.prototype.generateTable = function(grammar) {
     var production, body, first, follow, index;
 
+    console.log(grammar);
     for (var i = 0; i < grammar.productions.length; ++i) {
         production = grammar.productions[i];
         for (var j = 0; j < production.bodies.length; ++j) {
             body = production.bodies[j];
             first = firstSetGeneral(grammar, body);
+            console.log(first);
 
             // If e in First(alpha), for every terminal b in Follow(A), 
             // add A -> alpha to table[A, b].

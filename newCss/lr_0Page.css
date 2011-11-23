@@ -1,0 +1,21 @@
+#lr_0Page {
+    display: none;
+    margin: 10px 20px;
+    font-size: 12pt;
+    padding: 0 20px 20px 20px;
+    color: #666666;
+    overflow: hidden;
+}
+
+#lr_0ItemSetsDisplay {
+    width: 90%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: 2.5%;
+
+    background: url("../imgs/paper.jpg");
+    -moz-box-shadow: 0 0 15px #BBBBBB;
+    -webkit-box-shadow: 0 0 15px #BBBBBB;
+    clear: both;
+    overflow: hidden;
+}
