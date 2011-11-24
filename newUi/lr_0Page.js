@@ -23,6 +23,7 @@ function showLR_0Page() {
 }
 
 function clearLR_0Page() {
-    $("#itemSetsDisplay ~ pre").remove();
-    $("#itemSetsDisplay ~ p").remove();
+    var itemSetsColumns = $(".itemSetsColumn");
+    for (var i = 0; i < itemSetsColumns.length; ++i)
+        $(itemSetsColumns[i]).remove();
 }

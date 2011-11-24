@@ -25,13 +25,12 @@ function getGrammar() {
 function getLL_1Grammar() {
     // First get the original version of the grammar.
     MODIFIED_GRAMMAR = GRAMMAR.clone();
-    console.log(MODIFIED_GRAMMAR);
-
-    MODIFIED_GRAMMAR.reduceRedundancy();
-    MODIFIED_GRAMMAR.leftRecursionElimination();
 
     MODIFIED_GRAMMAR.getFirstSets();
     MODIFIED_GRAMMAR.getFollowSets();
+
+    MODIFIED_GRAMMAR.reduceRedundancy();
+    MODIFIED_GRAMMAR.leftRecursionElimination();
 
     PREDICTIVE_TABLE = new PredictiveTable(MODIFIED_GRAMMAR);
 }
@@ -47,15 +46,9 @@ function getLL_1Grammar() {
 function getLR_0Grammar() {
     MODIFIED_GRAMMAR = GRAMMAR.clone();
 
-    MODIFIED_GRAMMAR.reduceRedundancy();
-    MODIFIED_GRAMMAR.leftRecursionElimination();
-
     MODIFIED_GRAMMAR.getFirstSets();
     MODIFIED_GRAMMAR.getFollowSets();
 
-    // Get the original grammar back since there is no need to modified
-    // the grammar for calculating its item sets.
-    MODIFIED_GRAMMAR = GRAMMAR.clone();
     MODIFIED_GRAMMAR.augmentedGrammar();
     ITEMCOLLECTION = new ItemSetCollection(MODIFIED_GRAMMAR);
 }

@@ -220,5 +220,3 @@ ItemSetCollection.prototype.canonical_LR_collection = function(grammar) {
     
     } while (counter);
 }
-
-

@@ -245,11 +245,11 @@ function itemCollectionToHtml() {
 
         rst += "</div>";
 
-        if (i == col2) {
+        if (i == parseInt(col2)) {
             rst += "</div>";
             rst += "<div class='itemSetsColumn'>";
         }
-        if (i == col3) {
+        if (i == parseInt(col3)) {
             rst += "</div>";
             rst += "<div class='itemSetsColumn'>";
         }

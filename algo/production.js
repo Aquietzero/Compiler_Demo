@@ -98,8 +98,37 @@ Production.prototype.immediateLeftRecursionElimination = function() {
 };
 
 /* Calculate the first set of the given nonterminal according to the grammar.
+ * There are some tricks used here, for production:
+ *          
+ *          A -> Aa | ...
+ *
+ * The algorithm will ignore "A -> Aa" here because it believes when it gets
+ * down to a specific level, the first set of A can finally be calculated 
+ * without evaluating "A -> Aa". For a more general case, consider production:
+ *
+ *          A -> Ba | ...
+ *          B -> Cb | ...
+ *          C -> Ac | ...
+ *
+ * Here, the algorithm should ignore "C -> Ac", or the algorithm can never
+ * terminate when it calculate First(A) to get First(C). So an auxiliary
+ * array is used to keep track of the first nonterminal in the bodies. Look
+ * at the procedure below:
+ *
+ *       Aim        Production      To Do      Track
+ *     First(A)      A -> Ba       First(B)    [A, B]
+ *     First(B)      B -> Cb       First(C)    [A, B, C]
+ *     First(C)      C -> Ac       First(A)    [A, B, C, A]
+ *                                                       ^
+ * Since "A" appears again in the tracking array, causing the algorithm
+ * cyclic, so there is no need to evaluate the First(A). It will be re-
+ * evaluated when we calculate First(C) after obtaining First(A) and First(B).
  */
 function firstSet(grammar, nonterminal) {
+    return firstSetIteration(grammar, nonterminal, [nonterminal]);
+}
+
+function firstSetIteration(grammar, nonterminal, prevHeads) {
     // If the given nonterminal turns out to be a terminal, then
     // directly pushes it to the first set and returns.
     if (grammar.terminals.contains(nonterminal))
@@ -122,12 +151,13 @@ function firstSet(grammar, nonterminal) {
     for (var i = 0; i < production.bodies.length; ++i) {
         // Avoid infinite recursion if the nonterminal is equal to
         // the beginning symbol of the body.
-        if (nonterminal == production.bodies[i][0])
+        if (prevHeads.contains(production.bodies[i][0]))
             continue;
 
         // For each nonterminal in the specific body.
         for (var j = 0; j < production.bodies[i].length; ++j) {
-            subFirstSet = firstSet(grammar, production.bodies[i][j]);
+            prevHeads.push(production.bodies[i][j]);
+            subFirstSet = firstSetIteration(grammar, production.bodies[i][j], prevHeads);
             firstSets.merge(subFirstSet);
             if (!subFirstSet.contains("e"))
                 break;
@@ -162,7 +192,7 @@ function firstSetGeneral(grammar, nonterminals) {
         // Current symbol is nonterminal
         else {
             nonterminalIndex = grammar.getNonterminalIndex(nonterminals[i]);
-            firstSet = grammar.productions[nonterminalIndex].first;
+            firstSet = grammar.productions[nonterminalIndex].first.clone();
             firstSets.merge(firstSet);
             if (!firstSet.contains("e"))
                  break;
