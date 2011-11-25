@@ -5,6 +5,15 @@
  * the terminals and the right endmarker of the grammar. The 
  * table is somewhat like the one shown as below:
  *
+ *                                  Grammar
+ *
+ *                              E  -> TE'
+ *                              E' -> +TE' | e
+ *                              T  -> FT'
+ *                              T' -> *FT' | e
+ *                              F  -> (E) | id
+ *
+ *                          Predictive Analysis Table
  * -----------------------------------------------------------------------------------
  * |             |                           Inputs                                  |
  * | Nonterminal |-------------------------------------------------------------------|
@@ -24,7 +33,7 @@
 function PredictiveTable(grammar) {
     this.table       = new Array();
     this.startSymbol = grammar.productions[0].head;
-    this.terminals   = grammar.terminals;
+    this.terminals   = grammar.terminals.clone();
 
     this.generateTable(grammar);
 }

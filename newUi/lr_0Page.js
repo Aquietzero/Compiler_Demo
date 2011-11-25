@@ -17,13 +17,22 @@ function showLR_0Page() {
     getLR_0Grammar();
     
     $(itemCollectionToHtml()).insertAfter("#itemSetsDisplay");
+    $(slrProductionListToHtml()).insertAfter("#indexedGrammar");
+    $(slrTableToHtml()).insertAfter("#slrTableDisplay");
 
     $("#lr_0Page").fadeIn("slow");
     showNavigation();
 }
 
 function clearLR_0Page() {
+    // Clear item sets.
     var itemSetsColumns = $(".itemSetsColumn");
     for (var i = 0; i < itemSetsColumns.length; ++i)
         $(itemSetsColumns[i]).remove();
+
+    // Clear SLR table.
+    $("#slrTable").remove();
+
+    // Clear Production List
+    $("#slrProductionList").remove();
 }

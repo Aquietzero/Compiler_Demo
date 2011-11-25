@@ -105,12 +105,11 @@ function predictiveTableToHtml() {
     rst += "<tr><td rowspan='2'>Nonterminals</td>";
     rst += "<td colspan='" + MODIFIED_GRAMMAR.terminals.length + 1 + 
            "'>Inputs</td></tr>";
+
     rst += "<tr>";
-    
     for (var i = 0; i < MODIFIED_GRAMMAR.terminals.length; ++i) {
         rst += "<td>" + MODIFIED_GRAMMAR.terminals[i] + "</td>";
     }
-
     rst += "<td>$</td></tr>";
 
     MODIFIED_GRAMMAR.terminals.push("$");
@@ -260,3 +259,83 @@ function itemCollectionToHtml() {
     return rst;
 }
 
+function slrTableToHtml() {
+    var rst = "";
+    var terminalsNum = SLR_TABLE.terminals.length + 1;
+    var nonterminalsNum = MODIFIED_GRAMMAR.productions.length - 1;
+    var tableItem, parseRst;
+
+    SLR_TABLE.terminals.push("$");
+
+    // Table header
+    rst += "<tr><td class='slrTableTitle' rowspan='2'>States</td>";
+    rst += "<td colspan=\'" + 
+           terminalsNum + "\'>" + "Action</td>";
+    rst += "<td colspan=\'" + 
+           nonterminalsNum + "\'>" + "Goto</td></tr>";
+
+    rst += "<tr>";
+    for (var i = 0; i < terminalsNum; ++i)
+        rst += "<td>" + SLR_TABLE.terminals[i] + "</td>";
+    for (var i = 1; i <= nonterminalsNum; ++i)
+        rst += "<td>" + MODIFIED_GRAMMAR.productions[i].head + "</td>";
+    rst += "</tr>";
+
+    // Table Body
+    for (var i = 0; i < ITEMCOLLECTION.itemSets.length; ++i) {
+        rst += "<tr><td>(" + i + ")</td>";
+        for (var j = 0; j < terminalsNum; ++j) {
+            tableItem = SLR_TABLE.action[[i, SLR_TABLE.terminals[j]]];
+            parseRst = parseSLRTableItem(tableItem);
+            rst += "<td>" + parseRst + "</td>";
+        }
+
+        for (var j = 1; j <= nonterminalsNum; ++j) {
+            rst += "<td>" 
+                +  (SLR_TABLE.goto[[i, MODIFIED_GRAMMAR.productions[j].head]] || "") 
+                + "</td>";
+        }
+        rst += "</tr>";
+    }
+    SLR_TABLE.terminals.excludes("$");
+
+    return "<table id='slrTable'>" + rst + "</table>";
+}
+
+function parseSLRTableItem(slrTableItem) {
+    if (!slrTableItem)
+        return "";
+    if (slrTableItem[0] == "a")
+        return "acc";
+    if (slrTableItem[0] == "s")
+        return "s" + slrTableItem[1];
+    if (slrTableItem[0] == "r") {
+        return "r" + SLR_TABLE.searchItemInProductionList(slrTableItem[1]);
+    }
+    else
+        return "err";
+}
+
+function slrProductionListToHtml() {
+    var rst = "";
+    var currItem, maxLength;
+    var productionHeads = new Array();
+    var productionNum = SLR_TABLE.productionList.length;
+
+    for (var i = 0; i < productionNum; ++i)
+        productionHeads.push(SLR_TABLE.productionList[i].head);
+    maxLength = maxLengthGeneral(productionHeads);
+
+    for (var i = 0; i < productionNum; ++i) {
+        currItem = SLR_TABLE.productionList[i];
+
+        rst += "(" + i + ") " + currItem.head;
+        for (var j = currItem.head.length; j < maxLength; ++j)
+            rst += " ";
+        rst += " -> ";
+        rst += currItem.body.join("");
+        rst += "\n";
+    }    
+
+    return "<pre id='slrProductionList'>" + rst + "</pre>";
+}

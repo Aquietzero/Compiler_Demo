@@ -17,6 +17,7 @@
         <script type="text/javascript" src="algo/grammar.js"></script>
         <script type="text/javascript" src="algo/ll_1.js"></script>
         <script type="text/javascript" src="algo/item.js"></script>
+        <script type="text/javascript" src="algo/slr.js"></script>
         <script type="text/javascript" src="algo/compiler_demo.js"></script>
         <script type="text/javascript" src="algo/toHtml.js"></script>
 
@@ -192,7 +193,7 @@
                     </div>
                     <hr />
                     
-                    <div id="predictiveTableDisplay">✺ Predictive Analysis Table:</div>
+                    <p id="predictiveTableDisplay">✺ Predictive Analysis Table:</p>
                 </div>
 
                 <!--
@@ -227,6 +228,12 @@
                         <p id="itemSetsDisplay">✺ Canonical LR(0) Collection:</p>
                     </div>
 
+                </div>
+
+                <div id="slrAnalysisTableDisplay">
+                    <p id="indexedGrammar">✺ Indexed Grammar</p>
+                    <p id="indexedGrammarInstruction">The indexed grammar on the left shows the productions in the grammar separately, with an indexed number on the left. The index is applied to indicate which production will be used when a reduction operation is needed when the analysis is undergoing. For convinience, the augmented production is also listed and indexed by 0, though it will never be used.</p>
+                    <p id="slrTableDisplay">✺ SLR Analysis Table:</p>
                 </div>
 
             

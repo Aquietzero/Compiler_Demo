@@ -4,7 +4,8 @@ var TERMINALS,
     SENTENCE,
     PREDICTIVE_TABLE,
     RESULT,
-    ITEMCOLLECTION;
+    ITEMCOLLECTION,
+    SLR_TABLE;
 
 function getSentence() {
     var sentenceInput = document.getElementById("sentenceInput").value.toString();
@@ -26,11 +27,11 @@ function getLL_1Grammar() {
     // First get the original version of the grammar.
     MODIFIED_GRAMMAR = GRAMMAR.clone();
 
-    MODIFIED_GRAMMAR.getFirstSets();
-    MODIFIED_GRAMMAR.getFollowSets();
-
     MODIFIED_GRAMMAR.reduceRedundancy();
     MODIFIED_GRAMMAR.leftRecursionElimination();
+
+    MODIFIED_GRAMMAR.getFirstSets();
+    MODIFIED_GRAMMAR.getFollowSets();
 
     PREDICTIVE_TABLE = new PredictiveTable(MODIFIED_GRAMMAR);
 }
@@ -51,6 +52,9 @@ function getLR_0Grammar() {
 
     MODIFIED_GRAMMAR.augmentedGrammar();
     ITEMCOLLECTION = new ItemSetCollection(MODIFIED_GRAMMAR);
+    SLR_TABLE = new SLRAnalysisTable(MODIFIED_GRAMMAR, ITEMCOLLECTION);
+
+    console.log(SLR_TABLE);
 }
 
 /*

@@ -11,23 +11,35 @@
  * definition of Production. Since an item has only one body, so
  * its structure can be defined as follow, where the position means
  * the position of the dot in the production body.
+ * If the "next" is not passed, then the item is LR(0) item, other-
+ * wise, it is a LR(1) item.
  */
-function Item(head, body, position) {
+function Item(head, body, position, next) {
    this.head = head;
    this.body = body;
    this.position = position;
+   this.next = next || "";
 }
 
 Item.prototype.equalsTo = function(otherItem) {
     if (this.head == otherItem.head &&
         this.body.equalsTo(otherItem.body) &&
-        this.position == otherItem.position)
+        this.position == otherItem.position &&
+        this.next == otherItem.next)
+        return true;
+    return false;
+}
+
+Item.prototype.looselyEqualsTo = function(otherItem) {
+    if (this.head == otherItem.head &&
+        this.body.equalsTo(otherItem.body))
         return true;
     return false;
 }
 
 Item.prototype.clone = function() {
-    return new Item(this.head, this.body.clone(), this.position);
+    return new Item(this.head, this.body.clone(), 
+                    this.position, this.next);
 }
 
 /* Item Set is a set of items. Initially, the Item Set has not items
@@ -171,9 +183,17 @@ ItemSet.prototype.goto = function(grammar, symbol) {
  * grammar as the argument and builds up a item set according to the 
  * given grammar. The grammar should be guarantee to be the augmented
  * grammar.
+ *
+ * Attention: Since  most of the information of the SLR analysis table
+ * is generated while the canonical LR(0) collection is under calculating,
+ * so there is no need to construct the SLR analysis table after the 
+ * calculation of the collection is totally finished. Hence, I use a
+ * goto table to keep track of the transfers among the states, namely
+ * the item sets, which can be further used.
  */
 function ItemSetCollection(grammar) {
     this.itemSets = new Array();
+    this.gotoTable = new Array();
 
     this.canonical_LR_collection(grammar) 
 }
@@ -181,15 +201,16 @@ function ItemSetCollection(grammar) {
 ItemSetCollection.prototype.containsItemSet = function(itemSet) {
     for (var i = 0; i < this.itemSets.length; ++i) {
         if (this.itemSets[i].equalsTo(itemSet))
-            return true;
+            return i;
     }    
-    return false;
+    return -1;
 }
 
 ItemSetCollection.prototype.canonical_LR_collection = function(grammar) {
     var firstProduction = new Production(grammar.getAugmentedProduction());
     var firstItemSet = new ItemSet();
     var symbols, nextItemSet, newItemSets, counter;
+    var itemSetIndex;
 
     // Add the augmented production to the first item set.
     firstItemSet.addItem(
@@ -206,17 +227,29 @@ ItemSetCollection.prototype.canonical_LR_collection = function(grammar) {
             symbols = this.itemSets[i].getSymbols();
             for (var j = 0; j < symbols.length; ++j) {
                 nextItemSet = this.itemSets[i].goto(grammar, symbols[j]);
+                // Keep track with the connection between the nextItemSet
+                // and its corresonding symbol.
                 if (!nextItemSet.isEmpty())
-                    newItemSets.push(nextItemSet);
+                    newItemSets.push([nextItemSet, i, symbols[j]]);
             }
         }
 
         for (var i = 0; i < newItemSets.length; ++i) {
-            if (!this.containsItemSet(newItemSets[i])) {
-                this.itemSets.push(newItemSets[i]);
+            itemSetIndex = this.containsItemSet(newItemSets[i][0]);
+            // Set the GOTO table to keep track of the transfer information
+            // among different item sets.
+            if (itemSetIndex == -1) {
+                this.itemSets.push(newItemSets[i][0]);
+                this.gotoTable[[newItemSets[i][1], newItemSets[i][2]]] 
+                    = this.itemSets.length - 1; 
                 counter++;
             }
+            else
+                this.gotoTable[[newItemSets[i][1], newItemSets[i][2]]]
+                    = itemSetIndex;
         }
     
     } while (counter);
+
+    console.log(this.gotoTable);
 }
