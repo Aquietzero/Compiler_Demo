@@ -7,11 +7,20 @@ var TERMINALS,
     ITEMCOLLECTION,
     SLR_TABLE;
 
-function getSentence() {
-    var sentenceInput = document.getElementById("sentenceInput").value.toString();
+function parseByLL_1() {
+    var sentenceInput = 
+        document.getElementById("ll_1SentenceInput").value.toString();
     SENTENCE = sentenceInput.split(" ");
 
     RESULT = predictiveAnalysis(PREDICTIVE_TABLE, SENTENCE);
+}
+
+function parseBySLR() {
+    var sentenceInput = 
+        document.getElementById("slrSentenceInput").value.toString();
+    SENTENCE = sentenceInput.split(" ");
+
+    RESULT = slrAnalysis(SLR_TABLE, SENTENCE);
 }
 
 function getGrammar() {
@@ -32,6 +41,8 @@ function getLL_1Grammar() {
 
     MODIFIED_GRAMMAR.getFirstSets();
     MODIFIED_GRAMMAR.getFollowSets();
+
+    console.log(MODIFIED_GRAMMAR);
 
     PREDICTIVE_TABLE = new PredictiveTable(MODIFIED_GRAMMAR);
 }
@@ -55,6 +66,7 @@ function getLR_0Grammar() {
     SLR_TABLE = new SLRAnalysisTable(MODIFIED_GRAMMAR, ITEMCOLLECTION);
 
     console.log(SLR_TABLE);
+    console.log(MODIFIED_GRAMMAR);
 }
 
 /*

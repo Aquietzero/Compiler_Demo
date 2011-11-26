@@ -38,8 +38,8 @@ function SLRAnalysisTable(grammar, itemSetCollection) {
     this.action = new Array();
     this.goto   = new Array();
     this.productionList = new Array();
-    this.startState = 0;
-    this.terminals  = grammar.terminals.clone();
+    this.terminals      = grammar.terminals.clone();
+    this.errorMsg       = "";
 
     this.getProductionList(grammar);
     this.generateTable(grammar, itemSetCollection);
@@ -79,11 +79,36 @@ SLRAnalysisTable.prototype.searchItemInProductionList = function(item) {
     return -1;
 }
 
+SLRAnalysisTable.prototype.generateAction = function(state, symbol, action) {
+
+    // accept state conflict
+    if (this.action[[state, symbol]] && action[0] == "a")
+        this.errorMsg += "accepted state conflict.\n";
+ 
+    // shift state conflict
+    else if (this.action[[state, symbol]] && action[0] == "s")
+        this.errorMsg += "shift conflict in state " + state + 
+                         ", when " + symbol + " encounters.\n";
+
+    // reduce state conflict
+    else if (this.action[[state, symbol]] && action[0] == "r")
+        this.errorMsg += "reduce conflict in state " + state +
+                         " with production \'" + action[1].head +
+                         " -> " + action[1].body.join("") +
+                         "\'.\n";
+
+    // no conflict
+    else
+        this.action[[state, symbol]] = action;
+}
+
 SLRAnalysisTable.prototype.generateTable = 
     function(grammar, itemSetCollection) {
 
     var itemSet, item, nonterminal;
     var symbol, nextState, productionIndex, follow;
+    this.errorMsg = "";
+
     for (var i = 0; i < itemSetCollection.itemSets.length; ++i) {
         
         itemSet = itemSetCollection.itemSets[i];
@@ -97,19 +122,19 @@ SLRAnalysisTable.prototype.generateTable =
             // For situation "S# -> S.", which is the accept state.
             if (grammar.productions[0].head == item.head &&
                 item.position == item.body.length)
-                this.action[[i, "$"]] = ["a", -1];
+                this.generateAction(i, "$", ["a", -1]);
 
             // For situation "A -> x.ab", shift operation.
             else if (item.position < item.body.length &&
                      this.terminals.contains(symbol))
-                this.action[[i, symbol]] = ["s", nextState];
+                this.generateAction(i, symbol, ["s", nextState]);
 
             // For situation "A -> a.", reduce operation.
             else if (item.position == item.body.length) {
                 productionIndex = grammar.getNonterminalIndex(item.head);
                 follow = grammar.productions[productionIndex].follow;
                 for (var n = 0; n < follow.length; ++n)
-                    this.action[[i, follow[n]]] = ["r", item];
+                    this.generateAction(i, follow[n], ["r", item]);
             }
         }
 
@@ -119,4 +144,75 @@ SLRAnalysisTable.prototype.generateTable =
                 itemSetCollection.gotoTable[[i, nonterminal]];
         }
     }
+}
+
+function slrAnalysis(slrTable, input) {
+    var stack = [0];
+    var symbol = new Array();
+    var state, action;
+    var ip, a;
+    var rst = "";
+    ID = 0;
+    
+    ip = 0;
+    input.push("$");
+    while (true) {
+
+        a = input[ip];
+        state = stack[stack.length - 1];
+        action = slrTable.action[[state, a]];
+        console.log(stack.join(" ") + "\t-----\t" + symbol.join(" ") + "\t-----\t" + a);
+
+        rst += updateSLRResult(stack, symbol, input, ip, action);
+        if (!action)
+            // error
+            break;
+
+        if (action[0] == "s") {
+            stack.push(action[1]);
+            symbol.push(a);
+            ip++;
+        }
+        else if (action[0] == "r") {
+            for (var i = 0; i < action[1].body.length; ++i) {
+                stack.pop();
+                symbol.pop();
+            }
+            state = stack[stack.length - 1];
+            stack.push(slrTable.goto[[state, action[1].head]]);
+            symbol.push(action[1].head);
+        }
+        else if (action[0] == "a")
+            break;
+    }
+
+    return rst;
+}
+
+function updateSLRResult(stack, symbol, input, ip, action) {
+    var currRow = "";
+
+    if (!action) 
+        return;
+
+    currRow += "<td class='stack'>" + stack.join(" ") + "</td>";
+    currRow += "<td class='symbol'>" + symbol.join(" ") + "</td>";
+    
+    currRow += "<td class='input'>";
+    for (var i = ip; i < input.length; ++i)
+        currRow += input[i] + " ";
+    currRow += "</td>";
+
+    currRow += "<td class='action'>"
+    if (action[0] == "s")
+        currRow += "<em>shift</em>";
+    else if (action[0] == "r")
+        currRow += "<em>reduce with </em>" + action[1].head +
+                   " -> " + action[1].body.join("");
+    else if (action[0] == "a")
+        currRow += "<em>accepted</em>";
+    currRow += "</td>";
+
+    ID++;
+    return "<tr id='slrAlgorithm" + ID + "'>" + currRow + "</tr>";
 }

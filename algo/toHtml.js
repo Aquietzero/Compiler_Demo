@@ -132,7 +132,7 @@ function predictiveTableToHtml() {
     return "<table id='predictiveTable'>" + rst + "</table>";
 }
 
-function resultToHtml() {
+function ll_1ResultToHtml() {
     RESULT = "<tr class='tableHead'>" + 
                  "<td>Matched</td>" + 
                  "<td>Stack</td>"   +
@@ -140,6 +140,20 @@ function resultToHtml() {
                  "<td>Action</td>"  +
              "</tr>" + RESULT;
     return "<table id='predictiveAnalysisResult'>" + RESULT + "</table>";
+}
+
+function slrResultToHtml() {
+    RESULT = "<tr class='tableHead'>" + 
+                 "<td>Stack</td>" + 
+                 "<td>Symbol</td>"   +
+                 "<td>Input</td>"   +
+                 "<td>Action</td>"  +
+             "</tr>" + RESULT;
+    RESULT = "<table id='slrAnalysisResult'>" + RESULT + "</table>";
+
+    RESULT += "<pre class='errorMessage'>" + SLR_TABLE.errorMsg + "</pre>";
+
+    return RESULT;
 }
 
 function headMaxLength() {

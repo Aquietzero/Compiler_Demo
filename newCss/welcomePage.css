@@ -44,4 +44,5 @@ p#welcomePageToInputPage:hover {
 hr {
     border-color: #EEEEEE;
     margin: 1px;
+    clear: both;
 }

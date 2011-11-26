@@ -80,15 +80,17 @@
     font-weight: bold;
 }
 
-.matched, .action {
+#predictiveAnalysisResult .matched, 
+#predictiveAnalysisResult .action {
     text-align: left;
 }
 
-.stack, .input {
+#predictiveAnalysisResult .stack, 
+#predictiveAnalysisResult .input {
     text-align: right;
 }
 
-.tableHead {
+#predictiveAnalysisResult .tableHead {
     text-align: center;
     font-weight: bold;
 }

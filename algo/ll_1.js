@@ -85,7 +85,7 @@ function predictiveAnalysis(predictiveTable, input) {
 
     var X = stack[stack.length - 1];
     var ip = 0;
-    rst = updateResult(rst, matched, stack, input, ip, action);
+    rst = updateLL_1Result(rst, matched, stack, input, ip, action);
     while (X != "$") {
         if (X == "e")
             stack.pop();
@@ -109,13 +109,13 @@ function predictiveAnalysis(predictiveTable, input) {
             stack.pushArray(predictiveTable.table[[X, input[ip]]]);
         }
         X = stack[stack.length - 1];
-        rst = updateResult(rst, matched, stack, input, ip, action);
+        rst = updateLL_1Result(rst, matched, stack, input, ip, action);
     }
 
     return rst;
 }
 
-function updateResult(currRst, matched, stack, input, ip, action) {
+function updateLL_1Result(currRst, matched, stack, input, ip, action) {
     var currRow = "";
 
     if (stack[stack.length - 1] != "e") {

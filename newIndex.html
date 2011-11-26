@@ -200,16 +200,16 @@
                     Predictive analysis algorithm on the air.
                 -->
                 <p class="ll_1PageSubTitle">✺ Sentence:</p>
-                <textarea id="sentenceInput" rows="1"></textarea>
-                <button id="sentenceConfirm">submit</button>
+                <textarea id="ll_1SentenceInput" rows="1"></textarea>
+                <button id="ll_1SentenceConfirm">submit</button>
 
                 <div id="ll_1ParsingResultDisplay">
                     <p id="ll_1ParsingResult">✺ Predictive Analysis Result:</p>
-               </div>
-                    <button id="ll_1Next">forward</button>
-                    <button id="ll_1Prev">backward</button>
-                    <button id="ll_1ShowAll">show all</button>
- 
+                </div>
+                <button id="ll_1Next">forward</button>
+                <button id="ll_1Prev">backward</button>
+                <button id="ll_1ShowAll">show all</button>
+
             </div>
 
 
@@ -230,11 +230,31 @@
 
                 </div>
 
+                <!--
+                    Display the SLR table.
+                -->
                 <div id="slrAnalysisTableDisplay">
                     <p id="indexedGrammar">✺ Indexed Grammar</p>
                     <p id="indexedGrammarInstruction">The indexed grammar on the left shows the productions in the grammar separately, with an indexed number on the left. The index is applied to indicate which production will be used when a reduction operation is needed when the analysis is undergoing. For convinience, the augmented production is also listed and indexed by 0, though it will never be used.</p>
+                    <hr />
+                    <hr />
                     <p id="slrTableDisplay">✺ SLR Analysis Table:</p>
                 </div>
+                
+                <!--
+                    SLR analysis algorithm on the air.
+                -->
+                <p class="slrPageSubTitle">✺ Sentence:</p>
+                <textarea id="slrSentenceInput" rows="1"></textarea>
+                <button id="slrSentenceConfirm">submit</button>
+
+                <div id="slrParsingResultDisplay">
+                    <p id="slrParsingResult">✺ SLR Analysis Result:</p>
+                </div>
+                <button id="slrNext">forward</button>
+                <button id="slrPrev">backward</button>
+                <button id="slrShowAll">show all</button>
+
 
             
             </div>

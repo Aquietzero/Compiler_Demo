@@ -3,10 +3,10 @@ var STEP,
 
 $(function() {
     $("#toLL_1Page").bind("click", showLL_1Page);
-    $("#sentenceConfirm").bind("click", parseSentence);
-    $("#ll_1Next").bind("click", stepForward);
-    $("#ll_1Prev").bind("click", stepBackward);
-    $("#ll_1ShowAll").bind("click", showAll);
+    $("#ll_1SentenceConfirm").bind("click", ll_1ParseSentence);
+    $("#ll_1Next").bind("click", ll_1StepForward);
+    $("#ll_1Prev").bind("click", ll_1StepBackward);
+    $("#ll_1ShowAll").bind("click", ll_1ShowAll);
 });
 
 function showLL_1Page() {
@@ -36,11 +36,11 @@ function clearLL_1Page() {
     $("#ll_1ResultDisplay table").remove();
 }
 
-function parseSentence() {
+function ll_1ParseSentence() {
     STEP = 1;
     
-    getSentence();
-    var result = resultToHtml();
+    parseByLL_1();
+    var result = ll_1ResultToHtml();
     var id;
 
     if ($("#predictiveAnalysisResult").length != 0)
@@ -54,7 +54,7 @@ function parseSentence() {
     }
 }
 
-function stepForward() {
+function ll_1StepForward() {
     STEP++;
     var id = "#predictiveAlgorithm" + STEP + "";
     if ($(id).length != 0)
@@ -63,7 +63,7 @@ function stepForward() {
         STEP--;
 }
 
-function stepBackward() {
+function ll_1StepBackward() {
     if (STEP > 1) {
         var id = "#predictiveAlgorithm" + STEP + "";
         $(id).fadeOut("fast");
@@ -71,7 +71,7 @@ function stepBackward() {
     }
 }
 
-function showAll() {
+function ll_1ShowAll() {
     for (var i = STEP; i < MAX_STEP; ++i) {
         STEP++;
         var id = "#predictiveAlgorithm" + i + "";

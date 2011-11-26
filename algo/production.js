@@ -205,9 +205,13 @@ function firstSetGeneral(grammar, nonterminals) {
 
 
 /* Calculate the follow set of the given nonterminal according to the
- * grammar.
+ * grammar. The function of prevHeads is the same as that in firstSet.
  */
 function followSet(grammar, nonterminal) {
+    return followSetIteration(grammar, nonterminal, [nonterminal]);
+}
+
+function followSetIteration(grammar, nonterminal, prevHeads) {
     var followSets = new Array();
 
     // If the given nonterminal is the start symbol, add the input right
@@ -226,16 +230,15 @@ function followSet(grammar, nonterminal) {
             pos = body.indexOf(nonterminal);
 
             // The nonterminal is not in the production.
-            if (pos == -1) 
-                continue;
+            if (pos == -1) continue;
 
             // For the situation A -> aB
-            if (pos == body.length - 1) {
-                // Avoid the recursion appearing in B -> aB
-                if (nonterminal == production.head)
-                    continue;
-                followSets.merge(followSet(grammar, production.head));
+            if (pos == body.length - 1 && !prevHeads.contains(production.head)) {
+                prevHeads.push(production.head);
+                followSets.merge(
+                    followSetIteration(grammar, production.head, prevHeads));
             }
+
             // For the situation A -> aBb
             else {
                 var rest = body.slice(pos + 1, body.length);
@@ -248,7 +251,11 @@ function followSet(grammar, nonterminal) {
                 else {
                     firstSetOfRest.excludes("e");
                     followSets.merge(firstSetOfRest);
-                    followSets.merge(followSet(grammar, production.head));
+                    if (!prevHeads.contains(production.head)) {
+                        prevHeads.push(production.head);
+                        followSets.merge(
+                            followSetIteration(grammar, production.head, prevHeads));
+                    }
                 }
             }
         }
