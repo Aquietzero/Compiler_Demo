@@ -81,6 +81,8 @@ SLRAnalysisTable.prototype.searchItemInProductionList = function(item) {
 
 SLRAnalysisTable.prototype.generateAction = function(state, symbol, action) {
 
+    console.log(this.action[[state, symbol]]);
+
     // accept state conflict
     if (this.action[[state, symbol]] && action[0] == "a")
         this.errorMsg += "accepted state conflict.\n";
@@ -88,13 +90,13 @@ SLRAnalysisTable.prototype.generateAction = function(state, symbol, action) {
     // shift state conflict
     else if (this.action[[state, symbol]] && action[0] == "s")
         this.errorMsg += "shift conflict in state " + state + 
-                         ", when " + symbol + " encounters.\n";
+                         ", when \'" + symbol + "\' encounters.\n";
 
     // reduce state conflict
     else if (this.action[[state, symbol]] && action[0] == "r")
         this.errorMsg += "reduce conflict in state " + state +
                          " with production \'" + action[1].head +
-                         " -> " + action[1].body.join("") +
+                         " → " + action[1].body.join("") +
                          "\'.\n";
 
     // no conflict
@@ -174,10 +176,14 @@ function slrAnalysis(slrTable, input) {
             ip++;
         }
         else if (action[0] == "r") {
-            for (var i = 0; i < action[1].body.length; ++i) {
-                stack.pop();
-                symbol.pop();
+            if (action[1].body.length == 1 && action[1].body[0] == "e") {
+                // do nothing
             }
+            else 
+                for (var i = 0; i < action[1].body.length; ++i) {
+                    stack.pop();
+                    symbol.pop();
+                }
             state = stack[stack.length - 1];
             stack.push(slrTable.goto[[state, action[1].head]]);
             symbol.push(action[1].head);

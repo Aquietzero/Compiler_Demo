@@ -36,6 +36,7 @@ function clearLR_0Page() {
 
     // Clear SLR table.
     $("#slrTable").remove();
+    $("pre.errorMessage").remove();
 
     // Clear Production List
     $("#slrProductionList").remove();

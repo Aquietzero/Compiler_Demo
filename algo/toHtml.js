@@ -149,11 +149,8 @@ function slrResultToHtml() {
                  "<td>Input</td>"   +
                  "<td>Action</td>"  +
              "</tr>" + RESULT;
-    RESULT = "<table id='slrAnalysisResult'>" + RESULT + "</table>";
+    return "<table id='slrAnalysisResult'>" + RESULT + "</table>";
 
-    RESULT += "<pre class='errorMessage'>" + SLR_TABLE.errorMsg + "</pre>";
-
-    return RESULT;
 }
 
 function headMaxLength() {
@@ -313,7 +310,15 @@ function slrTableToHtml() {
     }
     SLR_TABLE.terminals.excludes("$");
 
-    return "<table id='slrTable'>" + rst + "</table>";
+    rst = "<table id='slrTable'>" + rst + "</table>";
+    if (SLR_TABLE.errorMsg != "")
+        rst += "<strong class='warning'>" +
+               "<span class='skull'>☠</span>" +
+               "WARNING<br /></strong>" +
+               "<pre class='errorMessage'>" +
+               SLR_TABLE.errorMsg + "</pre>";
+
+    return rst;
 }
 
 function parseSLRTableItem(slrTableItem) {

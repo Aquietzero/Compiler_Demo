@@ -15,10 +15,13 @@
  * wise, it is a LR(1) item.
  */
 function Item(head, body, position, next) {
-   this.head = head;
-   this.body = body;
-   this.position = position;
-   this.next = next || "";
+    this.head = head;
+    this.body = body;
+    this.position = position;
+    this.next = next || "";
+
+    if (this.body.length == 1 && this.body[0] == "e")
+        this.position = 1;
 }
 
 Item.prototype.equalsTo = function(otherItem) {
@@ -51,6 +54,23 @@ function ItemSet() {
 
 ItemSet.prototype.isEmpty = function() {
     return this.items.length == 0;
+}
+
+/* Due to the model I use, if the production is "A -> e", then two 
+ * items will be created. Namely "A -> .e" and "A -> e.", both of
+ * which are all useless because we can do infinite times of "e"
+ * transfer on "A -> e". So these kind of item sets are defined to
+ * be useless.
+ */
+ItemSet.prototype.isUseless = function() {
+    var currItem;
+    for (var i = 0; i < this.items.length; ++i) {
+        currItem = this.items[i];
+        if ((currItem.body.length == 1 && currItem.body[0] != "e")
+            || currItem.body.length > 1)
+            return false;
+    }
+    return true;
 }
 
 /* Item sets are not ordered. The equality between two item sets is
@@ -229,7 +249,7 @@ ItemSetCollection.prototype.canonical_LR_collection = function(grammar) {
                 nextItemSet = this.itemSets[i].goto(grammar, symbols[j]);
                 // Keep track with the connection between the nextItemSet
                 // and its corresonding symbol.
-                if (!nextItemSet.isEmpty())
+                if (!nextItemSet.isEmpty() && !nextItemSet.isUseless())
                     newItemSets.push([nextItemSet, i, symbols[j]]);
             }
         }
