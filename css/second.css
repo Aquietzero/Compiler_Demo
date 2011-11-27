@@ -1,8 +1,31 @@
-#ll_1 {
+#ll_1, #lr_0 {
     display: none;
+    font-family: monospace, serif, sans-serif;
+    font-size: 10pt;
+    color: #999999;
+    width: 700px;
+    padding: 10px 20px 20px 20px;
+    margin: 0 20px 20px 20px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: dashed 1px #333333;
 }
 
-#inputDisplay, #resultDisplay {
+#inputDisplay {
+    width: 700px;
+    font-family: monospace, serif, sans-serif;
+    font-size: 10pt;
+    color: #999999;
+    padding: 10px 20px 20px 20px;
+    margin: 0 20px 20px 20px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: dashed 1px #333333;
+    overflow: hidden;
+}
+
+#resultDisplay {
+    width: 600px;
     font-family: monospace, serif, sans-serif;
     font-size: 10pt;
     color: #999999;
@@ -73,5 +96,10 @@ hr {
 #inputLeft, #inputRight {
     float: left;
     width: 350px;
+}
+
+#sentenceInput textarea {
+    margin: 20px;
+    width: 600px;
 }
 

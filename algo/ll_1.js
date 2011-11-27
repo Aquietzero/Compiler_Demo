@@ -5,6 +5,15 @@
  * the terminals and the right endmarker of the grammar. The 
  * table is somewhat like the one shown as below:
  *
+ *                                  Grammar
+ *
+ *                              E  -> TE'
+ *                              E' -> +TE' | e
+ *                              T  -> FT'
+ *                              T' -> *FT' | e
+ *                              F  -> (E) | id
+ *
+ *                          Predictive Analysis Table
  * -----------------------------------------------------------------------------------
  * |             |                           Inputs                                  |
  * | Nonterminal |-------------------------------------------------------------------|
@@ -24,7 +33,7 @@
 function PredictiveTable(grammar) {
     this.table       = new Array();
     this.startSymbol = grammar.productions[0].head;
-    this.terminals   = grammar.terminals;
+    this.terminals   = grammar.terminals.clone();
 
     this.generateTable(grammar);
 }
@@ -76,14 +85,14 @@ function predictiveAnalysis(predictiveTable, input) {
 
     var X = stack[stack.length - 1];
     var ip = 0;
-    rst = updateResult(rst, matched, stack, input, ip, action);
+    rst = updateLL_1Result(rst, matched, stack, input, ip, action);
     while (X != "$") {
         if (X == "e")
             stack.pop();
         else if (X == input[ip]) {
             matched.push(input[ip]);
             stack.pop();
-            action = "Matched " + input[ip];
+            action = "<em>Matched </em>" + input[ip];
             ip++;
         }
         else if (predictiveTable.terminals.contains(X)) {
@@ -95,18 +104,19 @@ function predictiveAnalysis(predictiveTable, input) {
             break;
         }
         else if (predictiveTable.table[[X, input[ip]]]) {
-            action = X + " -> " + predictiveTable.table[[X, input[ip]]].join("");
+            action = X + "<span class='arrow'>→</span>" + 
+                     predictiveTable.table[[X, input[ip]]].join("");
             stack.pop();
             stack.pushArray(predictiveTable.table[[X, input[ip]]]);
         }
         X = stack[stack.length - 1];
-        rst = updateResult(rst, matched, stack, input, ip, action);
+        rst = updateLL_1Result(rst, matched, stack, input, ip, action);
     }
 
     return rst;
 }
 
-function updateResult(currRst, matched, stack, input, ip, action) {
+function updateLL_1Result(currRst, matched, stack, input, ip, action) {
     var currRow = "";
 
     if (stack[stack.length - 1] != "e") {
