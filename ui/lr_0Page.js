@@ -20,7 +20,7 @@ function showLR_0Page() {
 
     getLR_0Grammar();
     
-    $(itemCollectionToHtml()).insertAfter("#itemSetsDisplay");
+    $(itemCollectionToHtml(false)).insertAfter("#itemSetsDisplay");
     $(slrProductionListToHtml()).insertAfter("#indexedGrammar");
     $(slrTableToHtml()).insertAfter("#slrTableDisplay");
 
@@ -30,7 +30,7 @@ function showLR_0Page() {
 
 function clearLR_0Page() {
     // Clear item sets.
-    var itemSetsColumns = $(".itemSetsColumn");
+    var itemSetsColumns = $("#lr_0Page .itemSetsColumn");
     for (var i = 0; i < itemSetsColumns.length; ++i)
         $(itemSetsColumns[i]).remove();
 

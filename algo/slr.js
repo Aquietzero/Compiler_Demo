@@ -34,7 +34,7 @@
  * |  11    |       r5   r5        r5   r5  |           |
  * ------------------------------------------------------
  */
-function SLRAnalysisTable(grammar, itemSetCollection) {
+function SLRAnalysisTable(grammar, itemSetCollection, isLR_1) {
     this.action = new Array();
     this.goto   = new Array();
     this.productionList = new Array();
@@ -42,7 +42,7 @@ function SLRAnalysisTable(grammar, itemSetCollection) {
     this.errorMsg       = "";
 
     this.getProductionList(grammar);
-    this.generateTable(grammar, itemSetCollection);
+    this.generateTable(grammar, itemSetCollection, isLR_1);
 }
 
 /* Production list is a list of separated productions, each of which
@@ -79,12 +79,23 @@ SLRAnalysisTable.prototype.searchItemInProductionList = function(item) {
     return -1;
 }
 
+/* Action is a 2-tuple. Its first dimension tells the action and the second
+ * dimension tells the following state. This method decides whether an action
+ * is valid to the table or not. If the corresponding table item is not null,
+ * then further checks the action. If the action is the same as the existing
+ * table item, then the action is still valid. Otherwise, the action is invalid.
+ */
 SLRAnalysisTable.prototype.generateAction = function(state, symbol, action) {
 
-    console.log(this.action[[state, symbol]]);
+    // No conflict
+    if (!this.action[[state, symbol]] ||
+         this.action[[state, symbol]] &&
+         this.action[[state, symbol]][0] == action[0] &&
+         this.action[[state, symbol]][1] == action[1])
+        this.action[[state, symbol]] = action;
 
     // accept state conflict
-    if (this.action[[state, symbol]] && action[0] == "a")
+    else if (this.action[[state, symbol]] && action[0] == "a")
         this.errorMsg += "accepted state conflict.\n";
  
     // shift state conflict
@@ -99,14 +110,10 @@ SLRAnalysisTable.prototype.generateAction = function(state, symbol, action) {
                          "<span class='arrow'>→</span>" + 
                          action[1].body.join("") +
                          "\'.\n";
-
-    // no conflict
-    else
-        this.action[[state, symbol]] = action;
 }
 
 SLRAnalysisTable.prototype.generateTable = 
-    function(grammar, itemSetCollection) {
+    function(grammar, itemSetCollection, isLR_1) {
 
     var itemSet, item, nonterminal;
     var symbol, nextState, productionIndex, follow;
@@ -134,10 +141,14 @@ SLRAnalysisTable.prototype.generateTable =
 
             // For situation "A -> a.", reduce operation.
             else if (item.position == item.body.length) {
-                productionIndex = grammar.getNonterminalIndex(item.head);
-                follow = grammar.productions[productionIndex].follow;
-                for (var n = 0; n < follow.length; ++n)
-                    this.generateAction(i, follow[n], ["r", item]);
+                if (isLR_1)
+                    this.generateAction(i, item.next, ["r", item]);
+                else {
+                    productionIndex = grammar.getNonterminalIndex(item.head);
+                    follow = grammar.productions[productionIndex].follow;
+                    for (var n = 0; n < follow.length; ++n)
+                        this.generateAction(i, follow[n], ["r", item]);
+                }
             }
         }
 
