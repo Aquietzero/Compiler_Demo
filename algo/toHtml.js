@@ -18,7 +18,7 @@ function grammarToHtml() {
         for (var j = maxlength - production.head.length; j > 0; --j)
             rst += " ";
 
-        rst += " -> ";
+        rst += "<span class='arrow'>→</span>";
 
         // Insert the bodies.
         for (var j = 0; j < production.bodies.length; ++j) {
@@ -121,7 +121,8 @@ function predictiveTableToHtml() {
             terminal = MODIFIED_GRAMMAR.terminals[j];
             production = PREDICTIVE_TABLE.table[[nonterminal, terminal]];
             if (production) 
-                rst += "<td>" + nonterminal + " -> " + production.join("") + "</td>";
+                rst += "<td>" + nonterminal + "<span class='arrow'>→</span>" + 
+                       production.join("") + "</td>";
             else
                 rst += "<td></td>";
         }
@@ -249,7 +250,7 @@ function itemCollectionToHtml() {
             rst += currItem.head; 
             for (var k = currItem.head.length; k < maxHeadLength; ++k)
                 rst += " ";
-            rst += " -> " + currbody + "\n";
+            rst += "<span class='arrow'>→</span>" + currbody + "\n";
         }
         rst += "</pre>";
 
@@ -351,7 +352,7 @@ function slrProductionListToHtml() {
         rst += "(" + i + ") " + currItem.head;
         for (var j = currItem.head.length; j < maxLength; ++j)
             rst += " ";
-        rst += " -> ";
+        rst += "<span class='arrow'>→</span>";
         rst += currItem.body.join("");
         rst += "\n";
     }    

@@ -96,7 +96,8 @@ SLRAnalysisTable.prototype.generateAction = function(state, symbol, action) {
     else if (this.action[[state, symbol]] && action[0] == "r")
         this.errorMsg += "reduce conflict in state " + state +
                          " with production \'" + action[1].head +
-                         " → " + action[1].body.join("") +
+                         "<span class='arrow'>→</span>" + 
+                         action[1].body.join("") +
                          "\'.\n";
 
     // no conflict
@@ -151,7 +152,7 @@ SLRAnalysisTable.prototype.generateTable =
 function slrAnalysis(slrTable, input) {
     var stack = [0];
     var symbol = new Array();
-    var state, action;
+    var state, action, updateRst;
     var ip, a;
     var rst = "";
     ID = 0;
@@ -165,7 +166,12 @@ function slrAnalysis(slrTable, input) {
         action = slrTable.action[[state, a]];
         console.log(stack.join(" ") + "\t-----\t" + symbol.join(" ") + "\t-----\t" + a);
 
-        rst += updateSLRResult(stack, symbol, input, ip, action);
+        // update result
+        updateRst = updateSLRResult(stack, symbol, input, ip, action);
+        if (updateRst)
+            rst += updateRst;
+
+        // invalid or the input is not SLR grammar.
         if (!action)
             // error
             break;
@@ -213,8 +219,9 @@ function updateSLRResult(stack, symbol, input, ip, action) {
     if (action[0] == "s")
         currRow += "<em>shift</em>";
     else if (action[0] == "r")
-        currRow += "<em>reduce with </em>" + action[1].head +
-                   " -> " + action[1].body.join("");
+        currRow += "<em>reduce with: </em>" + action[1].head +
+                   "<span class='arrow'>→</span>" + 
+                   action[1].body.join("");
     else if (action[0] == "a")
         currRow += "<em>accepted</em>";
     currRow += "</td>";

@@ -92,7 +92,7 @@ function predictiveAnalysis(predictiveTable, input) {
         else if (X == input[ip]) {
             matched.push(input[ip]);
             stack.pop();
-            action = "Matched " + input[ip];
+            action = "<em>Matched </em>" + input[ip];
             ip++;
         }
         else if (predictiveTable.terminals.contains(X)) {
@@ -104,7 +104,8 @@ function predictiveAnalysis(predictiveTable, input) {
             break;
         }
         else if (predictiveTable.table[[X, input[ip]]]) {
-            action = X + " -> " + predictiveTable.table[[X, input[ip]]].join("");
+            action = X + "<span class='arrow'>→</span>" + 
+                     predictiveTable.table[[X, input[ip]]].join("");
             stack.pop();
             stack.pushArray(predictiveTable.table[[X, input[ip]]]);
         }

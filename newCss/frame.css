@@ -201,3 +201,13 @@ button:hover {
     background: url("../imgs/button2.png");
 }
 
+.arrow {
+    font-size: 20pt;
+    padding: 5px;
+    line-height: 10px;
+}
+
+em {
+    font-family: serif;
+    font-style: italic;
+}
