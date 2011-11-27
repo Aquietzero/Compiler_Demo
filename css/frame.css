@@ -1,0 +1,213 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: serif, sans-serif;
+    font-size: 12pt;
+    z-index: 0;
+}
+
+#titleBar {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 95%;
+    margin: 0;
+    padding: 5px 5px 5px 20px;
+
+    border-top: solid 5px white;
+    border-bottom: solid 5px white;
+    -moz-box-shadow: -20px 0 10px #483D8B;
+    -webkit-box-shadow: -20px 0 10px #483D8B;
+    background-color: white;
+    z-index: 2;
+}
+
+#titleBar h1 {
+    display: inline;
+    font-style: oblique;
+    font-size: 30pt;
+
+    text-shadow: 0 0 2px #666666;
+    text-align: left;
+    letter-spacing: -1px;
+}
+
+#firstC {
+    display: inline;
+    font-size: 60pt;
+    text-shadow: 0 0 2px #666666;
+    font-style: oblique;
+    letter-spacing: -15px;
+}
+
+#leftColumn {
+    float: left;
+    margin: 0 auto 0 100px;
+    padding: 170px 10px 10px 10px;
+    width: 15%;
+    height: 1000px;
+
+    border-left: solid 5px #483D8B;
+    border-right: solid 5px #483D8B;
+    -moz-box-shadow: 0 -10px 10px #483D8B;
+    -webkit-box-shadow: 0 -10px 10px #487D8B;
+
+    font-style: italic;
+    background: url("../imgs/flowers.jpg");
+    background-repeat: no-repeat;
+    color: #333333;
+    z-index: 2;
+}
+
+#navigation {
+    display: none;
+    z-index: 2;
+}
+
+#navigation ul {
+    list-style-type: none;
+    z-index: 2;
+}
+
+#navigation ul li {
+    margin: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 180px;
+    border: solid 5px white;
+
+    font-variant: small-caps;
+    font-size: 13pt;
+    font-weight: bold;
+    text-align: center;
+    line-height: 15pt;
+    color: white;
+    background-color: #483d8b;
+    -moz-box-shadow: 0 0 5px #666666;
+    -webkit-box-shadow: 0 0 5px #666666;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+
+    cursor: pointer;
+    z-index: 2;
+    opacity: 0.95;
+}
+
+#navigation ul li.clicked {
+    margin: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 180px;
+    border: solid 5px white;
+
+    font-variant: small-caps;
+    font-size: 13.2pt;
+    font-weight: bold;
+    text-align: center;
+    line-height: 15pt;
+    color: #483D8B;
+    text-shadow: 0 0 3px #483D8B;
+    background-color: white;
+    -moz-box-shadow: -10px 0 10px #999999;
+    -webkit-box-shadow: -10px 0 10px #999999;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+
+    cursor: pointer;
+    z-index: 2;
+}
+
+/*
+#navigation ul li:hover {
+    -moz-animation: test 0.3s;
+}
+
+#navigation ul li:hover {
+    -webkit-animation: test 0.3s;
+}
+
+@-moz-keyframes test {
+    from {
+        margin-left: 20px;
+    }
+    to {
+        margin-left: 30px;
+    }
+}
+
+@-webkit-keyframes test {
+    from {
+        margin-left: 20px;
+    }
+    to {
+        margin-left: 30px;
+    }
+}
+*/
+#mainColumn {
+    float: left;
+    margin: 0 auto 0 50px;
+    padding-top: 170px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    width: 55%;
+
+    border-top: solid 10px white;
+    border-left: solid 10px white;
+    border-right: solid 10px white;
+    -moz-box-shadow: 0 -20px 20px #999999;
+    -webkit-box-shadow: 0 -20px 20px #999999;
+
+    background: url(../imgs/paper2.jpg);
+    overflow: hidden;
+    z-index: 0;
+}
+
+#copyleft {
+    margin: 0;
+    padding: 5px;
+
+    background-color: white;
+    border: none;
+    font-variant: small-caps;
+    font-family: serif;
+    font-size: 10pt;
+    font-style: italic;
+    text-align: right;
+}
+
+button {
+    margin: 2.5%;
+    float: right;
+    width: 120px;
+    height: 30px;
+    border: none;
+    -moz-box-shadow: 0 0 10px #BBBBBB;
+    -webkit-box-shadow: 0 0 10px #BBBBBB;
+
+    font-family: serif, sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+button:hover {
+    -moz-box-shadow: 0 0 10px #6495ED;
+    -webkit-box-shadow: 0 0 10px #6495ED;
+    cursor: pointer;
+    font-size: 11.3pt;
+    background: url("../imgs/button2.png");
+}
+
+.arrow {
+    font-size: 20pt;
+    padding: 5px;
+    line-height: 10px;
+}
+
+em {
+    font-family: serif;
+    font-style: italic;
+}
