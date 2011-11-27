@@ -103,7 +103,7 @@ ItemSet.prototype.clone = function() {
     var newItemSet = new ItemSet;
 
     for (var i = 0; i < this.items.length; ++i)
-        newItemSet.addItem(this.items[i]);
+        newItemSet.addItem(this.items[i].clone());
 
     return newItemSet;
 }
@@ -165,6 +165,43 @@ ItemSet.prototype.closure = function(grammar) {
     } while (counter);
 }
 
+ItemSet.prototype.lr_1Closure = function(grammar) {
+    var currItem, bodyHead, bodyLeft, production, index;
+    var counter, newItem;
+
+    do {
+        counter = 0;
+        for (var i = 0; i < this.items.length; ++i) {
+
+            currItem = this.items[i];
+            if (currItem.position >= currItem.body.length)
+                continue;
+
+            // If the body head is terminal, then there is no need to traverse
+            // the bodies.
+            bodyHead = currItem.body[currItem.position];
+            bodyLeft = currItem.body.slice(currItem.position + 1, currItem.body.length);
+            bodyLeft.push(currItem.next);
+
+            index = grammar.getNonterminalIndex(bodyHead);
+            if (index == -1)
+                continue;
+
+            production = grammar.productions[index];
+            for (var j = 0; j < production.bodies.length; ++j) {
+                first = firstSetGeneral(grammar, bodyLeft);
+                for (var n = 0; n < first.length; ++n) {
+                    newItem = new Item(production.head, production.bodies[j], 0, first[n]);
+                    if (!this.containsItem(newItem)) {
+                        this.addItem(newItem);
+                        counter++;
+                    }
+                }
+            }
+        }
+    } while (counter);
+}
+
 /* Goto is another important method of the class item set. Intuitively, the 
  * goto function is used to define the transitions in the LR(0). This goto
  * method is somewhat the same as the closure defined as above. It calculates
@@ -172,7 +209,7 @@ ItemSet.prototype.closure = function(grammar) {
  * general function of the calculating the goto set of arbitrary given item
  * set and symbol.
  */
-ItemSet.prototype.goto = function(grammar, symbol) {
+ItemSet.prototype.goto = function(grammar, symbol, isLR_1) {
     var newItemSet = new ItemSet();
     var currItem;
 
@@ -191,11 +228,11 @@ ItemSet.prototype.goto = function(grammar, symbol) {
     for (var i = 0; i < newItemSet.items.length; ++i) 
         newItemSet.items[i].position++;
     // Calculate the closure of the new item set.
-    newItemSet.closure(grammar);
+    if (isLR_1) newItemSet.lr_1Closure(grammar);
+    else        newItemSet.closure(grammar);
 
     return newItemSet;
 }
-
 
 /* Item Set Collection is the collection of the item sets. Each of the
  * item set in the item set collection represents a state in the LR(0)
@@ -211,11 +248,11 @@ ItemSet.prototype.goto = function(grammar, symbol) {
  * goto table to keep track of the transfers among the states, namely
  * the item sets, which can be further used.
  */
-function ItemSetCollection(grammar) {
+function ItemSetCollection(grammar, isLR_1) {
     this.itemSets = new Array();
     this.gotoTable = new Array();
 
-    this.canonical_LR_collection(grammar) 
+    this.canonical_LR_collection(grammar, isLR_1);
 }
 
 ItemSetCollection.prototype.containsItemSet = function(itemSet) {
@@ -226,16 +263,25 @@ ItemSetCollection.prototype.containsItemSet = function(itemSet) {
     return -1;
 }
 
-ItemSetCollection.prototype.canonical_LR_collection = function(grammar) {
+ItemSetCollection.prototype.canonical_LR_collection = function(grammar, isLR_1) {
     var firstProduction = new Production(grammar.getAugmentedProduction());
     var firstItemSet = new ItemSet();
     var symbols, nextItemSet, newItemSets, counter;
     var itemSetIndex;
 
+    var test = new Item(firstProduction.head, firstProduction.bodies[0], 0, "$");
     // Add the augmented production to the first item set.
-    firstItemSet.addItem(
-        new Item(firstProduction.head, firstProduction.bodies[0], 0));
-    firstItemSet.closure(grammar);
+    if (isLR_1) {
+        firstItemSet.addItem(
+            new Item(firstProduction.head, firstProduction.bodies[0], 0, "$"));
+        firstItemSet.lr_1Closure(grammar);
+    }
+    else {
+        firstItemSet.addItem(
+            new Item(firstProduction.head, firstProduction.bodies[0], 0));
+        firstItemSet.closure(grammar);
+    }
+
 
     this.itemSets.push(firstItemSet);
 
@@ -246,7 +292,7 @@ ItemSetCollection.prototype.canonical_LR_collection = function(grammar) {
         for (var i = 0; i < this.itemSets.length; ++i) {
             symbols = this.itemSets[i].getSymbols();
             for (var j = 0; j < symbols.length; ++j) {
-                nextItemSet = this.itemSets[i].goto(grammar, symbols[j]);
+                nextItemSet = this.itemSets[i].goto(grammar, symbols[j], isLR_1);
                 // Keep track with the connection between the nextItemSet
                 // and its corresonding symbol.
                 if (!nextItemSet.isEmpty() && !nextItemSet.isUseless())

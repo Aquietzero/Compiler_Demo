@@ -213,7 +213,7 @@ function maxLengthGeneral(arr) {
  *     </div>
  * </div>
  */
-function itemCollectionToHtml() {
+function itemCollectionToHtml(isLR_1) {
     var rst = "";
     var currItemSet;
     var currItem;
@@ -250,7 +250,10 @@ function itemCollectionToHtml() {
             rst += currItem.head; 
             for (var k = currItem.head.length; k < maxHeadLength; ++k)
                 rst += " ";
-            rst += "<span class='arrow'>→</span>" + currbody + "\n";
+            rst += "<span class='arrow'>→</span>" + currbody;
+
+            if (isLR_1) rst += ", " + currItem.next + "\n";
+            else        rst += "\n";
         }
         rst += "</pre>";
 

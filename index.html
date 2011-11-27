@@ -5,12 +5,13 @@
 
         <title>Compiler Demo---Null Space</title>
 
-        <link rel="stylesheet" href="newCss/frame.css" type="text/css" />
-        <link rel="stylesheet" href="newCss/welcomePage.css" type="text/css" />
-        <link rel="stylesheet" href="newCss/inputPage.css" type="text/css" />
-        <link rel="stylesheet" href="newCss/confirmPage.css" type="text/css" />
-        <link rel="stylesheet" href="newCss/ll_1Page.css" type="text/css" />
-        <link rel="stylesheet" href="newCss/lr_0Page.css" type="text/css" />
+        <link rel="stylesheet" href="css/frame.css" type="text/css" />
+        <link rel="stylesheet" href="css/welcomePage.css" type="text/css" />
+        <link rel="stylesheet" href="css/inputPage.css" type="text/css" />
+        <link rel="stylesheet" href="css/confirmPage.css" type="text/css" />
+        <link rel="stylesheet" href="css/ll_1Page.css" type="text/css" />
+        <link rel="stylesheet" href="css/lr_0Page.css" type="text/css" />
+        <link rel="stylesheet" href="css/lr_1Page.css" type="text/css" />
 
         <script type="text/javascript" src="algo/array.js"></script>
         <script type="text/javascript" src="algo/production.js"></script>
@@ -22,13 +23,14 @@
         <script type="text/javascript" src="algo/toHtml.js"></script>
 
         <script type="text/javascript" src="lib/jquery-1.6.4.min.js"></script>
-        <script type="text/javascript" src="newUi/common.js"></script>
-        <script type="text/javascript" src="newUi/welcomePage.js"></script>
-        <script type="text/javascript" src="newUi/inputPage.js"></script>
-        <script type="text/javascript" src="newUi/confirmPage.js"></script>
-        <script type="text/javascript" src="newUi/navigation.js"></script>
-        <script type="text/javascript" src="newUi/ll_1Page.js"></script>
-        <script type="text/javascript" src="newUi/lr_0Page.js"></script>
+        <script type="text/javascript" src="ui/common.js"></script>
+        <script type="text/javascript" src="ui/welcomePage.js"></script>
+        <script type="text/javascript" src="ui/inputPage.js"></script>
+        <script type="text/javascript" src="ui/confirmPage.js"></script>
+        <script type="text/javascript" src="ui/navigation.js"></script>
+        <script type="text/javascript" src="ui/ll_1Page.js"></script>
+        <script type="text/javascript" src="ui/lr_0Page.js"></script>
+        <script type="text/javascript" src="ui/lr_1Page.js"></script>
     </head>
 
     <body>
@@ -236,8 +238,8 @@
                     Display the SLR table.
                 -->
                 <div id="slrAnalysisTableDisplay">
-                    <p id="indexedGrammar">✺ Indexed Grammar</p>
-                    <p id="indexedGrammarInstruction">The indexed grammar on the left shows the productions in the grammar separately, with an indexed number on the left. The index is applied to indicate which production will be used when a reduction operation is needed when the analysis is undergoing. For convinience, the augmented production is also listed and indexed by 0, though it will never be used.</p>
+                    <p id="indexedGrammar">✺ Indexed Grammar:</p>
+                    <p class="indexedGrammarInstruction">The indexed grammar on the left shows the productions in the grammar separately, with an indexed number on the left. The index is applied to indicate which production will be used when a reduction operation is needed when the analysis is undergoing. For convinience, the augmented production is also listed and indexed by 0, though it will never be used.</p>
                     <hr />
                     <hr />
                     <p id="slrTableDisplay">✺ SLR Analysis Table:</p>
@@ -256,10 +258,41 @@
                 <button id="slrNext">forward</button>
                 <button id="slrPrev">backward</button>
                 <button id="slrShowAll">show all</button>
-
-
             
             </div>
+            
+
+
+            <!--
+                Page for LR(1) grammar.
+            -->
+            <div id="lr_1Page">
+            
+                <!--
+                    Display the items sets of the grammar.
+                -->
+                <div id="lr_1ItemSetsDisplay">
+
+                    <div id="lr_1ItemSetsColumn">
+                        <p id="lr_1ItemSetsDisplay">✺ Canonical LR(1) Collection:</p>
+                    </div>
+
+                </div>
+
+                 <!--
+                    Display the LR(1) table.
+                -->
+                <div id="lr_1AnalysisTableDisplay">
+                    <p id="lr_1IndexedGrammar">✺ Indexed Grammar:</p>
+                    <p class="indexedGrammarInstruction">The indexed grammar on the left shows the productions in the grammar separately, with an indexed number on the left. The index is applied to indicate which production will be used when a reduction operation is needed when the analysis is undergoing. For convinience, the augmented production is also listed and indexed by 0, though it will never be used.</p>
+                    <hr />
+                    <hr />
+                    <p id="lr_1TableDisplay">✺ LR(1) Analysis Table:</p>
+                </div>
+            
+            </div>
+
+
 
             <div id="copyleft">
 

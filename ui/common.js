@@ -2,7 +2,8 @@ var PAGES = ["#welcomePage",
              "#inputPage",
              "#confirmPage",
              "#ll_1Page",
-             "#lr_0Page"];
+             "#lr_0Page",
+             "#lr_1Page"];
 var BULLETS = ["#toLL_1Page",
                "#toLR_0Page",
                "#toLR_1Page",

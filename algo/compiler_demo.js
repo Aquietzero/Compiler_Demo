@@ -62,11 +62,26 @@ function getLR_0Grammar() {
     MODIFIED_GRAMMAR.getFollowSets();
 
     MODIFIED_GRAMMAR.augmentedGrammar();
-    ITEMCOLLECTION = new ItemSetCollection(MODIFIED_GRAMMAR);
-    SLR_TABLE = new SLRAnalysisTable(MODIFIED_GRAMMAR, ITEMCOLLECTION);
+    ITEMCOLLECTION = new ItemSetCollection(MODIFIED_GRAMMAR, false);
+    SLR_TABLE = new SLRAnalysisTable(
+        MODIFIED_GRAMMAR, ITEMCOLLECTION, false);
 
     console.log(SLR_TABLE);
     console.log(MODIFIED_GRAMMAR);
+}
+
+function getLR_1Grammar() {
+    MODIFIED_GRAMMAR = GRAMMAR.clone();
+
+    MODIFIED_GRAMMAR.getFirstSets();
+    MODIFIED_GRAMMAR.getFollowSets();
+
+    MODIFIED_GRAMMAR.augmentedGrammar();
+    ITEMCOLLECTION = new ItemSetCollection(MODIFIED_GRAMMAR, true);
+    SLR_TABLE = new SLRAnalysisTable(
+        MODIFIED_GRAMMAR, ITEMCOLLECTION, true);
+
+    console.log(ITEMCOLLECTION);
 }
 
 /*

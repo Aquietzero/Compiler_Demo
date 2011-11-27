@@ -142,6 +142,7 @@ function firstSetIteration(grammar, nonterminal, prevHeads) {
     // If the given nonterminal is really a nonterminal in the grammar,
     // then checks each of the cases in its body and calculate all its
     // first sets. And then returns the union of those sub-first sets.
+    console.log(nonterminal);
     var productionIndex = grammar.getNonterminalIndex(nonterminal);
     var production = grammar.productions[productionIndex];
     var firstSets = new Array();
@@ -179,6 +180,8 @@ function firstSetGeneral(grammar, nonterminals) {
     // is just a "e", namely First(nonterminals) = {e}.
     if (nonterminals[0] == "e")
         return ["e"];
+    if (nonterminals[0] == "$")
+        return ["$"];
 
     var firstSets = new Array();
 
