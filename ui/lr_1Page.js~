@@ -33,14 +33,6 @@ function clearLR_1Page() {
     var itemSetsColumns = $("#lr_1Page .itemSetsColumn");
     for (var i = 0; i < itemSetsColumns.length; ++i)
         $(itemSetsColumns[i]).remove();
-        
-    // Clear LR(1) table.
-    $("#lr_1Page #slrTable").remove();
-    $("#lr_1Page pre.errorMessage").remove();
-    $("#lr_1Page strong.warning").remove();
-
-    // Clear Production List
-    $("#lr_1Page #slrProductionList").remove();
 }
 
 function lr_1ParseSentence() {
@@ -50,20 +42,20 @@ function lr_1ParseSentence() {
     var result = slrResultToHtml();
     var id;
 
-    if ($("#slrAnalysisResult").length != 0)
-        $("#slrAnalysisResult").remove();
+    if ($("#lr_1AnalysisResult").length != 0)
+        $("#lr_1AnalysisResult").remove();
 
     $(result).insertAfter("#lr_1ParsingResult");
 
     for (var i = STEP + 1; i < MAX_STEP; ++i) {
-        id = "#lr_1Algorithm" + i + "";
+        id = "#slrAlgorithm" + i + "";
         $(id).css("display", "none");
     }
 }
 
 function lr_1StepForward() {
     STEP++;
-    var id = "#lr_1Algorithm" + STEP + "";
+    var id = "#slrAlgorithm" + STEP + "";
     if ($(id).length != 0)
         $(id).fadeIn("fast");
     else
@@ -72,7 +64,7 @@ function lr_1StepForward() {
 
 function lr_1StepBackward() {
     if (STEP > 1) {
-        var id = "#lr_1Algorithm" + STEP + "";
+        var id = "#slrAlgorithm" + STEP + "";
         $(id).fadeOut("fast");
         STEP--;
     }
@@ -81,7 +73,7 @@ function lr_1StepBackward() {
 function lr_1ShowAll() {
     for (var i = STEP; i < MAX_STEP; ++i) {
         STEP++;
-        var id = "#lr_1Algorithm" + i + "";
+        var id = "#slrAlgorithm" + i + "";
         if ($(id).length != 0)
             $(id).fadeIn("fast");
         else

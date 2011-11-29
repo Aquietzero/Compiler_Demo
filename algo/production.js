@@ -230,34 +230,36 @@ function followSetIteration(grammar, nonterminal, prevHeads) {
         // For each production in a specific nonterminal.
         for (var j = 0; j < production.bodies.length; ++j) {
             body = production.bodies[j];
-            pos = body.indexOf(nonterminal);
+            pos = body.getPositions(nonterminal);
 
-            // The nonterminal is not in the production.
-            if (pos == -1) continue;
+            for (var n = 0; n < pos.length; ++n) {
+                // The nonterminal is not in the production.
+                if (pos[n] == -1) continue;
 
-            // For the situation A -> aB
-            if (pos == body.length - 1 && !prevHeads.contains(production.head)) {
-                prevHeads.push(production.head);
-                followSets.merge(
-                    followSetIteration(grammar, production.head, prevHeads));
-            }
+                // For the situation A -> aB
+                if (pos[n] == body.length - 1 && !prevHeads.contains(production.head)) {
+                    prevHeads.push(production.head);
+                    followSets.merge(
+                        followSetIteration(grammar, production.head, prevHeads));
+                }
 
-            // For the situation A -> aBb
-            else {
-                var rest = body.slice(pos + 1, body.length);
-                var firstSetOfRest = firstSetGeneral(grammar, rest);
-
-                // First(b) does not contains "e"
-                if (!firstSetOfRest.contains("e")) 
-                    followSets.merge(firstSetOfRest);
-                // First(b) contains "e"
+                // For the situation A -> aBb
                 else {
-                    firstSetOfRest.excludes("e");
-                    followSets.merge(firstSetOfRest);
-                    if (!prevHeads.contains(production.head)) {
-                        prevHeads.push(production.head);
-                        followSets.merge(
-                            followSetIteration(grammar, production.head, prevHeads));
+                    var rest = body.slice(pos[n] + 1, body.length);
+                    var firstSetOfRest = firstSetGeneral(grammar, rest);
+
+                    // First(b) does not contains "e"
+                    if (!firstSetOfRest.contains("e")) 
+                        followSets.merge(firstSetOfRest);
+                    // First(b) contains "e"
+                    else {
+                        firstSetOfRest.excludes("e");
+                        followSets.merge(firstSetOfRest);
+                        if (!prevHeads.contains(production.head)) {
+                            prevHeads.push(production.head);
+                            followSets.merge(
+                                followSetIteration(grammar, production.head, prevHeads));
+                        }
                     }
                 }
             }

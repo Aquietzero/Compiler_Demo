@@ -50,9 +50,9 @@ function addBulletHoverBehavior() {
     for (var i = 0; i < BULLETS.length; ++i) {
         bullet = $(BULLETS[i]);
         bullet.hover(function() {
-            $(this).animate({ "marginLeft" : "25px" }, 100);
+            $(this).animate({ marginLeft : "25px"}, 100);
         }, function() {
-            $(this).animate({ "marginLeft" : "20px" }, 100);
+            $(this).animate({ marginLeft : "20px"}, 100);
         });
     }
 }

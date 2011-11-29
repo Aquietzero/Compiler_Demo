@@ -35,11 +35,12 @@ function clearLR_0Page() {
         $(itemSetsColumns[i]).remove();
 
     // Clear SLR table.
-    $("#slrTable").remove();
-    $("pre.errorMessage").remove();
+    $("#lr_0Page #slrTable").remove();
+    $("#lr_0Page pre.errorMessage").remove();
+    $("#lr_0Page strong.warning").remove();
 
     // Clear Production List
-    $("#slrProductionList").remove();
+    $("#lr_0Page #slrProductionList").remove();
 }
 
 function slrParseSentence() {

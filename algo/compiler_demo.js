@@ -20,7 +20,15 @@ function parseBySLR() {
         document.getElementById("slrSentenceInput").value.toString();
     SENTENCE = sentenceInput.split(" ");
 
-    RESULT = slrAnalysis(SLR_TABLE, SENTENCE);
+    RESULT = slrAnalysis(SLR_TABLE, SENTENCE, false);
+}
+
+function parseByLR_1() {
+    var sentenceInput = 
+        document.getElementById("lr_1SentenceInput").value.toString();
+    SENTENCE = sentenceInput.split(" ");
+
+    RESULT = slrAnalysis(SLR_TABLE, SENTENCE, true);
 }
 
 function getGrammar() {

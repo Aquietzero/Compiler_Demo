@@ -271,7 +271,7 @@
                 <!--
                     Display the items sets of the grammar.
                 -->
-                <div id="lr_1ItemSetsDisplay">
+                <div id="lr_1ItemSetsDisplayArea">
 
                     <div id="lr_1ItemSetsColumn">
                         <p id="lr_1ItemSetsDisplay">✺ Canonical LR(1) Collection:</p>
@@ -290,6 +290,20 @@
                     <p id="lr_1TableDisplay">✺ LR(1) Analysis Table:</p>
                 </div>
             
+                <!--
+                    LR(1) analysis algorithm on the air.
+                -->
+                <p class="lr_1PageSubTitle">✺ Sentence:</p>
+                <textarea id="lr_1SentenceInput" rows="1"></textarea>
+                <button id="lr_1SentenceConfirm">submit</button>
+
+                <div id="lr_1ParsingResultDisplay">
+                    <p id="lr_1ParsingResult">✺ LR(1) Analysis Result:</p>
+                </div>
+                <button id="lr_1Next">forward</button>
+                <button id="lr_1Prev">backward</button>
+                <button id="lr_1ShowAll">show all</button>
+
             </div>
 
 

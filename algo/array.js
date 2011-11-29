@@ -60,3 +60,11 @@ Array.prototype.equalsTo = function(arr) {
             return false;
     return true;
 }
+
+Array.prototype.getPositions = function(elem) {
+    var posistions = new Array();
+    for (var i = 0; i < this.length; ++i)
+        if (this[i] == elem)
+            posistions.push(i);
+    return posistions;
+}

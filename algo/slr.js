@@ -160,7 +160,7 @@ SLRAnalysisTable.prototype.generateTable =
     }
 }
 
-function slrAnalysis(slrTable, input) {
+function slrAnalysis(slrTable, input, isLR_1) {
     var stack = [0];
     var symbol = new Array();
     var state, action, updateRst;
@@ -175,10 +175,9 @@ function slrAnalysis(slrTable, input) {
         a = input[ip];
         state = stack[stack.length - 1];
         action = slrTable.action[[state, a]];
-        console.log(stack.join(" ") + "\t-----\t" + symbol.join(" ") + "\t-----\t" + a);
 
         // update result
-        updateRst = updateSLRResult(stack, symbol, input, ip, action);
+        updateRst = updateSLRResult(stack, symbol, input, ip, action, isLR_1);
         if (updateRst)
             rst += updateRst;
 
@@ -212,7 +211,7 @@ function slrAnalysis(slrTable, input) {
     return rst;
 }
 
-function updateSLRResult(stack, symbol, input, ip, action) {
+function updateSLRResult(stack, symbol, input, ip, action, isLR_1) {
     var currRow = "";
 
     if (!action) 
@@ -238,5 +237,6 @@ function updateSLRResult(stack, symbol, input, ip, action) {
     currRow += "</td>";
 
     ID++;
-    return "<tr id='slrAlgorithm" + ID + "'>" + currRow + "</tr>";
+    if (isLR_1) return "<tr id='lr_1Algorithm" + ID + "'>" + currRow + "</tr>";
+    else        return "<tr id='slrAlgorithm" + ID + "'>" + currRow + "</tr>";
 }
