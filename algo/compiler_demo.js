@@ -103,4 +103,14 @@ function first(nonterminal) {
 }*/
 
 window.onload = function() {
+    //============ TEST AREA ================
+    console.log(isDigit("a"));
+    console.log(isLetter("Z"));
+    console.log(isLetter("z"));
+
+    var re = "( a | b ) * a b b #";
+    var reTest = new reExpression(re.split(" "));
+    console.log(reTest);
+    reTest.toPostfix();
+    console.log(reTest);
 };

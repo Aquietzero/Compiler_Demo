@@ -22,7 +22,7 @@ function grammarToHtml() {
 
         // Insert the bodies.
         for (var j = 0; j < production.bodies.length; ++j) {
-            rst += production.bodies[j].join("");
+            rst += production.bodies[j].join(" ");
             if (j != production.bodies.length - 1)
                 rst += " | ";
         }

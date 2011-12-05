@@ -2,6 +2,22 @@ Array.prototype.contains = function(elem) {
     return this.indexOf(elem) != -1;
 }
 
+Array.prototype.first = function() {
+    return this[0];
+}
+
+Array.prototype.last = function() {
+    return this[this.length - 1];
+}
+
+Array.prototype.top = function() {
+    return this[this.length - 1];
+}
+
+Array.prototype.isEmpty = function() {
+    return this.length == 0;
+}
+
 Array.prototype.containsArray = function(arr) {
     for (var i = 0; i < this.length; ++i) {
         if (this[i].length == arr.length) {

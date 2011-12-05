@@ -25,7 +25,6 @@ body {
 
 #titleBar h1 {
     display: inline;
-    font-style: oblique;
     font-size: 30pt;
 
     text-shadow: 0 0 2px #666666;
@@ -38,7 +37,7 @@ body {
     font-size: 60pt;
     text-shadow: 0 0 2px #666666;
     font-style: oblique;
-    letter-spacing: -15px;
+    letter-spacing: -10px;
 }
 
 #leftColumn {

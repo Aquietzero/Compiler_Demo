@@ -230,6 +230,10 @@ function followSetIteration(grammar, nonterminal, prevHeads) {
         // For each production in a specific nonterminal.
         for (var j = 0; j < production.bodies.length; ++j) {
             body = production.bodies[j];
+            // Since the nonterminal can appear more than once in the production, 
+            // like "S -> C C", so we have to find out all positions that the 
+            // nonterminal appear in the production. The follow set of each may
+            // contribute a little to the final result.
             pos = body.getPositions(nonterminal);
 
             for (var n = 0; n < pos.length; ++n) {

@@ -13,7 +13,7 @@ function showConfirmPage() {
     $("#confirmPage").fadeIn("slow");
     showNavigation();
 
-    createBgGrammar();
+    //createBgGrammar();
 }
 
 function clearConfirmPage() {
