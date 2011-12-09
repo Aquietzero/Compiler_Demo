@@ -11,7 +11,7 @@ Array.prototype.last = function() {
 }
 
 Array.prototype.top = function() {
-    return this[this.length - 1];
+    return this[this.length - 1] || undefined;
 }
 
 Array.prototype.isEmpty = function() {

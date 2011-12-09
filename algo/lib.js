@@ -6,3 +6,25 @@ function isLetter(c) {
     return c >= 'a' && c <= 'z' ||
            c >= 'A' && c <= 'Z';
 }
+
+function bracketMatching(input) {
+    var bracketStack = new Array();
+
+    for (var i = 0; i < input.length; ++i) {
+        if (input[i].equalsTo("(") ||
+            input[i].equalsTo("[") ||
+            input[i].equalsTo("{"))
+            bracketStack.push(input[i]);
+        else if (input[i].equalsTo(")") &&
+                 bracketStack.top().equalsTo("("))
+            bracketStack.pop();
+        else if (input[i].equalsTo("}") &&
+                 bracketStack.top().equalsTo("{"))
+            bracketStack.pop();
+        else if (input[i].equalsTo("]") &&
+                 bracketStack.top().equalsTo("["))
+            bracketStack.pop();
+    }
+
+    return bracketStack.isEmpty();
+}

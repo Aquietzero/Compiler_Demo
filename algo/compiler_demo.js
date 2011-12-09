@@ -92,25 +92,13 @@ function getLR_1Grammar() {
     console.log(ITEMCOLLECTION);
 }
 
-/*
-function first(nonterminal) {
-    var firstRst = new Array();
-
-    if (terminal.contains(nonterminal)) {
-        firstRst.push(nonterminal);
-        return firstRst;
-    }
-}*/
-
 window.onload = function() {
     //============ TEST AREA ================
-    console.log(isDigit("a"));
-    console.log(isLetter("Z"));
-    console.log(isLetter("z"));
-
-    var re = "( a | b ) * a b b #";
+    //var re = "( a | b ) * a b b #";
+    var re = "{ digit } + ( \\ . { digit } + ) ? #";
     var reTest = new reExpression(re.split(" "));
     console.log(reTest);
+    console.log(bracketMatching(reTest.reExp));
     reTest.toPostfix();
     console.log(reTest);
 };

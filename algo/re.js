@@ -9,26 +9,46 @@
  *      (5) convert the AST to DFA.
  *
  * Different phases has different class to deal with.
+ *      "*" Kleine closure.
+ *      "+" Positive closure.
+ *      "~" Concatenation of different regular expression elements.
+ *      "?" Matches zero or one character.
+ *      "\\" Escape character.
+ *      "|" Union.
  */
 
-var RE_OPERATORS = [ "*", "+", ".", "?", "\\", "|" ];
+/* Pay attention to the bracket "()" and "{}", they are operators.
+ * But these two bracket combinations are not take part in the 
+ * regular expression evaluation since they will be eliminated
+ * when the regular expression converts to its postfix form.
+ */
+var RE_OPERATORS = [ "*", "+", "~", "?", "\\", "|", 
+                     "{", "}", "(", ")"];
 
 var RE_PRECEDENCY = {
     "\\" : 9,
+    "{"  : 9,
+    "}"  : 9,
+    "("  : 9,
+    ")"  : 9,
     "?"  : 7,
-    "*"  : 7,
-    "+"  : 7,
+    "*"  : 9,
+    "+"  : 9,
     "|"  : 6,
-    "."  : 5
+    "~"  : 5
 };
 
 var RE_OP_DIMENSION = {
     "\\" : 1,
+    "{"  : 0,
+    "}"  : 0,
+    "("  : 0,
+    ")"  : 0,
     "?"  : 1,
     "*"  : 1,
     "+"  : 1,
     "|"  : 2,
-    "."  : 2
+    "~"  : 2
 };
 
 /* reElement is the basic element in a regular expression. For example, 
@@ -75,21 +95,7 @@ reExpression.prototype.toPostfix = function() {
                 postfix.push(opStack.pop());
             postfix.push(currReElem);
         }
-        // Meet the left bracket.
-        else if (currReElem.equalsTo("(") || currReElem.equalsTo("{"))
-            opStack.push(currReElem);
-        // Meets the operator.
-        else if (currReElem.isOperator) {
-            if (opStack.isEmpty())
-                postfix.push(currReElem);
-            else {
-                while (!opStack.isEmpty() && 
-                       opStack.top().isOperator &&
-                           opStack.top().precedency >= currReElem.precedency)
-                    postfix.push(opStack.pop());
-                opStack.push(currReElem);
-            }
-        }
+       
         // Meets the ")", pops the reElements until the "(" appears.
         else if (currReElem.equalsTo(")")) {
             while (!opStack.isEmpty() &&
@@ -103,6 +109,16 @@ reExpression.prototype.toPostfix = function() {
                    !opStack.top().equalsTo("{"))
                 postfix.push(opStack.pop());
             opStack.pop(); // Pops the "{".
+        }
+
+        // Meets the operator.
+        else if (currReElem.isOperator) {
+            while (!opStack.isEmpty() && 
+                   opStack.top().isOperator &&
+                   opStack.top().precedency >= currReElem.precedency)
+                postfix.push(opStack.pop());
+            if (!currReElem.equalsTo("(") && !currReElem.equalsTo("{"))
+                opStack.push(currReElem);
         }
         else
             postfix.push(currReElem);
