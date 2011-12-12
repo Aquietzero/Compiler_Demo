@@ -8,39 +8,48 @@ var TERMINALS,
     SLR_TABLE;
 
 function parseByLL_1() {
+
     var sentenceInput = 
         document.getElementById("ll_1SentenceInput").value.toString();
     SENTENCE = sentenceInput.split(" ");
 
     RESULT = predictiveAnalysis(PREDICTIVE_TABLE, SENTENCE);
+
 }
 
 function parseBySLR() {
+
     var sentenceInput = 
         document.getElementById("slrSentenceInput").value.toString();
     SENTENCE = sentenceInput.split(" ");
 
     RESULT = slrAnalysis(SLR_TABLE, SENTENCE, false);
+
 }
 
 function parseByLR_1() {
+
     var sentenceInput = 
         document.getElementById("lr_1SentenceInput").value.toString();
     SENTENCE = sentenceInput.split(" ");
 
     RESULT = slrAnalysis(SLR_TABLE, SENTENCE, true);
+
 }
 
 function getGrammar() {
+
     var terminalInput = document.getElementById("terminalsInput").value.toString();
     var grammarInput = document.getElementById("grammarInput").value.toString();
 
     TERMINALS = terminalInput.split(", ");
     GRAMMAR = new Grammar(TERMINALS, grammarInput.split("\n"));
     MODIFIED_GRAMMAR = new Grammar(TERMINALS, grammarInput.split("\n"));
+
 }
 
 function getLL_1Grammar() {
+
     // First get the original version of the grammar.
     MODIFIED_GRAMMAR = GRAMMAR.clone();
 
@@ -53,6 +62,7 @@ function getLL_1Grammar() {
     console.log(MODIFIED_GRAMMAR);
 
     PREDICTIVE_TABLE = new PredictiveTable(MODIFIED_GRAMMAR);
+
 }
 
 /* There is some problem here. For some grammar, which is left recursive, 
@@ -64,6 +74,7 @@ function getLL_1Grammar() {
  * grammar being left recursion eliminated.
  */
 function getLR_0Grammar() {
+
     MODIFIED_GRAMMAR = GRAMMAR.clone();
 
     MODIFIED_GRAMMAR.getFirstSets();
@@ -74,11 +85,12 @@ function getLR_0Grammar() {
     SLR_TABLE = new SLRAnalysisTable(
         MODIFIED_GRAMMAR, ITEMCOLLECTION, false);
 
-    console.log(SLR_TABLE);
-    console.log(MODIFIED_GRAMMAR);
+    console.log(SLR_TABLE); console.log(MODIFIED_GRAMMAR); 
+
 }
 
 function getLR_1Grammar() {
+
     MODIFIED_GRAMMAR = GRAMMAR.clone();
 
     MODIFIED_GRAMMAR.getFirstSets();
@@ -90,15 +102,19 @@ function getLR_1Grammar() {
         MODIFIED_GRAMMAR, ITEMCOLLECTION, true);
 
     console.log(ITEMCOLLECTION);
+
 }
 
 window.onload = function() {
     //============ TEST AREA ================
     //var re = "( a | b ) * a b b #";
-    var re = "{ digit } + ( \\ . { digit } + ) ? #";
+    //var re = "{ letter } ( { letter } | { digit } ) * #";
+    var re = "a * ( b a * b ) * | b * ( a b * a ) * b * #";
     var reTest = new reExpression(re.split(" "));
     console.log(reTest);
     console.log(bracketMatching(reTest.reExp));
     reTest.toPostfix();
-    console.log(reTest);
+    console.log(reTest.reToString());
+    console.log(reTest.rePostfixToString());
+
 };

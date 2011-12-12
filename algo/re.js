@@ -8,13 +8,6 @@
  *      (4) build an abstract syntax tree.
  *      (5) convert the AST to DFA.
  *
- * Different phases has different class to deal with.
- *      "*" Kleine closure.
- *      "+" Positive closure.
- *      "~" Concatenation of different regular expression elements.
- *      "?" Matches zero or one character.
- *      "\\" Escape character.
- *      "|" Union.
  */
 
 /* Pay attention to the bracket "()" and "{}", they are operators.
@@ -22,33 +15,25 @@
  * regular expression evaluation since they will be eliminated
  * when the regular expression converts to its postfix form.
  */
-var RE_OPERATORS = [ "*", "+", "~", "?", "\\", "|", 
-                     "{", "}", "(", ")"];
-
+var RE_OPERATORS = [ "*", "|", "~", "(", ")" ]; 
 var RE_PRECEDENCY = {
-    "\\" : 9,
-    "{"  : 9,
-    "}"  : 9,
-    "("  : 9,
-    ")"  : 9,
-    "?"  : 7,
+
+    "("  : 0,
+    ")"  : 0,
     "*"  : 9,
-    "+"  : 9,
-    "|"  : 6,
-    "~"  : 5
+    "~"  : 8,
+    "|"  : 7
+
 };
 
 var RE_OP_DIMENSION = {
-    "\\" : 1,
-    "{"  : 0,
-    "}"  : 0,
+
     "("  : 0,
     ")"  : 0,
-    "?"  : 1,
     "*"  : 1,
-    "+"  : 1,
     "|"  : 2,
     "~"  : 2
+
 };
 
 /* reElement is the basic element in a regular expression. For example, 
@@ -61,54 +46,143 @@ var RE_OP_DIMENSION = {
  * the dimension tells how many operands the operator takes.
  */
 function reElement(c) {
+
     this.character  = c;
     this.isOperator = RE_OPERATORS.contains(c);
     this.precedency = RE_PRECEDENCY[c] || 0;
     this.dimension  = RE_OP_DIMENSION[c] || 0;
+
 }
 
 reElement.prototype.equalsTo = function(c) {
+
     return this.character == c;
+
 }
 
-/* reExpression is an array of the reElements. The special symbol "#"
+/* Before constructing the abstract syntax tree, it is necessary to add some
+ * concatenations to the regular expression. Some of the extended operators
+ * are not provided in this file. So the basic element in the normal regular
+ * expression are only listed as follows:
+ *      
+ *      C: Letters and digits.
+ *      *: Kleene closure.
+ *      ~: Concatenation.
+ *      |: Alternation.
+ *
+ * There are several situations where concatenations should be inserted. I 
+ * list these situations as below:
+ *
+ *      C C -> C ~ C
+ *      C ( -> C ~ (
+ *      ) C -> ) ~ C
+ *      * C -> * ~ C
+ *      * ( -> * ~ (
+ *      ) ( -> ) ~ (
+ *    any # -> any ~ #
+ *
+ * reExpression is an array of the reElements. The special symbol "#"
  * indicates the end of a regular expression.
  */
 function reExpression(reInput) {
+
     this.reExp = new Array();
     this.postfixExp = new Array();
+
     for (var i = 0; i < reInput.length; ++i)
         this.reExp.push(new reElement(reInput[i]));
+    this.insertConcatenation();
+
+}
+
+reExpression.prototype.reToString = function() {
+
+    var reString = new Array();
+
+    for (var i = 0; i < this.reExp.length; ++i)
+        reString.push(this.reExp[i].character);
+
+    return reString.join(" ");
+
+}
+
+reExpression.prototype.rePostfixToString = function() {
+
+    var reString = new Array();
+
+    for (var i = 0; i < this.postfixExp.length; ++i)
+        reString.push(this.postfixExp[i].character);
+
+    return reString.join(" ");
+
+}
+
+/* Add concatenation to the input regular expression. Each cases can be
+ * referred to the situations listed as above.
+ */
+reExpression.prototype.insertConcatenation = function() {
+    if (this.reExp.length < 2)
+        return;
+    
+    var left  = this.reExp[0]; 
+    var right = this.reExp[1];
+    var i = 1;
+
+    while (!right.equalsTo("#")) {
+
+        if (!left.isOperator   && !right.isOperator   ||
+            !left.isOperator   && right.equalsTo("(") ||
+            left.equalsTo(")") && !right.isOperator   ||
+            left.equalsTo("*") && !right.isOperator   ||
+            left.equalsTo("*") && right.equalsTo("(") ||
+            left.equalsTo("(") && right.equalsTo(")")) {
+
+            this.reExp.insert(new reElement("~"), i);
+            i++;
+        }
+
+        left  = this.reExp[i];
+        right = this.reExp[i + 1];
+        i++;
+
+    }
+
+    // The concateneation between the endmarker and the last
+    // character will be dealed with in the method toPostfix.
 }
 
 reExpression.prototype.toPostfix = function() {
+
     var currReElem;
     var opStack = new Array();
     var postfix = new Array();
 
-    for (var i = 0; i < this.reExp.length; ++i) {
-        currReElem = this.reExp[i];
+    var i = 0;
+    while (true) {
 
+        currReElem = this.reExp[i];
+  
         // The end of the infix regular expression.
         if (currReElem.equalsTo("#")) {
-            while (opStack.length > 0)
+            while (!opStack.isEmpty())
                 postfix.push(opStack.pop());
-            postfix.push(currReElem);
+
+            postfix.push(new reElement("#"));
+            postfix.push(new reElement("~"));
+
+            break;
         }
-       
+
+        // Meets the "("
+        if (currReElem.equalsTo("("))
+            opStack.push(currReElem);
+
         // Meets the ")", pops the reElements until the "(" appears.
         else if (currReElem.equalsTo(")")) {
             while (!opStack.isEmpty() &&
                    !opStack.top().equalsTo("("))
                 postfix.push(opStack.pop());
             opStack.pop(); // Pops the "(".
-        }
-        // Meets the "}", pops the reElements until the "{" appears.
-        else if (currReElem.equalsTo("}")) {
-            while (!opStack.isEmpty() &&
-                   !opStack.top().equalsTo("{"))
-                postfix.push(opStack.pop());
-            opStack.pop(); // Pops the "{".
         }
 
         // Meets the operator.
@@ -120,9 +194,14 @@ reExpression.prototype.toPostfix = function() {
             if (!currReElem.equalsTo("(") && !currReElem.equalsTo("{"))
                 opStack.push(currReElem);
         }
+
+        // Character
         else
             postfix.push(currReElem);
+
+        i++;
     }
 
     this.postfixExp = postfix;
+
 }

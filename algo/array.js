@@ -84,3 +84,7 @@ Array.prototype.getPositions = function(elem) {
             posistions.push(i);
     return posistions;
 }
+
+Array.prototype.insert = function(elem, pos) {
+    this.splice(pos, 0, elem);
+}
