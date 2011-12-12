@@ -45,7 +45,7 @@ var RE_OP_DIMENSION = {
  * operator or not. The precedency is the priority of the operator. Then
  * the dimension tells how many operands the operator takes.
  */
-function reElement(c) {
+function ReElement(c) {
 
     this.character  = c;
     this.isOperator = RE_OPERATORS.contains(c);
@@ -54,9 +54,15 @@ function reElement(c) {
 
 }
 
-reElement.prototype.equalsTo = function(c) {
+ReElement.prototype.equalsTo = function(c) {
 
     return this.character == c;
+
+}
+
+ReElement.prototype.copy = function() {
+    
+    return new ReElement(this.character);
 
 }
 
@@ -84,18 +90,19 @@ reElement.prototype.equalsTo = function(c) {
  * reExpression is an array of the reElements. The special symbol "#"
  * indicates the end of a regular expression.
  */
-function reExpression(reInput) {
+function ReExpression(reInput) {
 
-    this.reExp = new Array();
+    this.reExp      = new Array();
     this.postfixExp = new Array();
+    this.astree     = undefined;
 
     for (var i = 0; i < reInput.length; ++i)
-        this.reExp.push(new reElement(reInput[i]));
+        this.reExp.push(new ReElement(reInput[i]));
     this.insertConcatenation();
 
 }
 
-reExpression.prototype.reToString = function() {
+ReExpression.prototype.reToString = function() {
 
     var reString = new Array();
 
@@ -106,7 +113,7 @@ reExpression.prototype.reToString = function() {
 
 }
 
-reExpression.prototype.rePostfixToString = function() {
+ReExpression.prototype.rePostfixToString = function() {
 
     var reString = new Array();
 
@@ -120,7 +127,7 @@ reExpression.prototype.rePostfixToString = function() {
 /* Add concatenation to the input regular expression. Each cases can be
  * referred to the situations listed as above.
  */
-reExpression.prototype.insertConcatenation = function() {
+ReExpression.prototype.insertConcatenation = function() {
     if (this.reExp.length < 2)
         return;
     
@@ -137,7 +144,7 @@ reExpression.prototype.insertConcatenation = function() {
             left.equalsTo("*") && right.equalsTo("(") ||
             left.equalsTo("(") && right.equalsTo(")")) {
 
-            this.reExp.insert(new reElement("~"), i);
+            this.reExp.insert(new ReElement("~"), i);
             i++;
         }
 
@@ -151,7 +158,9 @@ reExpression.prototype.insertConcatenation = function() {
     // character will be dealed with in the method toPostfix.
 }
 
-reExpression.prototype.toPostfix = function() {
+
+/* Convert the infix regular expression to its postfix form. */
+ReExpression.prototype.toPostfix = function() {
 
     var currReElem;
     var opStack = new Array();
@@ -167,8 +176,8 @@ reExpression.prototype.toPostfix = function() {
             while (!opStack.isEmpty())
                 postfix.push(opStack.pop());
 
-            postfix.push(new reElement("#"));
-            postfix.push(new reElement("~"));
+            postfix.push(new ReElement("#"));
+            postfix.push(new ReElement("~"));
 
             break;
         }
@@ -203,5 +212,50 @@ reExpression.prototype.toPostfix = function() {
     }
 
     this.postfixExp = postfix;
+
+}
+
+
+/* Establisk the abstract syntax tree according to the given regular
+ * expression.
+ */
+ReExpression.prototype.establishAST = function() {
+
+    var currReElem;
+    var lTree, rTree;
+    var dimension;
+    var treeStack = new Array();
+
+    for (var i = 0; i < this.postfixExp.length; ++i) {
+        
+        currReElem = this.postfixExp[i];
+
+        // Operand case
+        if (!currReElem.isOperator)
+            treeStack.push(new Tree(currReElem));
+
+        // Operator case
+        else {
+            dimension = RE_OP_DIMENSION[currReElem.character];
+            switch (dimension) {
+                case 1:
+                    lTree = treeStack.pop();
+                    rTree = undefined;
+                    break;
+                case 2:
+                    rTree = treeStack.pop();
+                    lTree = treeStack.pop();
+                    break;
+            }
+            treeStack.push(new Tree(
+                currReElem,
+                lTree,
+                rTree
+            ));
+        }
+
+    }    
+
+    this.astree = treeStack.top();
 
 }

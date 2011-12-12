@@ -107,14 +107,16 @@ function getLR_1Grammar() {
 
 window.onload = function() {
     //============ TEST AREA ================
-    //var re = "( a | b ) * a b b #";
+    var re = "( a | b ) * a b b #";
     //var re = "{ letter } ( { letter } | { digit } ) * #";
-    var re = "a * ( b a * b ) * | b * ( a b * a ) * b * #";
-    var reTest = new reExpression(re.split(" "));
+    //var re = "a * ( b a * b ) * | b * ( a b * a ) * b * #";
+    var reTest = new ReExpression(re.split(" "));
     console.log(reTest);
     console.log(bracketMatching(reTest.reExp));
     reTest.toPostfix();
+    reTest.establishAST();
     console.log(reTest.reToString());
     console.log(reTest.rePostfixToString());
 
+    treeTest();
 };
