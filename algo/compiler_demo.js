@@ -121,6 +121,6 @@ window.onload = function() {
     console.log(reTest.rePostfixToString());
 
     var nfaTest = new NFA(reTest);
-
-    console.log(nfaTest);
+    nfaTest.test1();
+    nfaTest.test2();
 };

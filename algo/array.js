@@ -85,6 +85,11 @@ Array.prototype.getPositions = function(elem) {
     return posistions;
 }
 
+/* Insert expands the array.
+ * Add only adds an element to the array if the given
+ * position in the array has not been occupied.
+ */
 Array.prototype.insert = function(elem, pos) {
     this.splice(pos, 0, elem);
 }
+

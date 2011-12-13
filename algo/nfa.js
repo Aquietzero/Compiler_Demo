@@ -87,13 +87,13 @@
 function NFAState(id) {
 
     this.id = id;
-    this.edge = new Array();
+    this.edges = new Array();
 
 }
 
 NFAState.prototype.addEdge = function(e) {
 
-    this.edge.push(e);
+    this.edges.push(e);
 
 }
 
@@ -105,11 +105,13 @@ function NFAEdge(prev, next, input) {
 
 }
 
+/* Nondeterministic Finite Automaton. */
 function NFA(reExp) {
 
-    this.reExp = reExp;
-    this.begin = undefined;
-    this.end   = undefined;
+    this.reExp  = reExp;
+    this.begin  = undefined;
+    this.end    = undefined;
+    this.states = {};
 
     this.constructNFA();
 
@@ -127,12 +129,11 @@ NFA.prototype.constructNFA = function() {
     for (var i = 0; i < postfix.length; ++i) {
     
         currReElem = postfix[i];
+        begin = new NFAState(id.nextID());
+        end   = new NFAState(id.nextID());
 
-        if (!currReElem.isOperator) {
-            begin = new NFAState(id.nextID());
-            end   = new NFAState(id.nextID());
+        if (!currReElem.isOperator)
             begin.addEdge(new NFAEdge(begin, end, currReElem.character));
-        }
     
         else {
         
@@ -140,8 +141,6 @@ NFA.prototype.constructNFA = function() {
             
                 // Actually, nfa1, nfa2 are [begin, end] pairs.
                 case "|":
-                    begin = new NFAState(id.nextID());
-                    end   = new NFAState(id.nextID());
                     nfa2 = nfaStack.pop();
                     nfa1 = nfaStack.pop();
                     begin.addEdge(new NFAEdge(begin, nfa1[0], "e"));
@@ -159,8 +158,6 @@ NFA.prototype.constructNFA = function() {
                     break;
 
                 case "*":
-                    begin = new NFAState(id.nextID());
-                    end   = new NFAState(id.nextID());
                     nfa1 = nfaStack.pop();
                     begin.addEdge(new NFAEdge(begin, nfa1[0], "e"));
                     begin.addEdge(new NFAEdge(begin, end, "e"));
@@ -173,6 +170,8 @@ NFA.prototype.constructNFA = function() {
         }
 
         nfaStack.push([begin, end]);
+        this.states[begin.id] = begin;
+        this.states[end.id]   = end;
     }
 
     this.begin = nfaStack.top()[0];
@@ -180,3 +179,90 @@ NFA.prototype.constructNFA = function() {
 
 }
 
+/* Returns a set of NFA states which can be reached from the
+ * states in the given state set when the epsilon transfer is
+ * performed.
+ */
+NFA.prototype.epsilonClosure = function(states) {
+    
+    var closure = new Array();
+    var stateStack = new Array();
+    var currState, toStates;
+    var count = 0;
+
+    for (var i = 0; i < states.length; ++i)
+        stateStack.push(states[i]);
+
+    do {
+
+        count = 0;
+        currState = stateStack.pop();
+        closure.push(currState);
+        toStates = this.move([currState], "e");
+
+        for (var i = 0; i < toStates.length; ++i) {
+
+            if (!closure.contains(toStates[i])) {
+                stateStack.push(toStates[i]);
+                count++;
+            }
+
+        }
+
+    } while (!stateStack.isEmpty());
+
+    return closure;
+
+}
+
+/* Returns a set of NFA states which can be reached from the 
+ * states in the given state set when meeting the input.
+ */
+NFA.prototype.move = function(states, input) {
+
+    var toStates = new Array();
+    var currState, nextState;
+
+    for (var i = 0; i < states.length; ++i) {
+        
+        currState = this.states[states[i]];
+        for (var j = 0; j < currState.edges.length; ++j) {
+            nextState = currState.edges[j].next.id;
+            if (currState.edges[j].input == input &&
+                !toStates.contains(nextState))
+                toStates.push(nextState);
+        }
+
+    }
+
+    return toStates;
+
+}
+
+NFA.prototype.test1 = function() {
+
+    console.log("0 -> a : " + this.move([0], "a") + "\n" +
+                "1 -> e : " + this.move([1], "e") + "\n" +
+                "2 -> b : " + this.move([2], "b") + "\n" +
+                "3 -> e : " + this.move([3], "e") + "\n" +
+                "4 -> e : " + this.move([4], "e") + "\n" +
+                "5 -> e : " + this.move([5], "e") + "\n" +
+                "6 -> e : " + this.move([6], "e") + "\n" +
+                "7 -> e : " + this.move([7], "e") + "\n" +
+                "8 -> a : " + this.move([8], "a") + "\n" +
+                "9 -> e : " + this.move([9], "e") + "\n" +
+                "12 -> b : " + this.move([12], "b") + "\n" +
+                "13 -> e : " + this.move([13], "e") + "\n" +
+                "16 -> b : " + this.move([16], "b") + "\n" +
+                "17 -> e : " + this.move([17], "e") + "\n" +
+                "20 -> # : " + this.move([20], "#") + "\n" +
+                "6,5 -> e : " + this.move([6, 5], "e"));
+
+}
+
+NFA.prototype.test2 = function() {
+
+    console.log("e(6) : " + this.epsilonClosure([6]));
+    console.log("e(0) : " + this.epsilonClosure([0]));
+
+}
