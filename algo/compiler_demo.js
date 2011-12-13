@@ -111,12 +111,16 @@ window.onload = function() {
     //var re = "{ letter } ( { letter } | { digit } ) * #";
     //var re = "a * ( b a * b ) * | b * ( a b * a ) * b * #";
     var reTest = new ReExpression(re.split(" "));
+
     console.log(reTest);
-    console.log(bracketMatching(reTest.reExp));
+
     reTest.toPostfix();
     reTest.establishAST();
+
     console.log(reTest.reToString());
     console.log(reTest.rePostfixToString());
 
-    treeTest();
+    var nfaTest = new NFA(reTest);
+
+    console.log(nfaTest);
 };
