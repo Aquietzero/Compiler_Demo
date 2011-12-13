@@ -216,7 +216,9 @@ NFA.prototype.epsilonClosure = function(states) {
 }
 
 /* Returns a set of NFA states which can be reached from the 
- * states in the given state set when meeting the input.
+ * states in the given state set when meeting the input. If
+ * there are no transformations on the input, then the original
+ * states set will be returned.
  */
 NFA.prototype.move = function(states, input) {
 
@@ -235,8 +237,32 @@ NFA.prototype.move = function(states, input) {
 
     }
 
-    return toStates;
+    if (!toStates.isEmpty())
+        return toStates;
+    else
+        return states;
 
+}
+
+NFA.prototype.scan = function(input) {
+
+    var states = this.epsilonClosure([this.begin.id]);
+    
+    for (var i = 0; i < input.length; ++i) {
+
+        states = this.epsilonClosure(this.move(
+            states,
+            input[i] 
+        ));
+        console.log("temp states ---> " + states + "  input ---> " + input[i]);
+    
+    }
+
+    console.log("final states ---> " + states);
+    if (states.contains(this.end.id))
+        return true;
+    else
+        return false;
 }
 
 NFA.prototype.test1 = function() {

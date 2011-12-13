@@ -85,6 +85,14 @@ Array.prototype.getPositions = function(elem) {
     return posistions;
 }
 
+Array.prototype.intersection = function(arr) {
+    var intersection = new Array();
+    for (var i = 0; i < arr.length; ++i)
+        if (this.contains(arr[i]))
+            intersection.push(arr[i]);
+    return intersection;
+}
+
 /* Insert expands the array.
  * Add only adds an element to the array if the given
  * position in the array has not been occupied.
