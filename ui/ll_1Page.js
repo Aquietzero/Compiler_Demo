@@ -28,7 +28,7 @@ function showLL_1Page() {
     $(predictiveTableToHtml()).insertAfter("#predictiveTableDisplay");
 
     $("#ll_1Page").fadeIn("slow");
-    showNavigation();
+    showSyntaxNavigation();
 }
 
 function clearLL_1Page() {

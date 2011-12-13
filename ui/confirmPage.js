@@ -11,7 +11,7 @@ function showConfirmPage() {
     $(grammarToHtml()).insertAfter("#grammarDisplay");
 
     $("#confirmPage").fadeIn("slow");
-    showNavigation();
+    showSyntaxNavigation();
 
     //createBgGrammar();
 }

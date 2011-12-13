@@ -26,7 +26,7 @@ function showLR_1Page() {
     $(slrTableToHtml()).insertAfter("#lr_1TableDisplay");
 
     $("#lr_1Page").fadeIn("slow");
-    showNavigation();
+    showSyntaxNavigation();
 }
 
 function clearLR_1Page() {

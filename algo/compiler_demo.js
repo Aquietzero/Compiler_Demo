@@ -117,6 +117,7 @@ window.onload = function() {
 
     reTest.toPostfix();
     reTest.establishAST();
+    console.log(treeHeight(reTest.astree));
 
     console.log(reTest.reToString());
     console.log(reTest.rePostfixToString());

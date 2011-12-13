@@ -1,0 +1,56 @@
+#navigationPage {
+    display: none;
+    margin: 10px 20px;
+    font-size: 12pt;
+    padding: 0 20px 20px 20px;
+    color: #666666;
+    overflow: hidden;
+}
+
+#navigationPage h2 {
+    font-variant: small-caps;
+    font-size: 15pt;
+    font-style: oblique;
+    font-weight: bold;
+    text-shadow: 0 0 2px #666666;
+    color: #333333;
+}
+
+.navigationPageColumn {
+    float: left;
+    width: 50%;
+}
+
+table#structureGraph {
+    font-size: 14pt;
+    font-weight: bold;
+    text-align: center;
+    margin-left: 15%;
+}
+
+table#structureGraph td {
+    border: solid 1px #BBBBBB;
+    padding: 5px 10px;
+}
+
+table#structureGraph tr:nth-of-type(odd) {
+    background-color: rgba(200, 200, 200, 0.0);
+}
+
+table#structureGraph tr:nth-of-type(even) {
+    background-color: rgba(200, 200, 200, 0.5);
+}
+
+table#structureGraph tr.trHover {
+    background-color: rgba(200, 200, 200, 0.8);
+    color: black;
+    text-shadow: 0 0 1px #666666;
+    cursor: pointer;
+}
+
+div.navigationPageColumn p {
+    padding-top: 50px;
+    font-size: 12pt;
+    font-style: oblique;
+    color: #333333;
+}

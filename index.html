@@ -8,6 +8,7 @@
         <!--Css files-->
         <link rel="stylesheet" href="css/frame.css" type="text/css" />
         <link rel="stylesheet" href="css/welcomePage.css" type="text/css" />
+        <link rel="stylesheet" href="css/navigationPage.css" type="text/css" />
         <link rel="stylesheet" href="css/inputPage.css" type="text/css" />
         <link rel="stylesheet" href="css/confirmPage.css" type="text/css" />
         <link rel="stylesheet" href="css/ll_1Page.css" type="text/css" />
@@ -33,9 +34,10 @@
         <script type="text/javascript" src="lib/jquery-1.6.4.min.js"></script>
         <script type="text/javascript" src="ui/common.js"></script>
         <script type="text/javascript" src="ui/welcomePage.js"></script>
+        <script type="text/javascript" src="ui/navigationPage.js"></script>
         <script type="text/javascript" src="ui/inputPage.js"></script>
         <script type="text/javascript" src="ui/confirmPage.js"></script>
-        <script type="text/javascript" src="ui/navigation.js"></script>
+        <script type="text/javascript" src="ui/syntaxNavigation.js"></script>
         <script type="text/javascript" src="ui/ll_1Page.js"></script>
         <script type="text/javascript" src="ui/lr_0Page.js"></script>
         <script type="text/javascript" src="ui/lr_1Page.js"></script>
@@ -82,21 +84,34 @@
 
 
             <!--
-                Navigation bar shows after you confirm the input. There are
-                several phrases and grammars that you can choose. It is shown
+                Syntax Navigation bar shows after you confirm the input. There
+                are several phrases and grammars that you can choose. It is shown
                 through all the way down the demo.
             -->
-            <div id="navigation">
+            <div id="syntaxNavigation">
             
                 <ul>
                     <li id="toLL_1Page">LL(1) Grammar</li>
                     <li id="toLR_0Page">SLR Grammar</li>
                     <li id="toLR_1Page">LR(1) Grammar</li>
-                    <li id="toHelpPage">Help</li>
                 </ul>
             
             </div>
-        
+            
+            <!--
+                Lexical Navigation shows you some of the operations that you
+                can perform in the lexical analysis part.
+            -->
+            <div id="syntaxNavigation">
+            
+                <ul>
+                    <li id="toPostfix">Postfix Expression</li>
+                    <li id="toNfaPage">NF Automaton</li>
+                    <li id="toDfaPage">DF Automaton</li>
+                </ul>
+            
+            </div>
+
         </div>
 
 
@@ -124,9 +139,39 @@
                 <img id="signature" src="imgs/signature.png" alt="zeroSignature" />
                 <hr />
                 <hr />
-                <p id="welcomePageToInputPage">Continue To Explore &rsaquo;&rsaquo;</p>
+                <p id="welcomePageToNavigationPage">Continue To Explore &rsaquo;&rsaquo;</p>
 
             </div>
+
+
+            <!--
+                Navigation Page. Since there are lots of parts in the whole compile 
+                process, such as lexical analysis, syntax analysis, semantic analysis
+                and so on. This page is set for you to choose which part of the demo
+                you want to use.
+            -->
+            <div id="navigationPage">
+
+                <div class="navigationPageColumn">
+                    <h2>❉ Compiler Structure</h2>
+                    <table id="structureGraph">
+                        <tr><td id="toLexicalPage">Lexical Analysis</td></tr>
+                        <tr><td id="toSyntaxPage">Syntax Analysis</td></tr>
+                        <tr><td>Semantic Analysis</td></tr>
+                        <tr><td>IR Generation</td></tr>
+                        <tr><td>IR Optimization</td></tr>
+                        <tr><td>Code Generation</td></tr>
+                        <tr><td>Optimization</td></tr>
+                    </table>
+                </div>
+                
+                <div class="navigationPageColumn">
+                    <p>The graph on the left side shows the main structure of a compiler. Generally, a compiler is a black box which takes a string of characters as input and ouputs the corresponding executable code in machine language. Breaking down this whole work into piece can be better for partial optimization. On the other hand, for the designer, they can pay more attention on a specific job once at a time, which also enhance the efficiency of the designing process and the quality of the result. Throughout the whole program, I can deeply experience this advantage.</p>
+                </div>
+
+
+            </div>
+
 
 
             <!--

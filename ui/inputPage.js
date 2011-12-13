@@ -10,7 +10,7 @@ $(function() {
 });
 
 function showInputPage() {
-    hideNavigation();
+    hideSyntaxNavigation();
     hideAllPages();
 
     $("#inputPage").fadeIn("slow");

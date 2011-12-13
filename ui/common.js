@@ -1,13 +1,14 @@
 var PAGES = ["#welcomePage",
+             "#navigationPage",
              "#inputPage",
              "#confirmPage",
              "#ll_1Page",
              "#lr_0Page",
              "#lr_1Page"];
-var BULLETS = ["#toLL_1Page",
-               "#toLR_0Page",
-               "#toLR_1Page",
-               "#toHelpPage"];
+var SYNTAX_BULLETS = ["#toLL_1Page",
+                      "#toLR_0Page",
+                      "#toLR_1Page",
+                      "#toHelpPage"];
 
 /* Hide and show all pages
  */
@@ -47,8 +48,8 @@ function restoreTitle() {
  */
 function addBulletHoverBehavior() {
     var bullet;
-    for (var i = 0; i < BULLETS.length; ++i) {
-        bullet = $(BULLETS[i]);
+    for (var i = 0; i < SYNTAX_BULLETS.length; ++i) {
+        bullet = $(SYNTAX_BULLETS[i]);
         bullet.hover(function() {
             $(this).animate({ marginLeft : "25px"}, 100);
         }, function() {
@@ -76,8 +77,8 @@ function modifySelectedBullet(bullet) {
 
 function restoreAllBullets() {
     var bullet;
-    for (var i = 0; i < BULLETS.length; ++i) {
-        bullet = $(BULLETS[i]);
+    for (var i = 0; i < SYNTAX_BULLETS.length; ++i) {
+        bullet = $(SYNTAX_BULLETS[i]);
         bullet.removeClass("clicked");
         bullet.css("width", "180px");
     }

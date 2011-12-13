@@ -75,6 +75,7 @@ function treeCount(tree) {
         return 0;
         
     })(tree);
+
 }
 
 /* Traverse the tree in preorder. */
