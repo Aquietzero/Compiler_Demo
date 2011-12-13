@@ -107,9 +107,10 @@ function getLR_1Grammar() {
 
 window.onload = function() {
     //============ TEST AREA ================
-    var re = "( a | b ) * a b b #";
+    //var re = "( a | b ) * a b b #";
     //var re = "{ letter } ( { letter } | { digit } ) * #";
     //var re = "a * ( b a * b ) * | b * ( a b * a ) * b * #";
+    var re = "c * d ( c | d ) * #";
     var reTest = new ReExpression(re.split(" "));
 
     console.log(reTest);
@@ -121,9 +122,10 @@ window.onload = function() {
     console.log(reTest.rePostfixToString());
 
     var nfaTest = new NFA(reTest);
-    var str = "b a b b a a b b #";
+    var str = "d c d d c c d c #";
     //nfaTest.test1();
     //nfaTest.test2();
+    console.log(nfaTest);
     console.log(nfaTest.scan(str.split(" ")));
     
 };

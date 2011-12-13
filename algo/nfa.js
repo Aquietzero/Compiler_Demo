@@ -237,23 +237,23 @@ NFA.prototype.move = function(states, input) {
 
     }
 
-    if (!toStates.isEmpty())
-        return toStates;
-    else
-        return states;
+    return toStates;
 
 }
 
 NFA.prototype.scan = function(input) {
 
     var states = this.epsilonClosure([this.begin.id]);
+    var nextStates;
+    console.log("begin states : " + states);
     
     for (var i = 0; i < input.length; ++i) {
 
-        states = this.epsilonClosure(this.move(
-            states,
-            input[i] 
-        ));
+        nextStates = this.move(states, input[i]);
+        if (!nextStates.isEmpty())
+            states = this.epsilonClosure(nextStates);
+        else
+            break;
         console.log("temp states ---> " + states + "  input ---> " + input[i]);
     
     }
