@@ -180,6 +180,9 @@ ReExpression.prototype.toPostfix = function() {
             postfix.push(new ReElement("#"));
             postfix.push(new ReElement("~"));
 
+            rst = updateToPostfixResult(
+                rst, opStack, postfix, currReElem, this.reExp, i);
+
             break;
         }
 
@@ -221,25 +224,26 @@ ReExpression.prototype.toPostfix = function() {
 
 
 function updateToPostfixResult(
+
     currRst, stack, postfix, currReElem, reExp, pos) {
     
     var currLine = "";
 
-    currLine += "<td>";
+    currLine += "<td class='opStack'>";
     for (var i = 0; i < stack.length; ++i)
         currLine += stack[i].character + " ";
     currLine += "</td>";
 
-    currLine += "<td>";
-    for (var i = 0; i < postfix; ++i)
-        currLine += postfix[i].character;
+    currLine += "<td class='postfix'>";
+    for (var i = 0; i < postfix.length; ++i)
+        currLine += postfix[i].character + " ";
     currLine += "</td>";
 
-    currLine += "<td>" + currReElem.character + "</td>";
+    currLine += "<td class='reElem'>" + currReElem.character + "</td>";
 
-    currLine += "<td>";
+    currLine += "<td class='parsedRE'>";
     for (var i = 0; i < pos; ++i)
-        currLine += reExp[i].character;
+        currLine += reExp[i].character + " ";
     currLine += "</td>";
 
     return currRst + "<tr>" + currLine + "</tr>";

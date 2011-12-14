@@ -381,7 +381,7 @@
 
             <div id="postfixPage">
 
-                <p class="postfixPageSubTitle">☸ Infix:</p>
+                <p class="postfixPageSubTitle">☸ Infix Input:</p>
                 <div class="postfixInputInstruction">
                     <ul>
                         <li>Here is the place for you to input the regular expression, which is in infix.</li>
@@ -389,6 +389,7 @@
                         <li>The "e" is used to represent the "&#603;" in Dragon book.</li>
                         <li>Different elements in a regular expression should be separated by whitespaces. For example, the regular expression "(a|b)*abb" should be entered in the following way: <code>"( a | b ) * a b b #"</code>.</li>
                         <li>If there are some literals in the regular expression, such as words or something, you don't have to separate each of its words, namely "word" is still entered as <code>"word"</code> rather than <code>"w o r d"</code>.</li>
+                        <li>You have no need to enter the concatenation explicitly.</li>
                     </ul>
                 </div>
                 <textarea id="infixInput" rows="1"></textarea>
@@ -396,7 +397,9 @@
                 <button id="infixConfirm">Confirm ▶</button>
 
                 <div id="toPostfixResultDisplay">
-                    <p id="toPostfixResult">✺ Infix to Postfix Result:</p>
+                    <p id="addConcatenation" class="postfixPageSubTitle">✺ Add Concatenation:</p>
+                    <p class="normal">Since concatenation("~"), alternation("|") and kleene closure("*") are three basic operations of a normal regular expression, we cannot ignore the concatenation though it does not appear in the input. At the same time, we have to know where the concatenation lies when the abstract syntax tree is established. It is one kind of the inner nodes of the AST which connects two subtrees. If the concatenations are ignored, the parsed regular expression may express a different meaning compared to the original one.</p>
+                    <p id="toPostfixResult" class="postfixPageSubTitle">✺ Infix to Postfix Result:</p>
                 </div>
 
             </div>

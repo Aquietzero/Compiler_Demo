@@ -3,6 +3,7 @@ var PAGES = ["#welcomePage",
              "#inputPage",
              "#confirmPage",
              "#lexicalWelcomePage",
+             "#postfixPage",
              "#ll_1Page",
              "#lr_0Page",
              "#lr_1Page"];
@@ -29,6 +30,13 @@ function hideAllPages() {
     var pages = getAllPages();
     for (var i = 0; i < PAGES.length; ++i)
         pages[i].css("display", "none");
+}
+
+function clearAllPages() {
+    clearLL_1Page();
+    clearLR_0Page();
+    clearLR_1Page();
+    clearPostfixPage();
 }
 
 /* Title behaviors control

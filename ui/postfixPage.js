@@ -12,20 +12,33 @@ function showPostfixPage() {
     var bullet = $("#toPostfix");
     $("#introductionPart").css("display", "none");
 
+    clearAllPages();
+
     modifyTitle();
     restoreAllBullets();
     modifySelectedBullet(bullet);
     hideAllPages();
 
     $("#postfixPage").fadeIn("slow");
+    $("#toPostfixResultDisplay").css("display", "none");
     showLexicalNavigation();
 
 }
 
 function showPostfixResult() {
     
+    clearPostfixPage();
     getPostfix();
-    console.log(RESULT);
+
+    $(addConcatenationToHtml()).insertAfter("#addConcatenation");
     $(toPostfixToHtml()).insertAfter("#toPostfixResult");
+    $("#toPostfixResultDisplay").fadeIn("slow");
+
+}
+
+function clearPostfixPage() {
+
+    $("#toPostfixResultDisplay pre").remove();
+    $("#toPostfixResultDisplay table").remove();
 
 }

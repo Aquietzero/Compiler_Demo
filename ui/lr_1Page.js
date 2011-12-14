@@ -10,9 +10,7 @@ function showLR_1Page() {
     var bullet = $("#toLR_1Page");
     $("#intruductionPart").css("display", "none");
 
-    clearLL_1Page();
-    clearLR_0Page();
-    clearLR_1Page();
+    clearAllPages();
 
     modifyTitle();
     restoreAllBullets();

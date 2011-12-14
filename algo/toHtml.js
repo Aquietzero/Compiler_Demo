@@ -159,14 +159,22 @@ function slrResultToHtml() {
 
 function toPostfixToHtml() {
 
-    console.log(RESULT);
     RESULT = "<tr class='tableHead'>" +
-                "<td>Operator Stack</td>" +
+                "<td>Stack</td>" +
                 "<td>Postfix</td>" +
                 "<td>Symbol</td>" +
                 "<td>Parsed</td>" +
              "</tr>" + RESULT;
     return "<table id='postfixResult'>" + RESULT + "</table>";
+
+}
+
+function addConcatenationToHtml() {
+    
+    var rst = "";
+    for (var i = 0; i < REGULAR_EXPRESSION.reExp.length; ++i)
+        rst += REGULAR_EXPRESSION.reExp[i].character + " ";
+    return "<pre>" + rst + "</pre>";
 
 }
 
