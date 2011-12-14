@@ -5,7 +5,10 @@ var TERMINALS,
     PREDICTIVE_TABLE,
     RESULT,
     ITEMCOLLECTION,
-    SLR_TABLE;
+    SLR_TABLE,
+    INFIX,
+    POSTFIX,
+    REGULAR_EXPRESSION;
 
 function parseByLL_1() {
 
@@ -105,6 +108,16 @@ function getLR_1Grammar() {
 
 }
 
+function getPostfix() {
+
+    INFIX = document.getElementById("infixInput").value.toString();
+
+    REGULAR_EXPRESSION = new ReExpression(INFIX.split(" "));
+    RESULT = REGULAR_EXPRESSION.toPostfix();
+    POSTFIX = REGULAR_EXPRESSION.postfixExp;
+
+}
+
 window.onload = function() {
     //============ TEST AREA ================
     //var re = "( a | b ) * a b b #";
@@ -113,20 +126,20 @@ window.onload = function() {
     var re = "c * d ( c | d ) * #";
     var reTest = new ReExpression(re.split(" "));
 
-    console.log(reTest);
+    //console.log(reTest);
 
     reTest.toPostfix();
     reTest.establishAST();
     console.log(treeHeight(reTest.astree));
 
-    console.log(reTest.reToString());
-    console.log(reTest.rePostfixToString());
+    //console.log(reTest.reToString());
+    //console.log(reTest.rePostfixToString());
 
     var nfaTest = new NFA(reTest);
     var str = "d c d d c c d c #";
     //nfaTest.test1();
     //nfaTest.test2();
-    console.log(nfaTest);
-    console.log(nfaTest.scan(str.split(" ")));
+    //console.log(nfaTest);
+    //console.log(nfaTest.scan(str.split(" ")));
     
 };

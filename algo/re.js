@@ -165,6 +165,7 @@ ReExpression.prototype.toPostfix = function() {
     var currReElem;
     var opStack = new Array();
     var postfix = new Array();
+    var rst = "";
 
     var i = 0;
     while (true) {
@@ -209,14 +210,44 @@ ReExpression.prototype.toPostfix = function() {
             postfix.push(currReElem);
 
         i++;
+        rst = updateToPostfixResult(
+            rst, opStack, postfix, currReElem, this.reExp, i);
     }
 
     this.postfixExp = postfix;
+    return rst;
 
 }
 
 
-/* Establisk the abstract syntax tree according to the given regular
+function updateToPostfixResult(
+    currRst, stack, postfix, currReElem, reExp, pos) {
+    
+    var currLine = "";
+
+    currLine += "<td>";
+    for (var i = 0; i < stack.length; ++i)
+        currLine += stack[i].character + " ";
+    currLine += "</td>";
+
+    currLine += "<td>";
+    for (var i = 0; i < postfix; ++i)
+        currLine += postfix[i].character;
+    currLine += "</td>";
+
+    currLine += "<td>" + currReElem.character + "</td>";
+
+    currLine += "<td>";
+    for (var i = 0; i < pos; ++i)
+        currLine += reExp[i].character;
+    currLine += "</td>";
+
+    return currRst + "<tr>" + currLine + "</tr>";
+
+}
+
+
+/* Establish the abstract syntax tree according to the given regular
  * expression.
  */
 ReExpression.prototype.establishAST = function() {

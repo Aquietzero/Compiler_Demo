@@ -14,6 +14,8 @@
         <link rel="stylesheet" href="css/ll_1Page.css" type="text/css" />
         <link rel="stylesheet" href="css/lr_0Page.css" type="text/css" />
         <link rel="stylesheet" href="css/lr_1Page.css" type="text/css" />
+        <link rel="stylesheet" href="css/lexicalWelcomePage.css" type="text/css" />
+        <link rel="stylesheet" href="css/postfixPage.css" type="text/css" />
 
         <!--Javascript files-->
         <script type="text/javascript" src="algo/lib.js"></script>
@@ -37,10 +39,12 @@
         <script type="text/javascript" src="ui/navigationPage.js"></script>
         <script type="text/javascript" src="ui/inputPage.js"></script>
         <script type="text/javascript" src="ui/confirmPage.js"></script>
-        <script type="text/javascript" src="ui/syntaxNavigation.js"></script>
+        <script type="text/javascript" src="ui/navigation.js"></script>
         <script type="text/javascript" src="ui/ll_1Page.js"></script>
         <script type="text/javascript" src="ui/lr_0Page.js"></script>
         <script type="text/javascript" src="ui/lr_1Page.js"></script>
+        <script type="text/javascript" src="ui/lexicalWelcomePage.js"></script>
+        <script type="text/javascript" src="ui/postfixPage.js"></script>
     </head>
 
     <body>
@@ -94,6 +98,7 @@
                     <li id="toLL_1Page">LL(1) Grammar</li>
                     <li id="toLR_0Page">SLR Grammar</li>
                     <li id="toLR_1Page">LR(1) Grammar</li>
+                    <li id="syntaxToNavigation">Back</li>
                 </ul>
             
             </div>
@@ -102,12 +107,13 @@
                 Lexical Navigation shows you some of the operations that you
                 can perform in the lexical analysis part.
             -->
-            <div id="syntaxNavigation">
+            <div id="lexicalNavigation">
             
                 <ul>
                     <li id="toPostfix">Postfix Expression</li>
                     <li id="toNfaPage">NF Automaton</li>
                     <li id="toDfaPage">DF Automaton</li>
+                    <li id="lexicalToNavigation">Back</li>
                 </ul>
             
             </div>
@@ -359,6 +365,41 @@
 
             </div>
 
+
+            <!--
+                Lexical welcome page shows some basic knowledge of lexical analysis.
+                And the lexical navigation shows up as this page is presented. Further
+                behavior depends on your further choices of different lexical analysis
+                stages.
+            -->
+            <div id="lexicalWelcomePage">
+            
+                <p>Test Page</p>               
+            
+            </div>
+
+
+            <div id="postfixPage">
+
+                <p class="postfixPageSubTitle">☸ Infix:</p>
+                <div class="postfixInputInstruction">
+                    <ul>
+                        <li>Here is the place for you to input the regular expression, which is in infix.</li>
+                        <li>The endmarker is represented by "#".</li>
+                        <li>The "e" is used to represent the "&#603;" in Dragon book.</li>
+                        <li>Different elements in a regular expression should be separated by whitespaces. For example, the regular expression "(a|b)*abb" should be entered in the following way: <code>"( a | b ) * a b b #"</code>.</li>
+                        <li>If there are some literals in the regular expression, such as words or something, you don't have to separate each of its words, namely "word" is still entered as <code>"word"</code> rather than <code>"w o r d"</code>.</li>
+                    </ul>
+                </div>
+                <textarea id="infixInput" rows="1"></textarea>
+
+                <button id="infixConfirm">Confirm ▶</button>
+
+                <div id="toPostfixResultDisplay">
+                    <p id="toPostfixResult">✺ Infix to Postfix Result:</p>
+                </div>
+
+            </div>
 
 
             <div id="copyleft">

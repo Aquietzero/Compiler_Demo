@@ -59,17 +59,17 @@ body {
     z-index: 2;
 }
 
-#syntaxNavigation {
+#syntaxNavigation, #lexicalNavigation {
     display: none;
     z-index: 2;
 }
 
-#syntaxNavigation ul {
+#syntaxNavigation ul, #lexicalNavigation ul {
     list-style-type: none;
     z-index: 2;
 }
 
-#syntaxNavigation ul li {
+#syntaxNavigation ul li, #lexicalNavigation ul li {
     margin: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -93,12 +93,14 @@ body {
     opacity: 0.95;
 }
 
-#syntaxNavigation ul li:hover {
+#syntaxNavigation ul li:hover,
+#lexicalNavigation ul li:hover {
     color: white;
     text-shadow: 0 0 2px white;
 }
 
-#syntaxNavigation ul li.clicked {
+#syntaxNavigation ul li.clicked,
+#lexicalNavigation ul li.clicked {
     margin: 20px;
     padding-top: 5px;
     padding-bottom: 5px;

@@ -134,6 +134,7 @@ function predictiveTableToHtml() {
 }
 
 function ll_1ResultToHtml() {
+
     RESULT = "<tr class='tableHead'>" + 
                  "<td>Matched</td>" + 
                  "<td>Stack</td>"   +
@@ -141,9 +142,11 @@ function ll_1ResultToHtml() {
                  "<td>Action</td>"  +
              "</tr>" + RESULT;
     return "<table id='predictiveAnalysisResult'>" + RESULT + "</table>";
+
 }
 
 function slrResultToHtml() {
+
     RESULT = "<tr class='tableHead'>" + 
                  "<td>Stack</td>" + 
                  "<td>Symbol</td>"   +
@@ -151,6 +154,19 @@ function slrResultToHtml() {
                  "<td>Action</td>"  +
              "</tr>" + RESULT;
     return "<table id='slrAnalysisResult'>" + RESULT + "</table>";
+
+}
+
+function toPostfixToHtml() {
+
+    console.log(RESULT);
+    RESULT = "<tr class='tableHead'>" +
+                "<td>Operator Stack</td>" +
+                "<td>Postfix</td>" +
+                "<td>Symbol</td>" +
+                "<td>Parsed</td>" +
+             "</tr>" + RESULT;
+    return "<table id='postfixResult'>" + RESULT + "</table>";
 
 }
 

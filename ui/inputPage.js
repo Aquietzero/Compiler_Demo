@@ -3,8 +3,8 @@ var DEFAULT_TERMINALS = "id, +, *, (, )",
 
 
 $(function() {
-    document.getElementById("terminalsInput").value = DEFAULT_TERMINALS;
-    document.getElementById("grammarInput").value = DEFAULT_GRAMMAR;
+    $("#terminalsInput").value = DEFAULT_TERMINALS;
+    $("#grammarInput").value = DEFAULT_GRAMMAR;
 
     $("#grammarConfirm").bind("click", showConfirmPage);
 });
