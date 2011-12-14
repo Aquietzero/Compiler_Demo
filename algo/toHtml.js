@@ -157,7 +157,7 @@ function slrResultToHtml() {
 
 }
 
-function toPostfixToHtml() {
+function toPostfixResultToHtml() {
 
     RESULT = "<tr class='tableHead'>" +
                 "<td>Stack</td>" +
@@ -174,6 +174,15 @@ function addConcatenationToHtml() {
     var rst = "";
     for (var i = 0; i < REGULAR_EXPRESSION.reExp.length; ++i)
         rst += REGULAR_EXPRESSION.reExp[i].character + " ";
+    return "<pre>" + rst + "</pre>";
+
+}
+
+function postfixToHtml() {
+
+    var rst = "";
+    for (var i = 0; i < REGULAR_EXPRESSION.postfixExp.length; ++i)
+        rst += REGULAR_EXPRESSION.postfixExp[i].character + " ";
     return "<pre>" + rst + "</pre>";
 
 }

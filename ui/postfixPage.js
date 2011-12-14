@@ -1,10 +1,12 @@
 var DEFAULT_RE = "( a | b ) * a b b #";
 
 $(function() {
+
     $("#infixInput").value = DEFAULT_RE;
 
     $("#toPostfix").bind("click", showPostfixPage);
     $("#infixConfirm").bind("click", showPostfixResult);
+
 });
 
 function showPostfixPage() {
@@ -31,7 +33,8 @@ function showPostfixResult() {
     getPostfix();
 
     $(addConcatenationToHtml()).insertAfter("#addConcatenation");
-    $(toPostfixToHtml()).insertAfter("#toPostfixResult");
+    $(toPostfixResultToHtml()).insertAfter("#toPostfixResult");
+    $(postfixToHtml()).insertAfter("#toPostfixResult");
     $("#toPostfixResultDisplay").fadeIn("slow");
 
 }
