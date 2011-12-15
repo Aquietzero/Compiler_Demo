@@ -74,3 +74,8 @@
 #reParsingResult .input {
     text-align: center;
 }
+
+#nfaTransferTableDisplayArea pre {
+    margin-left: 50px;
+    color: #666666;
+}

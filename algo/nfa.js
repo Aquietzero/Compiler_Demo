@@ -59,7 +59,7 @@
  *                                 /      e       \
  *                          ______/________________\______
  *                       e |     |                  |     | e
- *      start -----> i ----|--> i(s)      N(s)    f(s) <--|---- f 
+ *      start -----> i ----|--> i(s)      N(s)    f(s) ---|---> f 
  *                    \    |______________________________|    /
  *                     \                                      /
  *                      \____________________________________/
@@ -70,10 +70,10 @@
 /* The relationship of NFAState and NFAEdge is shown as below.
  *                 
  *
- *               edgeA:
- *                   prev  : state1
- *                   next  : state2
- *                   input : a
+ *              edgeA:
+ *                  prev  : state1
+ *                  next  : state2
+ *                  input : a
  * 
  *      _________                 _________
  *     |         |    input a    |         |
@@ -239,6 +239,7 @@ NFA.prototype.move = function(states, input) {
 
     for (var i = 0; i < states.length; ++i) {
         
+        //console.log(states.join(" "));
         currState = this.states[states[i]];
         for (var j = 0; j < currState.edges.length; ++j) {
             nextState = currState.edges[j].next.id;

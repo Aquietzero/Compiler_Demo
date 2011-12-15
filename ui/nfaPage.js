@@ -30,6 +30,7 @@ function showNfaTransferTable() {
     clearNfaPage();
     getRegularExpression();
 
+    $(reAlphabetToHtml()).insertAfter("#nfaAlphabet");
     $(nfaToHtml()).insertAfter("#nfaTransferTableDisplay");
     $("#nfaTransferTableDisplayArea").fadeIn("slow");
 
@@ -50,6 +51,7 @@ function showReParsingResult() {
 function clearNfaPage() {
     
     $("#nfaTransferTableDisplayArea table").remove();
+    $("#nfaTransferTableDisplayArea pre").remove();
     $("#reParsingResultDisplayArea table").remove();
 
 }

@@ -30,6 +30,7 @@
         <script type="text/javascript" src="algo/slr.js"></script>
         <script type="text/javascript" src="algo/re.js"></script>
         <script type="text/javascript" src="algo/nfa.js"></script>
+        <script type="text/javascript" src="algo/dfa.js"></script>
         <script type="text/javascript" src="algo/compiler_demo.js"></script>
         <script type="text/javascript" src="algo/toHtml.js"></script>
 
@@ -427,6 +428,7 @@
                 <button id="nfaConfirm">Confirm ▶</button>
 
                 <div id="nfaTransferTableDisplayArea">
+                    <p id="nfaAlphabet" class="nfaPageSubTitle">☸ Alphabet:</p>
                     <p id="nfaTransferTableDisplay" class="nfaPageSubTitle">☸ NFA Transfer Table:</p>
                     <p class="normal">The NFA given above is not the optimal one. If you draw the NFA transfer graph in a piece of paper, you may find out that there are some useless states which only contains epsilon transfer. These states can be eliminated directly.</p>
                 </div>

@@ -124,6 +124,7 @@ function getRegularExpression() {
 
     REGULAR_EXPRESSION = new ReExpression(INFIX.split(" "));
     REGULAR_EXPRESSION.toPostfix();
+    REGULAR_EXPRESSION.deleteEndmarker();
     NF_AUTOMATON = new NFA(REGULAR_EXPRESSION);
 
 }
@@ -131,7 +132,6 @@ function getRegularExpression() {
 function parseRegularExpression() {
 
     var reInput = $("#reSentenceInput").val();
-    reInput += " #";
 
     RESULT = NF_AUTOMATON.scan(reInput.split(" "));
 
@@ -139,23 +139,29 @@ function parseRegularExpression() {
 
 window.onload = function() {
     //============ TEST AREA ================
-    //var re = "( a | b ) * a b b #";
+    var re = "( a | b ) * a b b #";
     //var re = "{ letter } ( { letter } | { digit } ) * #";
     //var re = "a * ( b a * b ) * | b * ( a b * a ) * b * #";
-    var re = "c * d ( c | d ) * #";
+    //var re = "c * d ( c | d ) * #";
     var reTest = new ReExpression(re.split(" "));
-
-    console.log(reTest);
 
     reTest.toPostfix();
     reTest.establishAST();
-    console.log(treeHeight(reTest.astree));
+    reTest.deleteEndmarker();
 
+    console.log(reTest);
     //console.log(reTest.reToString());
     //console.log(reTest.rePostfixToString());
 
     var nfaTest = new NFA(reTest);
-    var str = "d c d d c c d c #";
+    var str = "a b a b b a b b a b b #";
+
+    var dfaTest = new DFA(reTest);
+    console.log(nfaTest);
+
+    dfaTest.constructByNFA(nfaTest);
+    console.log(dfaTest);
+    console.log(dfaTest.scan(str.split(" ")));
     //nfaTest.test1();
     //nfaTest.test2();
     //console.log(nfaTest);

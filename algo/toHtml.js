@@ -452,3 +452,12 @@ function nfaToHtml() {
     return "<table id='nfaTransferTable'>" + rst + "</table>";
 
 }
+
+function reAlphabetToHtml() {
+
+    var alphabet = new Array();
+    for (var i = 0; i < REGULAR_EXPRESSION.alphabet.length; ++i)
+        alphabet.push(REGULAR_EXPRESSION.alphabet[i]);
+    return "<pre>{ " + alphabet.join(", ") + " }</pre>";
+
+}

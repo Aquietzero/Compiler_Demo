@@ -99,6 +99,7 @@ function ReExpression(reInput) {
 
     for (var i = 0; i < reInput.length; ++i)
         this.reExp.push(new ReElement(reInput[i]));
+
     this.insertConcatenation();
 
 }
@@ -125,6 +126,16 @@ ReExpression.prototype.rePostfixToString = function() {
 
 }
 
+/* This function can only be called after reExp, postfixExp and
+ * astree are all calculated. Since the "#" is useless in NFA
+ * and DFA, so eliminated it is quite necessary.
+ */
+ReExpression.prototype.deleteEndmarker = function() {
+    
+    this.postfixExp.splice(this.postfixExp.length - 2, 2);
+
+}
+
 ReExpression.prototype.getAlphabet = function(reInput) {
 
     var alphabet = new Array();
@@ -132,7 +143,7 @@ ReExpression.prototype.getAlphabet = function(reInput) {
     for (var i = 0; i < reInput.length; ++i) {
         if (!RE_OPERATORS.contains(reInput[i]) &&
             !alphabet.contains(reInput[i])     &&
-            reInput[i] != "#")
+            reInput[i] != "#" && reInput[i] != "e")
             alphabet.push(reInput[i]);
     }
     
