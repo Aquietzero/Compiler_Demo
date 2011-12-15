@@ -13,8 +13,7 @@ var TERMINALS,
 
 function parseByLL_1() {
 
-    var sentenceInput = 
-        document.getElementById("ll_1SentenceInput").value.toString();
+    var sentenceInput = $("#ll_1SentenceInput").val();
     SENTENCE = sentenceInput.split(" ");
 
     RESULT = predictiveAnalysis(PREDICTIVE_TABLE, SENTENCE);
@@ -23,8 +22,7 @@ function parseByLL_1() {
 
 function parseBySLR() {
 
-    var sentenceInput = 
-        document.getElementById("slrSentenceInput").value.toString();
+    var sentenceInput = $("#slrSentenceInput").val();
     SENTENCE = sentenceInput.split(" ");
 
     RESULT = slrAnalysis(SLR_TABLE, SENTENCE, false);
@@ -33,8 +31,7 @@ function parseBySLR() {
 
 function parseByLR_1() {
 
-    var sentenceInput = 
-        document.getElementById("lr_1SentenceInput").value.toString();
+    var sentenceInput = $("#lr_1SentenceInput").val();
     SENTENCE = sentenceInput.split(" ");
 
     RESULT = slrAnalysis(SLR_TABLE, SENTENCE, true);
@@ -43,8 +40,8 @@ function parseByLR_1() {
 
 function getGrammar() {
 
-    var terminalInput = document.getElementById("terminalsInput").value.toString();
-    var grammarInput = document.getElementById("grammarInput").value.toString();
+    var terminalInput = $("#terminalsInput").val();
+    var grammarInput = $("#grammarInput").val();
 
     TERMINALS = terminalInput.split(", ");
     GRAMMAR = new Grammar(TERMINALS, grammarInput.split("\n"));
@@ -111,7 +108,8 @@ function getLR_1Grammar() {
 
 function getPostfix() {
 
-    INFIX = document.getElementById("infixInput").value.toString();
+    INFIX = $("#infixInput").val();
+    INFIX += " #";
 
     REGULAR_EXPRESSION = new ReExpression(INFIX.split(" "));
     RESULT = REGULAR_EXPRESSION.toPostfix();
@@ -121,11 +119,21 @@ function getPostfix() {
 
 function getRegularExpression() {
 
-    INFIX = document.getElementById("nfaInput").value.toString();
+    INFIX = $("#nfaInput").val();
+    INFIX += " #";
 
     REGULAR_EXPRESSION = new ReExpression(INFIX.split(" "));
     REGULAR_EXPRESSION.toPostfix();
     NF_AUTOMATON = new NFA(REGULAR_EXPRESSION);
+
+}
+
+function parseRegularExpression() {
+
+    var reInput = $("#reSentenceInput").val();
+    reInput += " #";
+
+    RESULT = NF_AUTOMATON.scan(reInput.split(" "));
 
 }
 

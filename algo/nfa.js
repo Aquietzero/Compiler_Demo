@@ -257,24 +257,55 @@ NFA.prototype.scan = function(input) {
 
     var states = this.epsilonClosure([this.begin.id]);
     var nextStates;
-    console.log("begin states : " + states);
+    var rst = "";
     
     for (var i = 0; i < input.length; ++i) {
 
         nextStates = this.move(states, input[i]);
+        rst = updateScan(rst, states, input[i], nextStates, i, input);
+
         if (!nextStates.isEmpty())
             states = this.epsilonClosure(nextStates);
         else
             break;
-        console.log("temp states ---> " + states + "  input ---> " + input[i]);
     
     }
 
-    console.log("final states ---> " + states);
-    if (states.contains(this.end.id))
-        return true;
-    else
-        return false;
+    if (!states.contains(this.end.id)) {
+        rst += "<strong class='warning'>" +
+            "<span class='skull'>☠</span>" +
+            "WARNING<br /></strong>" +
+            "<pre class='errorMessage'>" +
+            "The current input string does not match the regular expression." + 
+            "</pre>";
+    }
+
+    return rst;
+
+}
+
+function updateScan(
+    currRst, currStates, symbol, nextStates, pos, input) {
+
+    var currLine = "";
+
+    currLine += "<td class='currStates'>{ " +
+                currStates.join(",")       +
+                " }</td>";
+
+    currLine += "<td class='input'>" + symbol + "</td>";
+
+    currLine += "<td class='nextStates'>{ " +
+                currStates.join(",")       +
+                " }</td>";
+
+    currLine += "<td class='restInput'>";
+    for (var i = pos + 1; i < input.length; ++i)
+        currLine += input[i] + " ";
+    currLine += "</td>";
+
+    return currRst + "<tr>" + currLine + "</tr>";
+
 }
 
 NFA.prototype.test1 = function() {

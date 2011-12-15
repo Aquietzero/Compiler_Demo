@@ -2,6 +2,7 @@ $(function() {
     
     $("#toNfaPage").bind("click", showNfaPage);
     $("#nfaConfirm").bind("click", showNfaTransferTable);
+    $("#reSentenceConfirm").bind("click", showReParsingResult);
 
 });
 
@@ -34,8 +35,21 @@ function showNfaTransferTable() {
 
 }
 
+function showReParsingResult() {
+    
+    $("#reParsingResultDisplayArea table").remove();
+    $("#reParsingResultDisplayArea strong").remove();
+    $("#reParsingResultDisplayArea pre").remove();
+
+    parseRegularExpression();
+    $(reParsingResultToHtml()).insertAfter("#reParsingResultDisplay");
+    $("#reParsingResultDisplayArea").fadeIn("slow");
+
+}
+
 function clearNfaPage() {
     
     $("#nfaTransferTableDisplayArea table").remove();
+    $("#reParsingResultDisplayArea table").remove();
 
 }

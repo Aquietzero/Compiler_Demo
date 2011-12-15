@@ -12,9 +12,12 @@
     font-style: oblique;
     font-weight: bold;
     text-shadow: 0 0 2px #666666;
+    clear: both;
 }
 
-#nfaTransferTableDisplayArea, .nfaInputInstruction {
+#nfaTransferTableDisplayArea, 
+#reParsingResultDisplayArea,
+.nfaInputInstruction {
     width: 95%;
     padding: 10px;
     margin-top: 10px;
@@ -33,7 +36,7 @@
     color: #666666;
 }
 
-#nfaTransferTable {
+#nfaTransferTable, #reParsingResult {
     width: 95%;
     font-family: monospace, sans-serif, serif;
     margin: 20px auto;
@@ -44,15 +47,30 @@
     color: #666666;
 }
 
-#nfaTransferTable td {
+#nfaTransferTable td, #reParsingResult td {
     border: solid 1px #BBBBBB;
     padding: 2px 10px;
 }
 
-#nfaTransferTable tr:nth-of-type(even) {
+#nfaTransferTable tr:nth-of-type(even),
+#reParsingResult tr:nth-of-type(even) {
     background-color: rgba(200, 200, 200, 0.15);
 }
 
-#nfaTransferTable tr:nth-of-type(1) {
+#nfaTransferTable tr:nth-of-type(1),
+#reParsingResult tr:nth-of-type(1) {
     font-weight: bold;
+}
+
+#reParsingResult .currStates,
+#reParsingResult .nextStates {
+    text-align: left;
+}
+
+#reParsingResult .restInput {
+    text-align: right;
+}
+
+#reParsingResult .input {
+    text-align: center;
 }

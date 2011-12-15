@@ -240,7 +240,6 @@ ReExpression.prototype.toPostfix = function() {
 
 
 function updateToPostfixResult(
-
     currRst, stack, postfix, currReElem, reExp, pos) {
     
     var currLine = "";

@@ -428,6 +428,18 @@
 
                 <div id="nfaTransferTableDisplayArea">
                     <p id="nfaTransferTableDisplay" class="nfaPageSubTitle">☸ NFA Transfer Table:</p>
+                    <p class="normal">The NFA given above is not the optimal one. If you draw the NFA transfer graph in a piece of paper, you may find out that there are some useless states which only contains epsilon transfer. These states can be eliminated directly.</p>
+                </div>
+
+                <!--
+                    LR(1) analysis algorithm on the air.
+                -->
+                <p class="nfaPageSubTitle">✺ Sentence:</p>
+                <textarea id="reSentenceInput" rows="1"></textarea>
+                <button id="reSentenceConfirm">submit</button>
+
+                <div id="reParsingResultDisplayArea">
+                    <p id="reParsingResultDisplay" class="nfaPageSubTitle">✺ Regular Expression Parsing Result:</p>
                 </div>
 
             </div>

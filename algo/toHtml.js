@@ -169,6 +169,18 @@ function toPostfixResultToHtml() {
 
 }
 
+function reParsingResultToHtml() {
+
+    RESULT = "<tr class='tableHead'>" +
+                "<td>Current States</td>" +
+                "<td>Input</td>" +
+                "<td>Next States</td>" +
+                "<td>Rest Input</td>" +
+             "</tr>" + RESULT;
+    return "<table id='reParsingResult'>" + RESULT + "</table>";
+
+}
+
 function addConcatenationToHtml() {
     
     var rst = "";

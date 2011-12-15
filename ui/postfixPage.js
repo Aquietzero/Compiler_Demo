@@ -1,4 +1,4 @@
-var DEFAULT_RE = "( a | b ) * a b b #";
+var DEFAULT_RE = "( a | b ) * a b b";
 
 $(function() {
 
