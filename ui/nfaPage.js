@@ -1,6 +1,7 @@
 $(function() {
     
     $("#toNfaPage").bind("click", showNfaPage);
+    $("#nfaConfirm").bind("click", showNfaTransferTable);
 
 });
 
@@ -18,6 +19,23 @@ function showNfaPage() {
     hideAllPages();
 
     $("#nfaPage").fadeIn("slow");
+    $("#nfaTransferTableDisplayArea").css("display", "none");
     showLexicalNavigation();
+
+}
+
+function showNfaTransferTable() {
+    
+    clearNfaPage();
+    getRegularExpression();
+
+    $(nfaToHtml()).insertAfter("#nfaTransferTableDisplay");
+    $("#nfaTransferTableDisplayArea").fadeIn("slow");
+
+}
+
+function clearNfaPage() {
+    
+    $("#nfaTransferTableDisplayArea table").remove();
 
 }

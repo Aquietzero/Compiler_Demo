@@ -8,7 +8,8 @@ var TERMINALS,
     SLR_TABLE,
     INFIX,
     POSTFIX,
-    REGULAR_EXPRESSION;
+    REGULAR_EXPRESSION,
+    NF_AUTOMATON;
 
 function parseByLL_1() {
 
@@ -118,6 +119,16 @@ function getPostfix() {
 
 }
 
+function getRegularExpression() {
+
+    INFIX = document.getElementById("nfaInput").value.toString();
+
+    REGULAR_EXPRESSION = new ReExpression(INFIX.split(" "));
+    REGULAR_EXPRESSION.toPostfix();
+    NF_AUTOMATON = new NFA(REGULAR_EXPRESSION);
+
+}
+
 window.onload = function() {
     //============ TEST AREA ================
     //var re = "( a | b ) * a b b #";
@@ -126,7 +137,7 @@ window.onload = function() {
     var re = "c * d ( c | d ) * #";
     var reTest = new ReExpression(re.split(" "));
 
-    //console.log(reTest);
+    console.log(reTest);
 
     reTest.toPostfix();
     reTest.establishAST();

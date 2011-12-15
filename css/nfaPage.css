@@ -14,7 +14,7 @@
     text-shadow: 0 0 2px #666666;
 }
 
-.nfaInputInstruction {
+#nfaTransferTableDisplayArea, .nfaInputInstruction {
     width: 95%;
     padding: 10px;
     margin-top: 10px;
@@ -31,4 +31,28 @@
     font-style: italic;
     font-size: 11pt;
     color: #666666;
+}
+
+#nfaTransferTable {
+    width: 95%;
+    font-family: monospace, sans-serif, serif;
+    margin: 20px auto;
+    padding: 5px;
+    text-align: center;
+    border: solid 1px #BBBBBB;
+    border-collapse: collapse;
+    color: #666666;
+}
+
+#nfaTransferTable td {
+    border: solid 1px #BBBBBB;
+    padding: 2px 10px;
+}
+
+#nfaTransferTable tr:nth-of-type(even) {
+    background-color: rgba(200, 200, 200, 0.15);
+}
+
+#nfaTransferTable tr:nth-of-type(1) {
+    font-weight: bold;
 }

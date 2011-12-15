@@ -38,6 +38,7 @@ function clearAllPages() {
     clearLR_0Page();
     clearLR_1Page();
     clearPostfixPage();
+    clearNfaPage();
 }
 
 /* Title behaviors control

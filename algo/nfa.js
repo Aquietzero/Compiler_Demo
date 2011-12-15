@@ -97,6 +97,18 @@ NFAState.prototype.addEdge = function(e) {
 
 }
 
+/* Search an edge according to the input in a specific state. */
+NFAState.prototype.searchEdge = function(input) {
+
+    var edges = new Array();
+    for (var i = 0; i < this.edges.length; ++i) {
+        if (this.edges[i].input == input)
+            edges.push(this.edges[i]);
+    }
+    return edges;
+
+}
+
 function NFAEdge(prev, next, input) {
 
     this.prev = prev;

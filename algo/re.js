@@ -95,6 +95,7 @@ function ReExpression(reInput) {
     this.reExp      = new Array();
     this.postfixExp = new Array();
     this.astree     = undefined;
+    this.alphabet   = this.getAlphabet(reInput);
 
     for (var i = 0; i < reInput.length; ++i)
         this.reExp.push(new ReElement(reInput[i]));
@@ -121,6 +122,21 @@ ReExpression.prototype.rePostfixToString = function() {
         reString.push(this.postfixExp[i].character);
 
     return reString.join(" ");
+
+}
+
+ReExpression.prototype.getAlphabet = function(reInput) {
+
+    var alphabet = new Array();
+
+    for (var i = 0; i < reInput.length; ++i) {
+        if (!RE_OPERATORS.contains(reInput[i]) &&
+            !alphabet.contains(reInput[i])     &&
+            reInput[i] != "#")
+            alphabet.push(reInput[i]);
+    }
+    
+    return alphabet;
 
 }
 

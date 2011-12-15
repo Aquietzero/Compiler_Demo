@@ -373,6 +373,7 @@ function parseSLRTableItem(slrTableItem) {
 }
 
 function slrProductionListToHtml() {
+
     var rst = "";
     var currItem, maxLength;
     var productionHeads = new Array();
@@ -394,4 +395,48 @@ function slrProductionListToHtml() {
     }    
 
     return "<pre id='slrProductionList'>" + rst + "</pre>";
+
+}
+
+function nfaToHtml() {
+    
+    var rst = "";
+    var currState, currEdges;
+    var currSet;
+    var alphabet = NF_AUTOMATON.reExp.alphabet;
+
+    // Print the letters in alphabet and the epsilon and endmarker.
+    rst += "<tr>" + "<td>states</td>";
+    for (var i = 0; i < alphabet.length; ++i)
+        rst += "<td>" + alphabet[i] + "</td>";
+    rst += "<td>&#603;</td>";
+    rst += "<td>#</td>";
+    rst += "</tr>";
+
+    alphabet.push("e");
+    alphabet.push("#");
+
+    for (var id in NF_AUTOMATON.states) {
+
+        rst += "<tr>";
+        rst += "<td>" + id + "</td>";
+
+        currState = NF_AUTOMATON.states[id];
+        for (var j = 0; j < alphabet.length; ++j) {
+            currEdges = currState.searchEdge(alphabet[j]);
+            if (!currEdges.isEmpty()) {
+                currSet = new Array();
+                for (var n = 0; n < currEdges.length; ++n)
+                    currSet.push(currEdges[n].next.id);
+                rst += "<td>{ " + currSet.join(", ") + " }</td>";
+            }
+            else
+                rst += "<td>&#8709;</td>";
+        }
+        rst += "</tr>";
+
+    }
+
+    return "<table id='nfaTransferTable'>" + rst + "</table>";
+
 }
