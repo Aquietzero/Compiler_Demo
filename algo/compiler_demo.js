@@ -124,7 +124,7 @@ function getRegularExpression() {
 
     REGULAR_EXPRESSION = new ReExpression(INFIX.split(" "));
     REGULAR_EXPRESSION.toPostfix();
-    REGULAR_EXPRESSION.deleteEndmarker();
+    //REGULAR_EXPRESSION.deleteEndmarker();
     NF_AUTOMATON = new NFA(REGULAR_EXPRESSION);
 
 }
@@ -133,6 +133,7 @@ function parseRegularExpression() {
 
     var reInput = $("#reSentenceInput").val();
 
+    reInput += " #";
     RESULT = NF_AUTOMATON.scan(reInput.split(" "));
 
 }
@@ -150,11 +151,9 @@ window.onload = function() {
     reTest.deleteEndmarker();
 
     console.log(reTest);
-    //console.log(reTest.reToString());
-    //console.log(reTest.rePostfixToString());
 
     var nfaTest = new NFA(reTest);
-    var str = "a b a b b a b b a b b #";
+    var str = "b b #";
 
     var dfaTest = new DFA(reTest);
     console.log(nfaTest);
@@ -162,18 +161,22 @@ window.onload = function() {
     dfaTest.constructByNFA(nfaTest);
     console.log(dfaTest);
     //console.log(dfaTest.scan(str.split(" ")));
-    //nfaTest.test1();
-    //nfaTest.test2();
     //console.log(nfaTest);
     //console.log(nfaTest.scan(str.split(" ")));
     
-    //var lex = "letter -> a | b\nword -> letter *";
-    var lex = "digit  -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9\n" +
-              "digits -> digit digit *\n" +
-              "optionalFraction -> . digits | e";
+    var lex = "letter -> a | b\n" +
+              "word -> letter *";
+
+    //var lex = "digit  -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9\n" +
+    //          "digits -> digit digit *\n" +
+    //          "optionalFraction -> . digits | e";
     var lexerTest = new Lexer(lex);
+
+    console.log(lexerTest);
     lexerTest.getReDefinition();
     lexerTest.getReducedReDefinition();
-    console.log(lexerTest);
+    lexerTest.constructLexerNFA();
+
+    console.log(lexerTest.lexerNFA.scan(["a"]));
 
 };

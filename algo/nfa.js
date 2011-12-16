@@ -128,7 +128,7 @@ function NFA(reExp, beginID) {
     this.end    = undefined;
     this.states = {};
 
-    this.constructNFA(beginID);
+    this.constructNFA(beginID || 0);
 
 }
 
@@ -278,13 +278,16 @@ NFA.prototype.scan = function(input) {
     
     }
 
-    if (!states.contains(this.end.id)) {
+    console.log(states.join(","));
+    console.log(this.end);
+    if (!states.contains(this.end.id) ||
+        !states.intersection(this.end).isEmpty()) {
         rst += "<strong class='warning'>" +
-            "<span class='skull'>☠</span>" +
-            "WARNING<br /></strong>" +
-            "<pre class='errorMessage'>" +
-            "The current input string does not match the regular expression." + 
-            "</pre>";
+               "<span class='skull'>☠</span>" +
+               "WARNING<br /></strong>" +
+               "<pre class='errorMessage'>" +
+               "The current input string does not match the regular expression." + 
+               "</pre>";
     }
 
     return rst;

@@ -59,7 +59,7 @@ function Lexer(reDefinitions) {
     this.originReDefinitions = reDefinitions;
     this.reDefinitions       = [];
     this.reducedReDefinition = {};
-    this.lexerNFA            = {};
+    this.lexerNFA            = new NFA();
 
 }
 
@@ -131,8 +131,15 @@ Lexer.prototype.getReducedReDefinition = function() {
     
     }
 
+    return msg;
+
 }
 
+/* This method constructs a general NFA for the given regular expressions.
+ * Actually, its job is simple. A new beginning state connects all the
+ * NFAs corresponds to the regular expressions. The new end state is the
+ * conbination of those NFAs.
+ */
 Lexer.prototype.constructLexerNFA = function() {
 
     var currReDef;
@@ -141,24 +148,37 @@ Lexer.prototype.constructLexerNFA = function() {
     var beginState, endState;
     var beginID, endID;
 
-    // Construct the beginning state.
-    beginState = new NFAState(0);
-
     // Construct all the NFAs of each regular expression definition.
+    // The id begins with 1 because 0 is reserved for the begin state
+    // of lexerNFA. And in order to make the ids different, each NFA
+    // begins with the id of the end state of the previous NFA.
     beginID    = 1; 
-    for (var i = 0; i < this.reducedReDefinition.length; ++i) {
+    for (var token in this.reducedReDefinition) {
     
-        currReDef = this.reducedReDefinition[i];
+        currReDef = this.reducedReDefinition[token];
+        currReDef.toPostfix();
         nfa = new NFA(currReDef, beginID);
-        nfas.push(nfa);
         beginID = nfa.end.id + 1;
+        nfas.push(nfa);
     
     }
 
+    // Construct the begin state and the end state.
+    beginState = new NFAState(0);
+    endState   = new Array();
+    // Connect the begin state to all the NFAs.
     for (var i = 0; i < nfas.length; ++i) {
     
         nfa = nfas[i];
-
+        beginState.addEdge(new NFAEdge(beginState, nfa.begin, "e"));
+        endState.push(nfa.end);
+        for (var id in nfa.states) 
+            this.lexerNFA.states[id] = nfa.states[id];
     
     }
+
+    this.lexerNFA.begin = beginState;
+    this.lexerNFA.end   = endState;
+    this.lexerNFA.states[0] = beginState;
+
 }
