@@ -161,10 +161,19 @@ window.onload = function() {
 
     dfaTest.constructByNFA(nfaTest);
     console.log(dfaTest);
-    console.log(dfaTest.scan(str.split(" ")));
+    //console.log(dfaTest.scan(str.split(" ")));
     //nfaTest.test1();
     //nfaTest.test2();
     //console.log(nfaTest);
     //console.log(nfaTest.scan(str.split(" ")));
     
+    //var lex = "letter -> a | b\nword -> letter *";
+    var lex = "digit  -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9\n" +
+              "digits -> digit digit *\n" +
+              "optionalFraction -> . digits | e";
+    var lexerTest = new Lexer(lex);
+    lexerTest.getReDefinition();
+    lexerTest.getReducedReDefinition();
+    console.log(lexerTest);
+
 };

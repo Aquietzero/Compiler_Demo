@@ -64,7 +64,6 @@ DFA.prototype.scan = function(input) {
     var state = 0;
     for (var i = 0; i < input.length; ++i) {
         state = this.states[state][input[i]];
-        console.log("curr State--->" + state);
         if (this.end.contains(state))
             return true;
     }

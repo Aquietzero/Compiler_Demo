@@ -101,3 +101,8 @@ Array.prototype.insert = function(elem, pos) {
     this.splice(pos, 0, elem);
 }
 
+Array.prototype.splice2 = function(start, count, arr) {
+    this.splice(start, count);
+    for (var i = 0; i < arr.length; ++i)
+        this.splice(start + i, 0, arr[i]);
+}

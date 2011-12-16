@@ -49,6 +49,7 @@ function ReElement(c) {
 
     this.character  = c;
     this.isOperator = RE_OPERATORS.contains(c);
+    this.isToken    = c.length > 1;
     this.precedency = RE_PRECEDENCY[c] || 0;
     this.dimension  = RE_OP_DIMENSION[c] || 0;
 
@@ -169,7 +170,7 @@ ReExpression.prototype.insertConcatenation = function() {
             left.equalsTo(")") && !right.isOperator   ||
             left.equalsTo("*") && !right.isOperator   ||
             left.equalsTo("*") && right.equalsTo("(") ||
-            left.equalsTo("(") && right.equalsTo(")")) {
+            left.equalsTo(")") && right.equalsTo("(")) {
 
             this.reExp.insert(new ReElement("~"), i);
             i++;

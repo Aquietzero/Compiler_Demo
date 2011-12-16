@@ -117,26 +117,32 @@ function NFAEdge(prev, next, input) {
 
 }
 
-/* Nondeterministic Finite Automaton. */
-function NFA(reExp) {
+/* Nondeterministic Finite Automaton. beginID is used for constructing
+ * the whole NFA for the lexical analyzer. If no beginID is passed to
+ * the constructor, then it will be default to be 0.
+ */
+function NFA(reExp, beginID) {
 
-    this.reExp  = reExp;
+    this.reExp  = reExp || undefined;
     this.begin  = undefined;
     this.end    = undefined;
     this.states = {};
 
-    this.constructNFA();
+    this.constructNFA(beginID);
 
 }
 
-NFA.prototype.constructNFA = function() {
+NFA.prototype.constructNFA = function(beginID) {
+
+    if (!this.reExp)
+        return;
 
     var postfix = this.reExp.postfixExp;
     var nfaStack = new Array();
     var begin, end, edge;
     var nfa1, nfa2;
     var currReElem;
-    var id = new IDGenerator(0);
+    var id = new IDGenerator(beginID || 0);
 
     for (var i = 0; i < postfix.length; ++i) {
     
