@@ -28,11 +28,14 @@ DFA.prototype.constructByNFA = function(nfa) {
     dfaState = id.nextID(nfaStates.sort().join(","));
     this.states[dfaState] = {};
 
+    // Keep generate new states until the stack is empty.
     while (!stateStack.isEmpty()) {
         
         nfaStates = stateStack.pop();
         dfaState  = id.getID(nfaStates.sort().join(","));
 
+        // For a specific state and a given input, calculate the epsilon
+        // closure and add it to the 2-dimension table.
         for (var i = 0; i < alphabet.length; ++i) {
         
             nextNfaStates = nfa.epsilonClosure(
@@ -71,3 +74,31 @@ DFA.prototype.scan = function(input) {
     return false;
 
 }
+
+/* Display the DFA in a specific format which makes the debug
+ * more convinient and easy.
+ */
+DFA.prototype.displayDFA = function() {
+
+    var rst = 'DFA\n';
+    var nextState;
+    var alphabet = this.reExp.alphabet;
+
+    rst += 'begin state: ' +
+           this.begin.id + '\n' +
+           'end states: ' +
+           this.end.id + '\n';
+
+    for (var id in this.states) {
+        rst += '\nstate ' + id + ': ';
+        for (var i = 0; i < alphabet.length; ++i) {
+            nextState = this.states[id][alphabet[i]];
+            rst += '(' + nextState + ',' + alphabet[i] + ') ===> ';
+        }
+    }
+
+    return rst + '\n==============================\n';
+
+}
+
+

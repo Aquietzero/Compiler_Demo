@@ -86,11 +86,12 @@
  */
 function NFAState(id) {
 
-    this.id = id;
+    this.id = id || 0;
     this.edges = new Array();
 
 }
 
+/* Add a corresponding edge to the current vertex. */
 NFAState.prototype.addEdge = function(e) {
 
     this.edges.push(e);
@@ -219,12 +220,10 @@ NFA.prototype.epsilonClosure = function(states) {
         toStates = this.move([currState], "e");
 
         for (var i = 0; i < toStates.length; ++i) {
-
             if (!closure.contains(toStates[i])) {
                 stateStack.push(toStates[i]);
                 count++;
             }
-
         }
 
     } while (!stateStack.isEmpty());
@@ -315,6 +314,35 @@ function updateScan(
     currLine += "</td>";
 
     return currRst + "<tr>" + currLine + "</tr>";
+
+}
+
+/* Display the NFA in a specific format which makes the debug
+ * more convinient and easy.
+ */
+NFA.prototype.displayNFA = function() {
+
+    var rst = 'NFA\n';
+    var currState;
+    var currEdge;
+
+    rst += 'begin state: ' +
+           this.begin.id + '\n' +
+           'end states: ' +
+           this.end.id + '\n';
+
+    for (var id in this.states) {
+        currState = this.states[id];
+        rst += '\nstate ' + id + ': ';
+        for (var i = 0; i < currState.edges.length; ++i) {
+            currEdge = currState.edges[i];
+            rst += '(' + currEdge.prev.id + ',' 
+                       + currEdge.next.id + ','
+                       + currEdge.input + ') ===> ';
+        }
+    }
+
+    return rst + '\n==============================\n';
 
 }
 

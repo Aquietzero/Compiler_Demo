@@ -170,6 +170,9 @@ Lexer.prototype.constructLexerNFA = function() {
     for (var i = 0; i < nfas.length; ++i) {
     
         nfa = nfas[i];
+
+        console.log(nfa.displayNFA());
+
         beginState.addEdge(new NFAEdge(beginState, nfa.begin, "e"));
         endState.push(nfa.end);
         for (var id in nfa.states) 
