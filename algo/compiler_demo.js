@@ -172,6 +172,7 @@ window.onload = function() {
     lexerTest.getReDefinition();
     lexerTest.getReducedReDefinition();
     lexerTest.constructLexerNFA();
+    console.log(lexerTest);
     console.log(lexerTest.lexerNFA.displayNFA());
 
 };

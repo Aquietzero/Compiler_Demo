@@ -158,7 +158,7 @@ Lexer.prototype.constructLexerNFA = function() {
         currReDef = this.reducedReDefinition[token];
         currReDef.toPostfix();
         nfa = new NFA(currReDef, beginID);
-        beginID = nfa.end.id + 1;
+        beginID = parseInt(nfa.end) + 1;
         nfas.push(nfa);
     
     }
@@ -173,15 +173,16 @@ Lexer.prototype.constructLexerNFA = function() {
 
         console.log(nfa.displayNFA());
 
-        beginState.addEdge(new NFAEdge(beginState, nfa.begin, "e"));
+        beginState.addEdge(new NFAEdge(beginState, nfa.states[nfa.begin], "e"));
         endState.push(nfa.end);
         for (var id in nfa.states) 
             this.lexerNFA.states[id] = nfa.states[id];
     
     }
 
-    this.lexerNFA.begin = beginState;
+    this.lexerNFA.begin = beginState.id;
     this.lexerNFA.end   = endState;
     this.lexerNFA.states[0] = beginState;
 
 }
+

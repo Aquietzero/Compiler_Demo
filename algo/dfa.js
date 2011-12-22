@@ -17,7 +17,7 @@ function DFA(reExp) {
 
 DFA.prototype.constructByNFA = function(nfa) {
 
-    var nfaStates = nfa.epsilonClosure([nfa.begin.id]);
+    var nfaStates = nfa.epsilonClosure([nfa.begin]);
     var nextNfaStates;
     var dfaState, nextDfaState;
     var stateStack = new Array();
@@ -35,7 +35,7 @@ DFA.prototype.constructByNFA = function(nfa) {
         nfaStates = stateStack.pop();
         dfaState  = id.getID(nfaStates.sort().join(","));
 
-        console.log(nfaStates.sort().join(',') + '---' + dfaState);
+        //console.log(nfaStates.sort().join(',') + '---' + dfaState);
 
         // For a specific state and a given input, calculate the epsilon
         // closure and add it to the 2-dimension table.
@@ -57,7 +57,8 @@ DFA.prototype.constructByNFA = function(nfa) {
                 // Set current transfer rule.
                 this.states[dfaState][alphabet[i]] = nextDfaState;
 
-                if (nextNfaStates.contains(nfa.end.id))
+                if (!nextNfaStates.intersection(nfa.end).isEmpty() &&
+                    !this.end.contains(nextDfaState))
                     this.end.push(nextDfaState);
             }
 

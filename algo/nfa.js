@@ -120,7 +120,9 @@ function NFAEdge(prev, next, input) {
 
 /* Nondeterministic Finite Automaton. beginID is used for constructing
  * the whole NFA for the lexical analyzer. If no beginID is passed to
- * the constructor, then it will be default to be 0.
+ * the constructor, then it will be default to be 0. The end attribute
+ * in NFA is an array rather than just a single NFAState. Since the NFA
+ * in the lexer may have several end states.
  */
 function NFA(reExp, beginID) {
 
@@ -193,8 +195,8 @@ NFA.prototype.constructNFA = function(beginID) {
         this.states[end.id]   = end;
     }
 
-    this.begin = nfaStack.top()[0];
-    this.end   = nfaStack.top()[1];
+    this.begin = nfaStack.top()[0].id;
+    this.end   = [nfaStack.top()[1].id];
 
 }
 
@@ -264,7 +266,7 @@ NFA.prototype.move = function(states, input) {
 
 NFA.prototype.scan = function(input) {
 
-    var states = this.epsilonClosure([this.begin.id]);
+    var states = this.epsilonClosure([this.begin]);
     var nextStates;
     var rst = "";
     
@@ -280,9 +282,7 @@ NFA.prototype.scan = function(input) {
     
     }
 
-    console.log(states.join(","));
-    console.log(this.end);
-    if (!states.contains(this.end.id) ||
+    if (!states.contains(this.end[0]) ||
         !states.intersection(this.end).isEmpty()) {
         rst += "<strong class='warning'>" +
                "<span class='skull'>☠</span>" +
@@ -330,9 +330,11 @@ NFA.prototype.displayNFA = function() {
     var currEdge;
 
     rst += 'begin state: ' +
-           this.begin.id + '\n' +
-           'end states: ' +
-           this.end.id + '\n';
+           this.begin + '\n' +
+           'end states: ';
+    for (var i = 0; i < this.end.length; ++i)
+        rst += this.end[i] + ' ';
+    rst += '\n';
 
     for (var id in this.states) {
         currState = this.states[id];
