@@ -57,9 +57,16 @@
 function Lexer(reDefinitions) {
 
     this.originReDefinitions = reDefinitions;
-    this.reDefinitions       = [];
+    this.reDefinitions = []; 
     this.reducedReDefinition = {};
-    this.lexerNFA            = new NFA();
+    this.lexerNFA = new NFA();
+
+    this.getReDefinition();
+    this.getReducedReDefinition();
+    this.constructLexerNFA();
+
+    // construct the DFA according to the NFA which is calculated above.
+    this.lexerDFA = new DFA(this.lexerNFA);
 
 }
 
@@ -144,6 +151,7 @@ Lexer.prototype.constructLexerNFA = function() {
 
     var currReDef;
     var nfas = new Array();
+    var alphabet = new Array();
     var nfa;
     var beginState, endState;
     var beginID, endID;
@@ -160,6 +168,10 @@ Lexer.prototype.constructLexerNFA = function() {
         nfa = new NFA(currReDef, beginID);
         beginID = parseInt(nfa.end) + 1;
         nfas.push(nfa);
+
+        // Merge all the alphabets from different NFAs to make an alphabet
+        // for the lexer NFA.
+        alphabet.merge(nfa.alphabet);
     
     }
 
@@ -174,7 +186,7 @@ Lexer.prototype.constructLexerNFA = function() {
         console.log(nfa.displayNFA());
 
         beginState.addEdge(new NFAEdge(beginState, nfa.states[nfa.begin], "e"));
-        endState.push(nfa.end);
+        endState.pushArray(nfa.end);
         for (var id in nfa.states) 
             this.lexerNFA.states[id] = nfa.states[id];
     
@@ -183,6 +195,7 @@ Lexer.prototype.constructLexerNFA = function() {
     this.lexerNFA.begin = beginState.id;
     this.lexerNFA.end   = endState;
     this.lexerNFA.states[0] = beginState;
+    this.lexerNFA.alphabet = alphabet;
 
 }
 

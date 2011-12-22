@@ -6,12 +6,15 @@
  * both provided here.
  */
 
-function DFA(reExp) {
+function DFA(nfa) {
 
-    this.reExp  = reExp;
     this.begin  = 0;
     this.end    = new Array();
     this.states = {};
+    this.reExp  = nfa.reExp || undefined;
+    this.alphabet = nfa.alphabet || ['#'];
+
+    this.constructByNFA(nfa);
 
 }
 
@@ -22,9 +25,8 @@ DFA.prototype.constructByNFA = function(nfa) {
     var dfaState, nextDfaState;
     var stateStack = new Array();
     var id = new NameID();
-    var alphabet = nfa.reExp.alphabet;
+    var alphabet = nfa.alphabet.clone();
 
-    alphabet.push('#');
     stateStack.push(nfaStates);
     dfaState = id.nextID(nfaStates.sort().join(","));
     this.states[dfaState] = {};
@@ -91,7 +93,7 @@ DFA.prototype.displayDFA = function() {
 
     var rst = 'DFA\n';
     var nextState;
-    var alphabet = this.reExp.alphabet;
+    var alphabet = this.alphabet;
 
     rst += 'begin state: ' +
            this.begin + '\n';

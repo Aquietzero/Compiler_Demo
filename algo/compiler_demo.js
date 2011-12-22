@@ -140,11 +140,11 @@ function parseRegularExpression() {
 
 window.onload = function() {
     //============ TEST AREA ================
-    //var re = "( a | b ) * a b b #";
+    var re = "( a | b ) * a b b #";
     //var re = "{ letter } ( { letter } | { digit } ) * #";
     //var re = "a * ( b a * b ) * | b * ( a b * a ) * b * #";
     //var re = "c * d ( c | d ) * #";
-    var re = 'a | b #';
+    //var re = 'a | b #';
     var reTest = new ReExpression(re.split(" "));
 
     reTest.toPostfix();
@@ -152,10 +152,10 @@ window.onload = function() {
     //reTest.deleteEndmarker();
 
     var nfaTest = new NFA(reTest);
-    var dfaTest = new DFA(reTest);
+    var dfaTest = new DFA(nfaTest);
     var str = 'b #';
 
-    dfaTest.constructByNFA(nfaTest);
+    console.log(nfaTest.displayNFA());
     console.log(dfaTest.displayDFA());
     console.log(dfaTest.scan(str.split(" ")));
     //console.log(nfaTest);
@@ -169,10 +169,8 @@ window.onload = function() {
     //          "optionalFraction -> . digits | e";
     var lexerTest = new Lexer(lex);
 
-    lexerTest.getReDefinition();
-    lexerTest.getReducedReDefinition();
-    lexerTest.constructLexerNFA();
     console.log(lexerTest);
     console.log(lexerTest.lexerNFA.displayNFA());
+    console.log(lexerTest.lexerDFA.displayDFA());
 
 };

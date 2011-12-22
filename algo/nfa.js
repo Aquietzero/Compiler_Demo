@@ -126,10 +126,14 @@ function NFAEdge(prev, next, input) {
  */
 function NFA(reExp, beginID) {
 
-    this.reExp  = reExp || undefined;
-    this.begin  = undefined;
-    this.end    = undefined;
+    this.begin;
+    this.end;
     this.states = {};
+    this.reExp  = reExp || undefined;
+
+    if (reExp) this.alphabet = reExp.alphabet.clone();
+    else       this.alphabet = [];
+    this.alphabet.push('#');
 
     this.constructNFA(beginID || 0);
 
