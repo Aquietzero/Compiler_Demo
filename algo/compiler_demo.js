@@ -149,14 +149,15 @@ window.onload = function() {
 
     reTest.toPostfix();
     reTest.establishAST();
-    reTest.deleteEndmarker();
+    //reTest.deleteEndmarker();
 
     var nfaTest = new NFA(reTest);
     var dfaTest = new DFA(reTest);
+    var str = 'b #';
 
     dfaTest.constructByNFA(nfaTest);
     console.log(dfaTest.displayDFA());
-    //console.log(dfaTest.scan(str.split(" ")));
+    console.log(dfaTest.scan(str.split(" ")));
     //console.log(nfaTest);
     //console.log(nfaTest.scan(str.split(" ")));
     

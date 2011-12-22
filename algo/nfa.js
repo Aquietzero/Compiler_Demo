@@ -204,26 +204,26 @@ NFA.prototype.constructNFA = function(beginID) {
  */
 NFA.prototype.epsilonClosure = function(states) {
     
+    if (states.isEmpty())
+        return [];
+
     var closure = new Array();
     var stateStack = new Array();
     var currState, toStates;
-    var count = 0;
 
     for (var i = 0; i < states.length; ++i)
         stateStack.push(states[i]);
 
     do {
 
-        count = 0;
         currState = stateStack.pop();
         closure.push(currState);
         toStates = this.move([currState], "e");
+        //console.log('toStates' + toStates);
 
         for (var i = 0; i < toStates.length; ++i) {
-            if (!closure.contains(toStates[i])) {
+            if (!closure.contains(toStates[i]))
                 stateStack.push(toStates[i]);
-                count++;
-            }
         }
 
     } while (!stateStack.isEmpty());
@@ -257,6 +257,7 @@ NFA.prototype.move = function(states, input) {
 
     }
 
+    //console.log(states + '--- in move(' + input + ') ---' + toStates);
     return toStates;
 
 }

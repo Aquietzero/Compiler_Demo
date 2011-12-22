@@ -35,6 +35,8 @@ DFA.prototype.constructByNFA = function(nfa) {
         nfaStates = stateStack.pop();
         dfaState  = id.getID(nfaStates.sort().join(","));
 
+        console.log(nfaStates.sort().join(',') + '---' + dfaState);
+
         // For a specific state and a given input, calculate the epsilon
         // closure and add it to the 2-dimension table.
         for (var i = 0; i < alphabet.length; ++i) {
@@ -43,17 +45,21 @@ DFA.prototype.constructByNFA = function(nfa) {
                             nfa.move(nfaStates, alphabet[i]));
 
             if (!nextNfaStates.isEmpty()) {
+                // Get next DFA state according to the given name which is
+                // given by the NFA state.
                 nextDfaState = id.nextID(nextNfaStates.sort().join(","));
+                // If the state is not in the DFA transfer table yet, push
+                // it to the table.
                 if (!this.states[nextDfaState]) {
                     stateStack.push(nextNfaStates);
                     this.states[nextDfaState] = {};
                 }
+                // Set current transfer rule.
+                this.states[dfaState][alphabet[i]] = nextDfaState;
+
+                if (nextNfaStates.contains(nfa.end.id))
+                    this.end.push(nextDfaState);
             }
-
-            this.states[dfaState][alphabet[i]] = nextDfaState;
-
-            if (nextNfaStates.contains(nfa.end.id))
-                this.end.push(nextDfaState);
 
         }
     
@@ -70,11 +76,10 @@ DFA.prototype.scan = function(input) {
     var state = 0;
     for (var i = 0; i < input.length; ++i) {
         state = this.states[state][input[i]];
-        if (this.end.contains(state))
-            return true;
     }
 
-    return false;
+    if (this.end.contains(state)) return true;
+    else                          return false;
 
 }
 
