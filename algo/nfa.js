@@ -246,11 +246,13 @@ NFA.prototype.move = function(states, input) {
         
         //console.log(states.join(" "));
         currState = this.states[states[i]];
-        for (var j = 0; j < currState.edges.length; ++j) {
-            nextState = currState.edges[j].next.id;
-            if (currState.edges[j].input == input &&
-                !toStates.contains(nextState))
-                toStates.push(nextState);
+        if (currState) {
+            for (var j = 0; j < currState.edges.length; ++j) {
+                nextState = currState.edges[j].next.id;
+                if (currState.edges[j].input == input &&
+                    !toStates.contains(nextState))
+                    toStates.push(nextState);
+            }
         }
 
     }

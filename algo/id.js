@@ -40,10 +40,10 @@ IDGenerator.prototype.resetID = function() {
  *
  *          input      id
  *      ---------------------
- *      (1)  "A"  ---> 1
- *      (2)  "B"  ---> 2
+ *      (1)  "A"  --->  1
+ *      (2)  "B"  --->  2
  *      (3)  "A"  ---> -1
- *      (4)  "C"  ---> 3
+ *      (4)  "C"  --->  3
  *
  * The id can be begin with a given value. Otherwise, it is
  * default to be 0.
@@ -68,7 +68,6 @@ NameID.prototype.nextID = function(name) {
     for (var i = 0; i < this.names.length; ++i)
         if (this.names[i] == name)
             return i;
-
     this.names.push(name);
     return this.id++;
 

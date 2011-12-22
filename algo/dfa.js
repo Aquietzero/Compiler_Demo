@@ -24,6 +24,7 @@ DFA.prototype.constructByNFA = function(nfa) {
     var id = new NameID();
     var alphabet = nfa.reExp.alphabet;
 
+    alphabet.push('#');
     stateStack.push(nfaStates);
     dfaState = id.nextID(nfaStates.sort().join(","));
     this.states[dfaState] = {};
@@ -40,11 +41,13 @@ DFA.prototype.constructByNFA = function(nfa) {
         
             nextNfaStates = nfa.epsilonClosure(
                             nfa.move(nfaStates, alphabet[i]));
-            nextDfaState = id.nextID(nextNfaStates.sort().join(","));
 
-            if (!this.states[nextDfaState]) {
-                stateStack.push(nextNfaStates);
-                this.states[nextDfaState] = {};
+            if (!nextNfaStates.isEmpty()) {
+                nextDfaState = id.nextID(nextNfaStates.sort().join(","));
+                if (!this.states[nextDfaState]) {
+                    stateStack.push(nextNfaStates);
+                    this.states[nextDfaState] = {};
+                }
             }
 
             this.states[dfaState][alphabet[i]] = nextDfaState;
@@ -85,15 +88,20 @@ DFA.prototype.displayDFA = function() {
     var alphabet = this.reExp.alphabet;
 
     rst += 'begin state: ' +
-           this.begin.id + '\n' +
-           'end states: ' +
-           this.end.id + '\n';
+           this.begin + '\n';
+    rst += 'end states: ';
+    for (var i = 0; i < this.end.length; ++i)
+        rst += this.end[i] + ' ';
+    rst += '\n';
 
     for (var id in this.states) {
         rst += '\nstate ' + id + ': ';
         for (var i = 0; i < alphabet.length; ++i) {
             nextState = this.states[id][alphabet[i]];
-            rst += '(' + nextState + ',' + alphabet[i] + ') ===> ';
+            if (nextState)
+                rst += '(' + nextState + ',' + alphabet[i] + ') ===> ';
+            else
+                rst += '(nothing,' + alphabet[i] + ') ===> ';
         }
     }
 
