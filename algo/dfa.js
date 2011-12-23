@@ -83,6 +83,13 @@ DFA.prototype.constructByAST = function() {
 
 }
 
+/* Returns the next state when a virtual '#' is encountered. */
+DFA.prototype.endmarkerMove = function(state) {
+
+    return this.states[state]['#'];
+
+}
+
 DFA.prototype.scan = function(input) {
 
     var state = 0;

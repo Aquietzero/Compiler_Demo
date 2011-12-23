@@ -304,6 +304,45 @@ Lexer.prototype.constructLexerNFA = function(actionTable) {
 
 Lexer.prototype.parse = function(input) {
 
+    var dfa = this.lexerDFA;    
+    var tokPtr, currPos, symbol, tokState;
+    var state = 0;
+    var nfaState, token;
 
+    for (var currPos = 0; currPos < input.length; ++currPos) {
+
+        // Ignore whitespace.
+        if (input[currPos] == ' ')
+            continue;
+
+        state = dfa.states[state][input[currPos]];
+
+        // If the current state is one of the end state, then keep
+        // going scanning according to the maximum matching and
+        // record the current position.
+        if (state && dfa.end.contains(dfa.endmarkerMove(state))) {
+            tokPtr = currPos;
+            tokState = dfa.endmarkerMove(state);
+        }
+
+        // No valid further state and needs a trace back. Matching
+        // the nearest previous valid state.
+        if (!state) {
+            nfaState = Math.min(dfa.stateMapping[tokState]);            
+            token = this.nfaTokenMapping[nfaState];
+            console.log(token);
+            state = 0;
+            currPos = tokPtr;
+        }
+    }
+    
+    // For the last matching.
+    if (state && dfa.end.contains(dfa.endmarkerMove(state))) {
+        tokState = dfa.endmarkerMove(state);
+        nfaState = Math.min(dfa.stateMapping[tokState]);            
+        token = this.nfaTokenMapping[nfaState];
+        console.log(token);
+    }
 
 }
+

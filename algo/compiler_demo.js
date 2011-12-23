@@ -180,11 +180,18 @@ window.onload = function() {
     //console.log(nfaTest.displayNFA());
     //console.log(dfaTest.displayDFA());
     
-    var lex = "letter -> a | b\n" +
-              "word -> letter *";
-    var actions = "{word} -> {return(WORD);}\n" +
-                  "if -> {return(IF);}\n" +
-                  ">= -> {return(RELOP);}";
+    var lex = "letter -> a | b | c | d\n" +
+              "digit  -> 1 | 2 | 3 | 4\n" +
+              "id     -> letter ( letter | digit ) *\n" +
+              "number -> digit digit *";
+    var actions = "{id} -> {return(ID);}\n" +
+                  "{number} -> {return(NUM)}\n" +
+                  ">=   -> {return(RELOP);}\n" +
+                  "<=   -> {return(RELOP);}\n" +
+                  "==   -> {return(RELOP);}\n" +
+                  ">    -> {return(RELOP);}\n" +
+                  "<    -> {return(RELOP);}";
+    var lexInput = 'b12 >= d4 <= abc == b2 > 123 < 2123';
 
     //var lex = "digit  -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9\n" +
     //          "digits -> digit digit *\n" +
@@ -194,5 +201,6 @@ window.onload = function() {
     console.log(lexerTest);
     //console.log(lexerTest.lexerNFA.displayNFA());
     console.log(lexerTest.lexerDFA.displayDFA());
+    lexerTest.parse(lexInput);
 
 };
