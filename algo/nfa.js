@@ -277,7 +277,7 @@ NFA.prototype.scan = function(input) {
     for (var i = 0; i < input.length; ++i) {
 
         nextStates = this.move(states, input[i]);
-        rst = updateScan(rst, states, input[i], nextStates, i, input);
+        rst = this.updateScan(rst, states, input[i], nextStates, i, input);
 
         if (!nextStates.isEmpty())
             states = this.epsilonClosure(nextStates);
@@ -299,7 +299,7 @@ NFA.prototype.scan = function(input) {
 
 }
 
-function updateScan(
+NFA.prototype.updateScan = function(
     currRst, currStates, symbol, nextStates, pos, input) {
 
     var currLine = "";

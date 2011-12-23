@@ -43,7 +43,7 @@ function showDFAReParsingResult() {
     $("#dfaReParsingResultDisplayArea pre").remove();
 
     parseDFARegularExpression();
-    $(reParsingResultToHtml()).insertAfter("#dfaReParsingResultDisplay");
+    $(dfaReParsingResultToHtml()).insertAfter("#dfaReParsingResultDisplay");
     $("#dfaReParsingResultDisplayArea").fadeIn("slow");
 
 }

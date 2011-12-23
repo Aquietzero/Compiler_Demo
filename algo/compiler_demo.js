@@ -148,7 +148,7 @@ function getDFARegularExpression() {
     REGULAR_EXPRESSION.toPostfix();
     //REGULAR_EXPRESSION.deleteEndmarker();
     NF_AUTOMATON = new NFA(REGULAR_EXPRESSION);
-    DF_AUTOMATon = new DFA(NF_AUTOMATON);
+    DF_AUTOMATON = new DFA(NF_AUTOMATON);
 
 }
 
@@ -157,7 +157,7 @@ function parseDFARegularExpression() {
     var reInput = $("#dfaReSentenceInput").val();
 
     reInput += " #";
-    RESULT = NF_AUTOMATON.scan(reInput.split(" "));
+    RESULT = DF_AUTOMATON.scan(reInput.split(" "));
 
 }
 

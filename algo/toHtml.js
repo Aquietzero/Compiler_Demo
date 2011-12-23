@@ -181,6 +181,18 @@ function nfaReParsingResultToHtml() {
 
 }
 
+function dfaReParsingResultToHtml() {
+
+    RESULT = "<tr class='tableHead'>" +
+                "<td>Current State</td>" +
+                "<td>Input</td>" +
+                "<td>Next State</td>" +
+                "<td>Rest Input</td>" +
+             "</tr>" + RESULT;
+    return "<table id='dfaReParsingResult'>" + RESULT + "</table>";
+
+}
+
 function addConcatenationToHtml() {
     
     var rst = "";
@@ -415,18 +427,16 @@ function nfaToHtml() {
     var rst = "";
     var currState, currEdges;
     var currSet;
-    var alphabet = NF_AUTOMATON.reExp.alphabet;
+    var alphabet = NF_AUTOMATON.alphabet;
 
     // Print the letters in alphabet and the epsilon and endmarker.
     rst += "<tr>" + "<td>states</td>";
     for (var i = 0; i < alphabet.length; ++i)
         rst += "<td>" + alphabet[i] + "</td>";
     rst += "<td>&#603;</td>";
-    rst += "<td>#</td>";
     rst += "</tr>";
 
     alphabet.push("e");
-    alphabet.push("#");
 
     for (var id in NF_AUTOMATON.states) {
 
@@ -450,6 +460,38 @@ function nfaToHtml() {
     }
 
     return "<table id='nfaTransferTable'>" + rst + "</table>";
+
+}
+
+function dfaToHtml() {
+    
+    var rst = "";
+    var currState, nextState;
+    var alphabet = DF_AUTOMATON.alphabet;
+
+    // Print the letters in alphabet and the epsilon and endmarker.
+    rst += "<tr>" + "<td>state</td>";
+    for (var i = 0; i < alphabet.length; ++i)
+        rst += "<td>" + alphabet[i] + "</td>";
+    rst += "</tr>";
+
+    for (var id in DF_AUTOMATON.states) {
+
+        rst += "<tr>";
+        rst += "<td>" + id + "</td>";
+
+        for (var j = 0; j < alphabet.length; ++j) {
+            nextState = DF_AUTOMATON.states[id][alphabet[j]];
+            if (nextState)
+                rst += "<td>" + nextState + "</td>";
+            else
+                rst += "<td>&#8709;</td>";
+        }
+        rst += "</tr>";
+
+    }
+
+    return "<table id='dfaTransferTable'>" + rst + "</table>";
 
 }
 

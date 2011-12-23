@@ -77,12 +77,28 @@ DFA.prototype.constructByAST = function() {
 DFA.prototype.scan = function(input) {
 
     var state = 0;
+    var nextState;
+    var rst = '';
+
     for (var i = 0; i < input.length; ++i) {
-        state = this.states[state][input[i]];
+        nextState = this.states[state][input[i]];
+        rst = this.updateScan(rst, state, input[i], nextState, i, input);
+        state = nextState;
+
+        if (!state)
+            break;
     }
 
-    if (this.end.contains(state)) return true;
-    else                          return false;
+    if (!this.end.contains(state)) {
+        rst += "<strong class='warning'>" +
+               "<span class='skull'>☠</span>" +
+               "WARNING<br /></strong>" +
+               "<pre class='errorMessage'>" +
+               "The currrent input string does not match the regular expression." +
+               "</pre>";
+    }
+
+    return rst;
 
 }
 
@@ -117,4 +133,24 @@ DFA.prototype.displayDFA = function() {
 
 }
 
+DFA.prototype.updateScan = function(
+    currRst, currState, symbol, nextState, pos, input) {
 
+    var currLine = '';
+
+    currLine += "<td class='dfaCurrStates'>" + currState + "</td>"; 
+    currLine += "<td class='dfaInput'>" + symbol + "</td>"; 
+
+    if (nextState)
+        currLine += "<td class='dfaNextStates'>" + nextState + "</td>"; 
+    else
+        currLine += "<td class='dfaNextStates'>&#8709</td>"; 
+
+    currLine += "<td class='dfaRestInput'>";
+    for (var i = pos + 1; i < input.length; ++i)
+        currLine += input[i] + ' ';
+    currLine += '</td>';
+
+    return currRst + '<tr>' + currLine + '</td>';
+
+}

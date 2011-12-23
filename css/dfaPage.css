@@ -62,17 +62,14 @@
     font-weight: bold;
 }
 
-#dfaReParsingResult .currStates,
-#dfaReParsingResult .nextStates {
-    text-align: left;
-}
-
-#dfaReParsingResult .restInput {
-    text-align: right;
-}
-
-#dfaReParsingResult .input {
+#dfaReParsingResult .dfaInput,
+#dfaReParsingResult .dfaCurrStates,
+#dfaReParsingResult .dfaNextStates {
     text-align: center;
+}
+
+#dfaReParsingResult .dfaRestInput {
+    text-align: right;
 }
 
 #dfaTransferTableDisplayArea pre {
