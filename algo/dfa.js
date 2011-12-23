@@ -14,10 +14,14 @@ function DFA(nfa) {
     this.reExp  = nfa.reExp || undefined;
     this.alphabet = nfa.alphabet || ['#'];
 
-    this.constructByNFA(nfa);
+    this.stateMapping = this.constructByNFA(nfa);
 
 }
 
+/* This method constructs a DFA from a given NFA. Since the states in
+ * DFA is mapped by some states in NFA, so the method will also return
+ * a dictionary which describes this mapping relationship.
+ */
 DFA.prototype.constructByNFA = function(nfa) {
 
     var nfaStates = nfa.epsilonClosure([nfa.begin]);
@@ -26,6 +30,7 @@ DFA.prototype.constructByNFA = function(nfa) {
     var stateStack = new Array();
     var id = new NameID();
     var alphabet = nfa.alphabet.clone();
+    var stateMapping = {};
 
     stateStack.push(nfaStates);
     dfaState = id.nextID(nfaStates.sort().join(","));
@@ -60,13 +65,17 @@ DFA.prototype.constructByNFA = function(nfa) {
                 this.states[dfaState][alphabet[i]] = nextDfaState;
 
                 if (!nextNfaStates.intersection(nfa.end).isEmpty() &&
-                    !this.end.contains(nextDfaState))
+                    !this.end.contains(nextDfaState)) {
+                    stateMapping[nextDfaState] = nextNfaStates;
                     this.end.push(nextDfaState);
+                }
             }
 
         }
     
     }
+
+    return stateMapping;
 
 }
 

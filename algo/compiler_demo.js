@@ -170,30 +170,29 @@ window.onload = function() {
     //var re = 'a | b #';
     var reTest = new ReExpression(re.split(" "));
 
-    reTest.toPostfix();
-    reTest.establishAST();
+    //reTest.toPostfix();
+    //reTest.establishAST();
     //reTest.deleteEndmarker();
 
-    var nfaTest = new NFA(reTest);
-    var dfaTest = new DFA(nfaTest);
-    var str = 'b #';
+    //var nfaTest = new NFA(reTest);
+    //var dfaTest = new DFA(nfaTest);
 
-    console.log(nfaTest.displayNFA());
-    console.log(dfaTest.displayDFA());
-    console.log(dfaTest.scan(str.split(" ")));
-    //console.log(nfaTest);
-    //console.log(nfaTest.scan(str.split(" ")));
+    //console.log(nfaTest.displayNFA());
+    //console.log(dfaTest.displayDFA());
     
     var lex = "letter -> a | b\n" +
               "word -> letter *";
+    var actions = "{word} -> {return(WORD);}\n" +
+                  "if -> {return(IF);}\n" +
+                  ">= -> {return(RELOP);}";
 
     //var lex = "digit  -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9\n" +
     //          "digits -> digit digit *\n" +
     //          "optionalFraction -> . digits | e";
-    var lexerTest = new Lexer(lex);
+    var lexerTest = new Lexer(lex, actions);
 
     console.log(lexerTest);
-    console.log(lexerTest.lexerNFA.displayNFA());
-    console.log(lexerTest.lexerDFA.displayDFA());
+    //console.log(lexerTest.lexerNFA.displayNFA());
+    //console.log(lexerTest.lexerDFA.displayDFA());
 
 };

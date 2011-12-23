@@ -52,18 +52,52 @@
  *          Stores the reduced regular expression definition. It takes
  *          the regular expression with lower index as the explanation
  *          of those of higher index.
+ *
+ *      (4) actionTable:
+ *
+ *          Stores the 'token : action' pairs. When the lexer parses a 
+ *          token, it looks for this table to take an appropriate action.
+ *          Its structure is describe as below:
+ *
+ *         { 
+ *            token1 : Token1(token1, reExp1, [action1_1, action1_2, ... action1_m]),
+ *            token2 : Token2(token2, reExp2, [action2_1, action2_2, ... action2_m]),
+ *                                  :
+ *                                  :
+ *                                  :
+ *            tokenN : TokenN(tokenN, reExpN, [actionN_1, actionN_2, ... actionN_m]),
+ *         }
  */
 
-function Lexer(reDefinitions) {
+function Token(token, reExp, actions) {
 
+    this.token = token;
+    this.reExp = reExp;
+    this.actions = actions;
+
+}
+
+function Lexer(reDefinitions, actions) {
+
+    // Regular Expresions(String form).
     this.originReDefinitions = reDefinitions;
-    this.reDefinitions = []; 
-    this.reducedReDefinition = {};
-    this.lexerNFA = new NFA();
 
+    // Regular Expressions(Array form).
+    this.reDefinitions = []; 
     this.getReDefinition();
+
+    // Reduced regular expression. All the regualr expression in this
+    // dictionary will be a normal regular expression.
+    this.reducedReDefinition = {};
     this.getReducedReDefinition();
-    this.constructLexerNFA();
+
+    // Action table. The dictionary of 'token => actions' pairs.
+    this.actionTable = {};
+    this.getActionTable(actions);
+
+    // Lexer NFA.
+    this.lexerNFA = new NFA();
+    this.constructLexerNFA(this.reducedReDefinition);
 
     // construct the DFA according to the NFA which is calculated above.
     this.lexerDFA = new DFA(this.lexerNFA);
@@ -73,15 +107,76 @@ function Lexer(reDefinitions) {
 Lexer.prototype.getReDefinition = function() {
 
     var lines = this.originReDefinitions.split("\n");
-
+    var token, re;
     for (var i = 0; i < lines.length; ++i) {
-    
-        var token = lines[i].split("->")[0].trim();
-        var re    = lines[i].split("->")[1].trim().split(" ");
-    
+        token = lines[i].split("->")[0].trim();
+        re    = lines[i].split("->")[1].trim().split(" ");
         this.reDefinitions.push([token, re]);
+    }
+
+}
+
+/* Pre-requisit: The reduced regular definition is not null. */
+Lexer.prototype.getActionTable = function(actionsInput) {
+
+    var lines = actionsInput.split('\n');
+    var token, actions;
+    for (var i = 0; i < lines.length; ++i) {
+        token   = this.parseToken(lines[i].split('->')[0].trim());
+        actions = this.parseAction(lines[i].split('->')[1].trim());
+
+        if (token && actions)
+            this.actionTable[token] = new Token(token[0], token[1], actions);
+    }
+
+}
+
+/* Parse the token.
+ * If the token is in the form '{token}', then this token should
+ * have been pre-defined in the regular definitions and it should
+ * also have been reduced by the method getReducedReDefinition.
+ * So look up the reducedReDefinition table can get its regular
+ * definition. Otherwise, if the token is a normal string such as
+ * 'if', '>='. Then it must be one of the key words or operators.
+ */
+Lexer.prototype.parseToken = function(token) {
+
+    // Not key words and basic operators.
+    if (token[0] == '{' && token[token.length - 1]  == '}') {
+
+        tokenName = token.slice(1, token.length - 1);
+        if (tokenName != '')
+            return [tokenName, this.reducedReDefinition[tokenName]];
+        else // No token.
+            return undefined;
+        
+    }
+    // Key words and operators.
+    else
+        return [token, new ReExpression(token + '#')];
+    
+}
+
+/* Parse the actions.
+ * The actions should be in the form of '{ action1; action2; ... actionN; }',
+ * This method separates those actions and store them in an array.
+ */
+Lexer.prototype.parseAction = function(actions) {
+
+    if (actions[0] == '{' && actions[actions.length - 1] == '}') {
+
+        actions = actions.slice(1, actions.length - 1);
+        // Actions not empty.
+        if (actions != '') {
+            var lines = actions.split(';');
+            // Ignore empty actions.
+            lines = lines.filter(function(x) { return x.length != 0; });
+            if (lines.length > 0) 
+                return lines;
+        }
 
     }
+
 }
 
 Lexer.prototype.getReducedReDefinition = function() {
@@ -147,7 +242,7 @@ Lexer.prototype.getReducedReDefinition = function() {
  * NFAs corresponds to the regular expressions. The new end state is the
  * conbination of those NFAs.
  */
-Lexer.prototype.constructLexerNFA = function() {
+Lexer.prototype.constructLexerNFA = function(actionTable) {
 
     var currReDef;
     var nfas = new Array();
@@ -161,9 +256,9 @@ Lexer.prototype.constructLexerNFA = function() {
     // of lexerNFA. And in order to make the ids different, each NFA
     // begins with the id of the end state of the previous NFA.
     beginID    = 1; 
-    for (var token in this.reducedReDefinition) {
+    for (var token in actionTable) {
     
-        currReDef = this.reducedReDefinition[token];
+        currReDef = actionTable[token];
         currReDef.toPostfix();
         nfa = new NFA(currReDef, beginID);
         beginID = parseInt(nfa.end) + 1;

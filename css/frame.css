@@ -47,8 +47,8 @@ body {
     width: 15%;
     height: 1000px;
 
-    border-left: solid 5px #483D8B;
-    border-right: solid 5px #483D8B;
+    border-left: solid 10px #483D8B;
+    border-right: solid 10px #483D8B;
     -moz-box-shadow: 0 -10px 10px #483D8B;
     -webkit-box-shadow: 0 -10px 10px #487D8B;
 
