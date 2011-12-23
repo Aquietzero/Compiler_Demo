@@ -95,9 +95,13 @@ function Lexer(reDefinitions, actions) {
     this.actionTable = {};
     this.getActionTable(actions);
 
+    // NFA v.s. Token mapping is a dictionary which records how the 
+    // sub NFA terminal states maps to the token.
+    this.nfaTokenMapping = {};
+
     // Lexer NFA.
     this.lexerNFA = new NFA();
-    this.constructLexerNFA(this.reducedReDefinition);
+    this.constructLexerNFA(this.actionTable);
 
     // construct the DFA according to the NFA which is calculated above.
     this.lexerDFA = new DFA(this.lexerNFA);
@@ -258,11 +262,15 @@ Lexer.prototype.constructLexerNFA = function(actionTable) {
     beginID    = 1; 
     for (var token in actionTable) {
     
-        currReDef = actionTable[token];
+        currReDef = actionTable[token].reExp;
         currReDef.toPostfix();
         nfa = new NFA(currReDef, beginID);
         beginID = parseInt(nfa.end) + 1;
         nfas.push(nfa);
+
+        // Since all the NFA here are all sub NFAs of the tokens, so the 
+        // terminal state of the specific NFA is unique.
+        this.nfaTokenMapping[nfa.end[0]] = actionTable[token].token;
 
         // Merge all the alphabets from different NFAs to make an alphabet
         // for the lexer NFA.
@@ -294,3 +302,8 @@ Lexer.prototype.constructLexerNFA = function(actionTable) {
 
 }
 
+Lexer.prototype.parse = function(input) {
+
+
+
+}

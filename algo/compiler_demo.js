@@ -193,6 +193,6 @@ window.onload = function() {
 
     console.log(lexerTest);
     //console.log(lexerTest.lexerNFA.displayNFA());
-    //console.log(lexerTest.lexerDFA.displayDFA());
+    console.log(lexerTest.lexerDFA.displayDFA());
 
 };

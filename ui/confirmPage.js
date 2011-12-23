@@ -4,6 +4,7 @@ $(function() {
 
 function showConfirmPage() {
     $("#introductionPart").css("display", "none");
+    clearConfirmPage();
     hideAllPages();
 
     getGrammar();
@@ -35,3 +36,4 @@ function createBgGrammar() {
     bgGrammar.addClass("rotateTest");
     bgGrammar.css("zIndex", "0");
 }
+
