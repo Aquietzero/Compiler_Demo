@@ -16,8 +16,8 @@ $(function() {
 
 function showNavigationPage() {
 
-    hideSyntaxNavigation();
     hideAllPages();
+    restoreTitle();
 
     hideSyntaxNavigation();
     hideLexicalNavigation();

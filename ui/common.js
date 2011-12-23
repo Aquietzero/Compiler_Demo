@@ -57,7 +57,7 @@ function restoreTitle() {
     var mainColumn = $("#mainColumn")
     var title = $("#titleBar");
 
-    title.css("width", "55%");
+    title.animate({"width" : "95%"}, 400);
     mainColumn.css("paddingTop", "170px");
 }
 
