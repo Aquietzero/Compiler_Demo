@@ -169,7 +169,7 @@ function toPostfixResultToHtml() {
 
 }
 
-function reParsingResultToHtml() {
+function nfaReParsingResultToHtml() {
 
     RESULT = "<tr class='tableHead'>" +
                 "<td>Current States</td>" +
@@ -177,7 +177,7 @@ function reParsingResultToHtml() {
                 "<td>Next States</td>" +
                 "<td>Rest Input</td>" +
              "</tr>" + RESULT;
-    return "<table id='reParsingResult'>" + RESULT + "</table>";
+    return "<table id='nfaReParsingResult'>" + RESULT + "</table>";
 
 }
 

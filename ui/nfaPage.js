@@ -2,13 +2,12 @@ $(function() {
     
     $("#toNfaPage").bind("click", showNfaPage);
     $("#nfaConfirm").bind("click", showNfaTransferTable);
-    $("#reSentenceConfirm").bind("click", showReParsingResult);
+    $("#nfaReSentenceConfirm").bind("click", showNFAReParsingResult);
 
 });
 
 function showNfaPage() {
 
-    console.log("here");
     var bullet = $("#toNfaPage");
     $("#introductionPart").css("display", "none");
 
@@ -28,7 +27,7 @@ function showNfaPage() {
 function showNfaTransferTable() {
     
     clearNfaPage();
-    getRegularExpression();
+    getNFARegularExpression();
 
     $(reAlphabetToHtml()).insertAfter("#nfaAlphabet");
     $(nfaToHtml()).insertAfter("#nfaTransferTableDisplay");
@@ -36,15 +35,15 @@ function showNfaTransferTable() {
 
 }
 
-function showReParsingResult() {
+function showNFAReParsingResult() {
     
-    $("#reParsingResultDisplayArea table").remove();
-    $("#reParsingResultDisplayArea strong").remove();
-    $("#reParsingResultDisplayArea pre").remove();
+    $("#nfaReParsingResultDisplayArea table").remove();
+    $("#nfaReParsingResultDisplayArea strong").remove();
+    $("#nfaReParsingResultDisplayArea pre").remove();
 
-    parseRegularExpression();
-    $(reParsingResultToHtml()).insertAfter("#reParsingResultDisplay");
-    $("#reParsingResultDisplayArea").fadeIn("slow");
+    parseNFARegularExpression();
+    $(nfaReParsingResultToHtml()).insertAfter("#nfaReParsingResultDisplay");
+    $("#nfaReParsingResultDisplayArea").fadeIn("slow");
 
 }
 
@@ -52,6 +51,6 @@ function clearNfaPage() {
     
     $("#nfaTransferTableDisplayArea table").remove();
     $("#nfaTransferTableDisplayArea pre").remove();
-    $("#reParsingResultDisplayArea table").remove();
+    $("#nfaReParsingResultDisplayArea table").remove();
 
 }

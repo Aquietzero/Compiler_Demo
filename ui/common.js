@@ -5,6 +5,7 @@ var PAGES = ["#welcomePage",
              "#lexicalWelcomePage",
              "#postfixPage",
              "#nfaPage",
+             "#dfaPage",
              "#ll_1Page",
              "#lr_0Page",
              "#lr_1Page"];

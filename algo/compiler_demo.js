@@ -9,7 +9,8 @@ var TERMINALS,
     INFIX,
     POSTFIX,
     REGULAR_EXPRESSION,
-    NF_AUTOMATON;
+    NF_AUTOMATON,
+    DF_AUTOMATON;
 
 function parseByLL_1() {
 
@@ -117,7 +118,7 @@ function getPostfix() {
 
 }
 
-function getRegularExpression() {
+function getNFARegularExpression() {
 
     INFIX = $("#nfaInput").val();
     INFIX += " #";
@@ -129,9 +130,31 @@ function getRegularExpression() {
 
 }
 
-function parseRegularExpression() {
+function parseNFARegularExpression() {
 
-    var reInput = $("#reSentenceInput").val();
+    var reInput = $("#nfaReSentenceInput").val();
+
+    reInput += " #";
+    RESULT = NF_AUTOMATON.scan(reInput.split(" "));
+
+}
+
+function getDFARegularExpression() {
+
+    INFIX = $("#dfaInput").val();
+    INFIX += " #";
+
+    REGULAR_EXPRESSION = new ReExpression(INFIX.split(" "));
+    REGULAR_EXPRESSION.toPostfix();
+    //REGULAR_EXPRESSION.deleteEndmarker();
+    NF_AUTOMATON = new NFA(REGULAR_EXPRESSION);
+    DF_AUTOMATon = new DFA(NF_AUTOMATON);
+
+}
+
+function parseDFARegularExpression() {
+
+    var reInput = $("#dfaReSentenceInput").val();
 
     reInput += " #";
     RESULT = NF_AUTOMATON.scan(reInput.split(" "));

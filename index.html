@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="css/lexicalWelcomePage.css" type="text/css" />
         <link rel="stylesheet" href="css/postfixPage.css" type="text/css" />
         <link rel="stylesheet" href="css/nfaPage.css" type="text/css" />
+        <link rel="stylesheet" href="css/dfaPage.css" type="text/css" />
 
         <!--Javascript files-->
         <script type="text/javascript" src="algo/lib.js"></script>
@@ -49,6 +50,7 @@
         <script type="text/javascript" src="ui/lexicalWelcomePage.js"></script>
         <script type="text/javascript" src="ui/postfixPage.js"></script>
         <script type="text/javascript" src="ui/nfaPage.js"></script>
+        <script type="text/javascript" src="ui/dfaPage.js"></script>
     </head>
 
     <body>
@@ -412,6 +414,9 @@
 
             </div>
 
+            <!--
+                NFA page.
+            -->
             <div id="nfaPage">
 
                 <p class="nfaPageSubTitle">☸ Regular Expression Input:</p>
@@ -435,14 +440,53 @@
                 </div>
 
                 <!--
-                    LR(1) analysis algorithm on the air.
+                    NFA parsing algorithm on the air.
                 -->
                 <p class="nfaPageSubTitle">✺ Sentence:</p>
-                <textarea id="reSentenceInput" rows="1"></textarea>
-                <button id="reSentenceConfirm">submit</button>
+                <textarea id="nfaReSentenceInput" rows="1"></textarea>
+                <button id="nfaReSentenceConfirm">submit</button>
 
-                <div id="reParsingResultDisplayArea">
-                    <p id="reParsingResultDisplay" class="nfaPageSubTitle">✺ Regular Expression Parsing Result:</p>
+                <div id="nfaReParsingResultDisplayArea">
+                    <p id="nfaReParsingResultDisplay" class="nfaPageSubTitle">✺ Regular Expression Parsing Result:</p>
+                </div>
+
+            </div>
+
+
+            <!--
+                DFA page.
+            -->
+            <div id="dfaPage">
+
+                <p class="dfaPageSubTitle">☸ Regular Expression Input:</p>
+                <div class="dfaInputInstruction">
+                    <ul>
+                        <li>Here is the place for you to input the regular expression, which is in infix.</li>
+                        <li>The endmarker is represented by "#".</li>
+                        <li>The "e" is used to represent the "&#603;" in Dragon book.</li>
+                        <li>Different elements in a regular expression should be separated by whitespaces. For example, the regular expression "(a|b)*abb" should be entered in the following way: <code>"( a | b ) * a b b #"</code>.</li>
+                        <li>You have no need to enter the concatenation explicitly.</li>
+                    </ul>
+                </div>
+                <textarea id="dfaInput" rows="1"></textarea>
+
+                <button id="dfaConfirm">Confirm ▶</button>
+
+                <div id="dfaTransferTableDisplayArea">
+                    <p id="dfaAlphabet" class="dfaPageSubTitle">☸ Alphabet:</p>
+                    <p id="dfaTransferTableDisplay" class="dfaPageSubTitle">☸ NFA Transfer Table:</p>
+                    <p class="normal">The DFA given above is not the optimal one. If you draw the DFA transfer graph in a piece of paper, you may find out that there are some useless states which only contains epsilon transfer. These states can be eliminated directly.</p>
+                </div>
+
+                <!--
+                    DFA parsing algorithm on the air.
+                -->
+                <p class="dfaPageSubTitle">✺ Sentence:</p>
+                <textarea id="dfaReSentenceInput" rows="1"></textarea>
+                <button id="dfaReSentenceConfirm">submit</button>
+
+                <div id="dfaReParsingResultDisplayArea">
+                    <p id="dfaReParsingResultDisplay" class="dfaPageSubTitle">✺ Regular Expression Parsing Result:</p>
                 </div>
 
             </div>

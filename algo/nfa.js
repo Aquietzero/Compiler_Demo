@@ -286,8 +286,7 @@ NFA.prototype.scan = function(input) {
     
     }
 
-    if (!states.contains(this.end[0]) ||
-        !states.intersection(this.end).isEmpty()) {
+    if (states.intersection(this.end).isEmpty()) {
         rst += "<strong class='warning'>" +
                "<span class='skull'>☠</span>" +
                "WARNING<br /></strong>" +
