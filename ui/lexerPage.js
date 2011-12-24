@@ -39,6 +39,5 @@ function showLexerPage() {
 
 function showLexer() {
     getReDefinition();
-    var nfasHtml = '<pre>' + LEXER.nfas + '</pre>';
-    $(nfasHtml).insertAfter('#lexerDisplay');
+    $(lexerDFAToHtml()).insertAfter('#lexerDFATableDisplay');
 }

@@ -15,7 +15,8 @@
     clear: both;
 }
 
-.lexerInputInstruction {
+.lexerInputInstruction,
+#lexerDFATableDisplayArea {
     width: 95%;
     padding: 10px;
     margin-top: 10px;
@@ -34,3 +35,33 @@
     color: #666666;
 }
 
+#lexerDFATable {
+    font-family: monospace, sans-serif, serif;
+    margin: 20px auto;
+    padding: 5px;
+    text-align: center;
+    border: solid 1px #BBBBBB;
+    border-collapse: collapse;
+    color: #666666;
+}
+
+#lexerDFATable td {
+    border: solid 1px #BBBBBB;
+    padding: 2px 10px;
+}
+
+#lexerDFATable tr:nth-of-type(even) {
+    background-color: rgba(200, 200, 200, 0.15);
+}
+
+#lexerDFATable tr:nth-of-type(1) {
+    font-weight: bold;
+}
+
+#lexerPage .dfaBegin {
+    background-color: rgba(255, 0, 255, 0.15) !important;
+}
+
+#lexerPage .dfaEnd {
+    background-color: rgba(100, 0, 0, 0.15) !important;
+}

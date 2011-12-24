@@ -503,3 +503,43 @@ function reAlphabetToHtml() {
     return "<pre>{ " + alphabet.join(", ") + " }</pre>";
 
 }
+
+function lexerDFAToHtml() {
+
+    var dfa = LEXER.lexerDFA;
+    var rst = '';
+    var nextState;
+    var alphabet = dfa.alphabet;
+
+    rst += "<table id='lexerDFATable'>";
+    rst += '<tr>';
+    rst += '<td>states</td>';
+    for (var i = 0; i < alphabet.length; ++i)
+        rst += '<td>' + alphabet[i] + '</td>';
+    rst += '</tr>';
+    
+    for (var id in dfa.states) {
+
+        if (id == 0)
+            rst += "<tr class='dfaBegin'>";
+        else if (dfa.end.contains(parseInt(id)))
+            rst += "<tr class='dfaEnd'>";
+        else
+            rst += "<tr>";
+
+        rst += '<td>' + id + '</td>';
+        for (var i = 0; i < alphabet.length; ++i) {
+            nextState = dfa.states[id][alphabet[i]];
+            if (nextState)
+                rst += '<td>' + nextState + '</td>';
+            else
+                rst += '<td>&#8709;</td>';
+        }
+
+        rst += '</tr>';
+    }
+    rst += '</table>';
+
+    return rst;
+
+}
