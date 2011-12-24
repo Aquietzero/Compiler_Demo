@@ -305,12 +305,18 @@ Lexer.prototype.constructLexerNFA = function(actionTable) {
 
 }
 
+/* !!!Attention!!!
+ *
+ *    Add some basic error detections.
+ *
+ */
 Lexer.prototype.parse = function(input) {
 
     var dfa = this.lexerDFA;    
     var tokPtr, currPos, symbol, tokState;
     var state = 0;
     var nfaState, token;
+    var rst = '';
 
     for (var currPos = 0; currPos < input.length; ++currPos) {
 
@@ -333,7 +339,7 @@ Lexer.prototype.parse = function(input) {
         if (!state) {
             nfaState = Math.min(dfa.stateMapping[tokState]);            
             token = this.nfaTokenMapping[nfaState];
-            console.log(token);
+            rst += token + ' ';
             state = 0;
             currPos = tokPtr;
         }
@@ -344,8 +350,10 @@ Lexer.prototype.parse = function(input) {
         tokState = dfa.endmarkerMove(state);
         nfaState = Math.min(dfa.stateMapping[tokState]);            
         token = this.nfaTokenMapping[nfaState];
-        console.log(token);
+        rst += token;
     }
+
+    return rst;
 
 }
 

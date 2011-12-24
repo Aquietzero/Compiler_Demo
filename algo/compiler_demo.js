@@ -176,6 +176,13 @@ function getReDefinition() {
 
 }
 
+function lexerSentenceParse() {
+  
+    var sentenceInput = $('#lexerSentenceInput').val();
+    RESULT = LEXER.parse(sentenceInput);
+
+}
+
 window.onload = function() {
     //============ TEST AREA ================
     var re = "( a | b ) * a b b #";

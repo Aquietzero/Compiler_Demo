@@ -17,6 +17,7 @@ $(function() {
 
     $("#toLexerPage").bind("click", showLexerPage);
     $("#lexerConfirm").bind("click", showLexer);
+    $("#lexerSentenceConfirm").bind("click", showSentenceParseResult);
 
 });
 
@@ -38,6 +39,27 @@ function showLexerPage() {
 }
 
 function showLexer() {
+
+    clearLexerPage();
+
     getReDefinition();
     $(lexerDFAToHtml()).insertAfter('#lexerDFATableDisplay');
+
+}
+
+function showSentenceParseResult() {
+
+    $('#lexerSentenceResultDisplayArea pre').remove();
+
+    lexerSentenceParse();
+    var rst = '<pre>' + RESULT + '</pre>';
+    $(rst).insertAfter('#lexerSentenceResultDisplay');
+
+}
+
+function clearLexerPage() {
+
+    $('#lexerDFATableDisplayArea table').remove();
+    $('#lexerSentenceResultDisplayArea pre').remove();
+
 }
