@@ -1,16 +1,21 @@
 var TERMINALS,
     GRAMMAR,
     MODIFIED_GRAMMAR,
+
     SENTENCE,
     PREDICTIVE_TABLE,
     RESULT,
     ITEMCOLLECTION,
     SLR_TABLE,
+
     INFIX,
     POSTFIX,
     REGULAR_EXPRESSION,
     NF_AUTOMATON,
-    DF_AUTOMATON;
+    DF_AUTOMATON,
+
+    RE_DEFINITION,
+    ACTIONS;
 
 function parseByLL_1() {
 
@@ -159,6 +164,12 @@ function parseDFARegularExpression() {
     reInput += " #";
     RESULT = DF_AUTOMATON.scan(reInput.split(" "));
 
+}
+
+function getReDefinition() {
+
+    RE_DEFINITION = $('#lexerReDefinitionInput').val();
+    ACTIONS = $('#lexerActionsInput').val();
 }
 
 window.onload = function() {

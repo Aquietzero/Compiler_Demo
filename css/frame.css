@@ -1,3 +1,9 @@
+@font-face {
+    font-family: jennasue;
+    src: url('../fonts/JennaSue.ttf');
+}
+
+
 body {
     margin: 0;
     padding: 0;

@@ -1,505 +1,545 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf8" />
+  <head>
+    <meta charset="utf8" />
 
-        <title>Compiler Demo---Null Space</title>
+    <title>Compiler Demo---Null Space</title>
 
-        <!--Css files-->
-        <link rel="stylesheet" href="css/frame.css" type="text/css" />
-        <link rel="stylesheet" href="css/welcomePage.css" type="text/css" />
-        <link rel="stylesheet" href="css/navigationPage.css" type="text/css" />
-        <link rel="stylesheet" href="css/inputPage.css" type="text/css" />
-        <link rel="stylesheet" href="css/confirmPage.css" type="text/css" />
-        <link rel="stylesheet" href="css/ll_1Page.css" type="text/css" />
-        <link rel="stylesheet" href="css/lr_0Page.css" type="text/css" />
-        <link rel="stylesheet" href="css/lr_1Page.css" type="text/css" />
-        <link rel="stylesheet" href="css/lexicalWelcomePage.css" type="text/css" />
-        <link rel="stylesheet" href="css/postfixPage.css" type="text/css" />
-        <link rel="stylesheet" href="css/nfaPage.css" type="text/css" />
-        <link rel="stylesheet" href="css/dfaPage.css" type="text/css" />
+    <!--Css files-->
+    <link rel="stylesheet" href="css/frame.css" type="text/css" />
+    <link rel="stylesheet" href="css/welcomePage.css" type="text/css" />
+    <link rel="stylesheet" href="css/navigationPage.css" type="text/css" />
+    <link rel="stylesheet" href="css/inputPage.css" type="text/css" />
+    <link rel="stylesheet" href="css/confirmPage.css" type="text/css" />
+    <link rel="stylesheet" href="css/ll_1Page.css" type="text/css" />
+    <link rel="stylesheet" href="css/lr_0Page.css" type="text/css" />
+    <link rel="stylesheet" href="css/lr_1Page.css" type="text/css" />
+    <link rel="stylesheet" href="css/lexicalWelcomePage.css" type="text/css" />
+    <link rel="stylesheet" href="css/postfixPage.css" type="text/css" />
+    <link rel="stylesheet" href="css/nfaPage.css" type="text/css" />
+    <link rel="stylesheet" href="css/dfaPage.css" type="text/css" />
+    <link rel="stylesheet" href="css/lexerPage.css" type="text/css" />
 
-        <!--Javascript files-->
-        <script type="text/javascript" src="algo/lib.js"></script>
-        <script type="text/javascript" src="algo/array.js"></script>
-        <script type="text/javascript" src="algo/tree.js"></script>
-        <script type="text/javascript" src="algo/id.js"></script>
-        <script type="text/javascript" src="algo/production.js"></script>
-        <script type="text/javascript" src="algo/grammar.js"></script>
-        <script type="text/javascript" src="algo/ll_1.js"></script>
-        <script type="text/javascript" src="algo/item.js"></script>
-        <script type="text/javascript" src="algo/slr.js"></script>
-        <script type="text/javascript" src="algo/re.js"></script>
-        <script type="text/javascript" src="algo/nfa.js"></script>
-        <script type="text/javascript" src="algo/dfa.js"></script>
-        <script type="text/javascript" src="algo/lexer.js"></script>
-        <script type="text/javascript" src="algo/compiler_demo.js"></script>
-        <script type="text/javascript" src="algo/toHtml.js"></script>
+    <!--Javascript files-->
+    <script type="text/javascript" src="algo/lib.js"></script>
+    <script type="text/javascript" src="algo/array.js"></script>
+    <script type="text/javascript" src="algo/tree.js"></script>
+    <script type="text/javascript" src="algo/id.js"></script>
+    <script type="text/javascript" src="algo/production.js"></script>
+    <script type="text/javascript" src="algo/grammar.js"></script>
+    <script type="text/javascript" src="algo/ll_1.js"></script>
+    <script type="text/javascript" src="algo/item.js"></script>
+    <script type="text/javascript" src="algo/slr.js"></script>
+    <script type="text/javascript" src="algo/re.js"></script>
+    <script type="text/javascript" src="algo/nfa.js"></script>
+    <script type="text/javascript" src="algo/dfa.js"></script>
+    <script type="text/javascript" src="algo/lexer.js"></script>
+    <script type="text/javascript" src="algo/compiler_demo.js"></script>
+    <script type="text/javascript" src="algo/toHtml.js"></script>
 
-        <!--Library files-->
-        <script type="text/javascript" src="lib/jquery-1.6.4.min.js"></script>
-        <script type="text/javascript" src="ui/common.js"></script>
-        <script type="text/javascript" src="ui/welcomePage.js"></script>
-        <script type="text/javascript" src="ui/navigationPage.js"></script>
-        <script type="text/javascript" src="ui/inputPage.js"></script>
-        <script type="text/javascript" src="ui/confirmPage.js"></script>
-        <script type="text/javascript" src="ui/navigation.js"></script>
-        <script type="text/javascript" src="ui/ll_1Page.js"></script>
-        <script type="text/javascript" src="ui/lr_0Page.js"></script>
-        <script type="text/javascript" src="ui/lr_1Page.js"></script>
-        <script type="text/javascript" src="ui/lexicalWelcomePage.js"></script>
-        <script type="text/javascript" src="ui/postfixPage.js"></script>
-        <script type="text/javascript" src="ui/nfaPage.js"></script>
-        <script type="text/javascript" src="ui/dfaPage.js"></script>
-    </head>
+    <!--Library files-->
+    <script type="text/javascript" src="lib/jquery-1.6.4.min.js"></script>
+    <script type="text/javascript" src="ui/common.js"></script>
+    <script type="text/javascript" src="ui/welcomePage.js"></script>
+    <script type="text/javascript" src="ui/navigationPage.js"></script>
+    <script type="text/javascript" src="ui/inputPage.js"></script>
+    <script type="text/javascript" src="ui/confirmPage.js"></script>
+    <script type="text/javascript" src="ui/navigation.js"></script>
+    <script type="text/javascript" src="ui/ll_1Page.js"></script>
+    <script type="text/javascript" src="ui/lr_0Page.js"></script>
+    <script type="text/javascript" src="ui/lr_1Page.js"></script>
+    <script type="text/javascript" src="ui/lexicalWelcomePage.js"></script>
+    <script type="text/javascript" src="ui/postfixPage.js"></script>
+    <script type="text/javascript" src="ui/nfaPage.js"></script>
+    <script type="text/javascript" src="ui/dfaPage.js"></script>
+    <script type="text/javascript" src="ui/lexerPage.js"></script>
+  </head>
 
-    <body>
+  <body>
 
-        <!--
-            Title bar show the main title of the whole page. This part will
-            always remain the same no metter how you tour around in the site.
-            But its style may vary in different phrases in the compiler demo.
-        -->
-        <div id="titleBar">
+    <!--
+    Title bar show the main title of the whole page. This part will
+    always remain the same no metter how you tour around in the site.
+    But its style may vary in different phrases in the compiler demo.
+    -->
+    <div id="titleBar">
 
-            <h1><span id="firstC">☪</span>ompile Demo</h1>
+      <h1><span id="firstC">☪</span>ompile Demo</h1>
 
+    </div>
+
+
+
+    <!--
+    Left column is the long slender column appears in the left side
+    of the whole page. In the wellcome page and the input page, the
+    left column show some basic information of the site. While in 
+    the rest of the pages, the column shows the navigetion items,
+    which allows you to choose the phase of the compiler demo(lexical
+    analysis, syntax analysis and semantic analysis), the grammar to
+    parse(LL[1], LR[0], LR[1] and so on).
+    -->
+    <div id="leftColumn">
+
+      <!--
+      Introductions are shown only on the welcome page, input page
+      and the confirm page. It contains some rules that you have to
+      obey while playing the compiler demo and some brief introduction
+      of the demo.
+      -->
+      <div id="introductionPart">
+
+        <p>Compiler demo shows most of the compiling algorithms in the dragon book. In the input page, you are required to enter a set of terminals and a grammar. You have to obey some rule when entering these information and the instruction of input will be shown right above the input area. Please pay attention to that. Since this is just a demo of the algorithms in the book, so I am not going to pay too much energy on the design of error input detection. If you want to have a nice trip, please do not try to enter some strange grammar to break down the program. You valid behavior is expected and respected.</p>
+
+      </div>
+
+
+
+      <!--
+      Syntax Navigation bar shows after you confirm the input. There
+      are several phrases and grammars that you can choose. It is shown
+      through all the way down the demo.
+      -->
+      <div id="syntaxNavigation">
+
+        <ul>
+          <li id="toLL_1Page">LL(1) Grammar</li>
+          <li id="toLR_0Page">SLR Grammar</li>
+          <li id="toLR_1Page">LR(1) Grammar</li>
+          <li id="syntaxToNavigation">Back</li>
+        </ul>
+
+      </div>
+
+      <!--
+      Lexical Navigation shows you some of the operations that you
+      can perform in the lexical analysis part.
+      -->
+      <div id="lexicalNavigation">
+
+        <ul>
+          <li id="toPostfix">Postfix Expression</li>
+          <li id="toNfaPage">NF Automaton</li>
+          <li id="toDfaPage">DF Automaton</li>
+          <li id="toLexerPage">Lexer</li>
+          <li id="lexicalToNavigation">Back</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+
+
+    <!--
+    Main column is the main part of the compiler demo. On top of the
+    main column, 
+    -->
+    <div id="mainColumn">
+
+
+
+      <!--
+      Welcome page pops up immediately after the page is loaded. It
+      can be regarded to be the entrance of the whole demo which 
+      contains some words that I want to tell everybody.
+      -->
+      <div id="welcomePage">
+
+        <h2>❉ Thanks</h2>
+        <p>To my lovely and supportive Christine.</p>
+        <h2>❉ Welcome</h2>
+        <p>Compilers plays amazing magic, but the course of compiler theorem disappoints the crowd. Maybe you still have some passion to know something about this fantastic area or you won't be in this site. Aiming at telling the story behind the complicated algorithms visually, I spent most of my time on creating this site, which I should have spent on homework. Please step around, grab something you need and your suggestion will be appreciated.</p>
+        <p>Frankly, I have to say that compiler is the most abstract course that I have ever encountered. Absorbing the book is not an easy task. It already takes a lot of time to scan it. With most of the assignments in java, I think it still hard to understand the machanism behind the algorithms in the book. So I have a strong desire to present the algorithms in the book in another way, in a more vivid and intuitive way. The construction of the site is undoubtly the most exciting project that drives me moving forward in these two months. Now I present the site for you, hope you who step in this demo have a wonderful time.</p>
+        <img id="signature" src="imgs/signature.png" alt="zeroSignature" />
+        <hr />
+        <hr />
+        <p id="welcomePageToNavigationPage">Continue To Explore &rsaquo;&rsaquo;</p>
+
+      </div>
+
+
+      <!--
+      Navigation Page. Since there are lots of parts in the whole compile 
+      process, such as lexical analysis, syntax analysis, semantic analysis
+      and so on. This page is set for you to choose which part of the demo
+      you want to use.
+      -->
+      <div id="navigationPage">
+
+        <div class="navigationPageColumn">
+          <h2>❉ Compiler Structure</h2>
+          <table id="structureGraph">
+            <tr><td id="toLexicalPage">Lexical Analysis</td></tr>
+            <tr><td id="toSyntaxPage">Syntax Analysis</td></tr>
+            <tr><td>Semantic Analysis</td></tr>
+            <tr><td>IR Generation</td></tr>
+            <tr><td>IR Optimization</td></tr>
+            <tr><td>Code Generation</td></tr>
+            <tr><td>Optimization</td></tr>
+          </table>
+        </div>
+
+        <div class="navigationPageColumn">
+          <p>The graph on the left side shows the main structure of a compiler. Generally, a compiler is a black box which takes a string of characters as input and ouputs the corresponding executable code in machine language. Breaking down this whole work into piece can be better for partial optimization. On the other hand, for the designer, they can pay more attention on a specific job once at a time, which also enhance the efficiency of the designing process and the quality of the result. Throughout the whole program, I can deeply experience this advantage.</p>
         </div>
 
 
+      </div>
+
+
+
+      <!--
+      Input page allows the user to input the terminals and the grammar.
+      The users should follow some rules of their inputs. Since this is
+      a compiler algorithm demo, so it won't go into too much details
+      to the input error detecting and some strange inputs.
+      -->
+      <div id="inputPage">
+
+        <p class="inputPageSubTitle">☸ Terminals:</p>
+        <div class="inputInstruction">
+          <ul>
+            <li>The "<code>e</code>" is used to represent the "&#603;" in Dragon Book.</li>
+            <li>The "<code>$</code>" is still valid in this site to represent the right endmarker.</li>
+            <li>The terminals should be entered one by one, separated by "," followed with a whitespace. For example: <code>+, *, id</code>.</li>
+          </ul>
+        </div>
+        <textarea id="terminalsInput" rows="1"></textarea>
+
+        <p class="inputPageSubTitle">☸ Grammar:</p>
+        <div class="inputInstruction">
+          <ul>
+            <li>Productions with different head should be listed in different line.</li>
+            <li>Productions with the same head can be listed in the same line, different bodies of the productions are separated by a "<code> | </code>". Please pay attention to the whitespaces around the "<code>|</code>".</li>
+            <li>Terminals or nonterminals in the production body should be separated with whitespaces.</li>
+            <li>Using "<code>-&gt;</code>" to denote the production arrow.</li>
+          </ul>
+        </div>
+        <textarea id="grammarInput" rows="6"></textarea>
+
+        <button id="grammarConfirm">Confirm ▶</button>
+
+
+      </div>
+
+
+
+      <!--
+      Confirm page displays the input of the user. If the input is
+      correct and the user click the confirm button, then the demo goes
+      to the next stage, namely the algorithm demo stage. Otherwise, 
+      the demo will go back to the input page.
+      -->
+      <div id="confirmPage">
+
+        <div id="inputDisplay">
+          <p id="terminalsDisplay">✺ Terminals</p>                 
+          <p id="grammarDisplay">✺ Grammar</p>                 
+          <hr />
+          <p id="confirmInstructions">The terminal set and the grammar you entered is displayed as above. No modification is made rather than some slight format changes. If you confirm that this is the grammar you want to perform later on, then choose a grammar parsing on the navigation bar. Otherwise, you can go back to input the terminal set and grammar again by clicking the "<em>back</em>" button below.</p>
+        </div>
+
+        <button id="backToInputPage">◀ back</button>
+
+      </div>
+
+
+
+      <!--
+      Page for LL(1) grammar.
+      -->
+      <div id="ll_1Page">
+        <!--
+        Display the terminal set, grammar and the predictive analysis table
+        which calculated by the LL(1) predictive analysis algorithm.
+        -->
+        <div id="ll_1ResultDisplay">
+
+          <div id="firstSetsColumn">
+            <p id="firstSetsDisplay">✺ First Sets:</p>
+          </div>
+
+          <div id="followSetsColumn">
+            <p id="followSetsDisplay">✺ Follow Sets:</p>
+          </div>
+          <hr />
+
+          <p id="predictiveTableDisplay">✺ Predictive Analysis Table:</p>
+        </div>
 
         <!--
-            Left column is the long slender column appears in the left side
-            of the whole page. In the wellcome page and the input page, the
-            left column show some basic information of the site. While in 
-            the rest of the pages, the column shows the navigetion items,
-            which allows you to choose the phase of the compiler demo(lexical
-            analysis, syntax analysis and semantic analysis), the grammar to
-            parse(LL[1], LR[0], LR[1] and so on).
+        Predictive analysis algorithm on the air.
         -->
-        <div id="leftColumn">
-        
-            <!--
-                Introductions are shown only on the welcome page, input page
-                and the confirm page. It contains some rules that you have to
-                obey while playing the compiler demo and some brief introduction
-                of the demo.
-            -->
-            <div id="introductionPart">
+        <p class="ll_1PageSubTitle">✺ Sentence:</p>
+        <textarea id="ll_1SentenceInput" rows="1"></textarea>
+        <button id="ll_1SentenceConfirm">submit</button>
 
-                <p>Compiler demo shows most of the compiling algorithms in the dragon book. In the input page, you are required to enter a set of terminals and a grammar. You have to obey some rule when entering these information and the instruction of input will be shown right above the input area. Please pay attention to that. Since this is just a demo of the algorithms in the book, so I am not going to pay too much energy on the design of error input detection. If you want to have a nice trip, please do not try to enter some strange grammar to break down the program. You valid behavior is expected and respected.</p>
-            
-            </div>
+        <div id="ll_1ParsingResultDisplay">
+          <p id="ll_1ParsingResult">✺ Predictive Analysis Result:</p>
+        </div>
+        <button id="ll_1Next">forward</button>
+        <button id="ll_1Prev">backward</button>
+        <button id="ll_1ShowAll">show all</button>
 
+      </div>
 
 
-            <!--
-                Syntax Navigation bar shows after you confirm the input. There
-                are several phrases and grammars that you can choose. It is shown
-                through all the way down the demo.
-            -->
-            <div id="syntaxNavigation">
-            
-                <ul>
-                    <li id="toLL_1Page">LL(1) Grammar</li>
-                    <li id="toLR_0Page">SLR Grammar</li>
-                    <li id="toLR_1Page">LR(1) Grammar</li>
-                    <li id="syntaxToNavigation">Back</li>
-                </ul>
-            
-            </div>
-            
-            <!--
-                Lexical Navigation shows you some of the operations that you
-                can perform in the lexical analysis part.
-            -->
-            <div id="lexicalNavigation">
-            
-                <ul>
-                    <li id="toPostfix">Postfix Expression</li>
-                    <li id="toNfaPage">NF Automaton</li>
-                    <li id="toDfaPage">DF Automaton</li>
-                    <li id="lexicalToNavigation">Back</li>
-                </ul>
-            
-            </div>
+
+      <!--
+      Page for LR(0) grammar.
+      -->
+      <div id="lr_0Page">
+
+        <!--
+        Display the items sets of the grammar.
+        -->
+        <div id="lr_0ItemSetsDisplay">
+
+          <div id="itemSetsColumn">
+            <p id="itemSetsDisplay">✺ Canonical LR(0) Collection:</p>
+          </div>
 
         </div>
 
-
-
         <!--
-            Main column is the main part of the compiler demo. On top of the
-            main column, 
+        Display the SLR table.
         -->
-        <div id="mainColumn">
-
-
-
-            <!--
-                Welcome page pops up immediately after the page is loaded. It
-                can be regarded to be the entrance of the whole demo which 
-                contains some words that I want to tell everybody.
-            -->
-            <div id="welcomePage">
-
-                <h2>❉ Thanks</h2>
-                <p>To my lovely and supportive Christine.</p>
-                <h2>❉ Welcome</h2>
-                <p>Compilers plays amazing magic, but the course of compiler theorem disappoints the crowd. Maybe you still have some passion to know something about this fantastic area or you won't be in this site. Aiming at telling the story behind the complicated algorithms visually, I spent most of my time on creating this site, which I should have spent on homework. Please step around, grab something you need and your suggestion will be appreciated.</p>
-                <p>Frankly, I have to say that compiler is the most abstract course that I have ever encountered. Absorbing the book is not an easy task. It already takes a lot of time to scan it. With most of the assignments in java, I think it still hard to understand the machanism behind the algorithms in the book. So I have a strong desire to present the algorithms in the book in another way, in a more vivid and intuitive way. The construction of the site is undoubtly the most exciting project that drives me moving forward in these two months. Now I present the site for you, hope you who step in this demo have a wonderful time.</p>
-                <img id="signature" src="imgs/signature.png" alt="zeroSignature" />
-                <hr />
-                <hr />
-                <p id="welcomePageToNavigationPage">Continue To Explore &rsaquo;&rsaquo;</p>
-
-            </div>
-
-
-            <!--
-                Navigation Page. Since there are lots of parts in the whole compile 
-                process, such as lexical analysis, syntax analysis, semantic analysis
-                and so on. This page is set for you to choose which part of the demo
-                you want to use.
-            -->
-            <div id="navigationPage">
-
-                <div class="navigationPageColumn">
-                    <h2>❉ Compiler Structure</h2>
-                    <table id="structureGraph">
-                        <tr><td id="toLexicalPage">Lexical Analysis</td></tr>
-                        <tr><td id="toSyntaxPage">Syntax Analysis</td></tr>
-                        <tr><td>Semantic Analysis</td></tr>
-                        <tr><td>IR Generation</td></tr>
-                        <tr><td>IR Optimization</td></tr>
-                        <tr><td>Code Generation</td></tr>
-                        <tr><td>Optimization</td></tr>
-                    </table>
-                </div>
-                
-                <div class="navigationPageColumn">
-                    <p>The graph on the left side shows the main structure of a compiler. Generally, a compiler is a black box which takes a string of characters as input and ouputs the corresponding executable code in machine language. Breaking down this whole work into piece can be better for partial optimization. On the other hand, for the designer, they can pay more attention on a specific job once at a time, which also enhance the efficiency of the designing process and the quality of the result. Throughout the whole program, I can deeply experience this advantage.</p>
-                </div>
-
-
-            </div>
-
-
-
-            <!--
-                Input page allows the user to input the terminals and the grammar.
-                The users should follow some rules of their inputs. Since this is
-                a compiler algorithm demo, so it won't go into too much details
-                to the input error detecting and some strange inputs.
-            -->
-            <div id="inputPage">
-
-                <p class="inputPageSubTitle">☸ Terminals:</p>
-                <div class="inputInstruction">
-                    <ul>
-                        <li>The "<code>e</code>" is used to represent the "&#603;" in Dragon Book.</li>
-                        <li>The "<code>$</code>" is still valid in this site to represent the right endmarker.</li>
-                        <li>The terminals should be entered one by one, separated by "," followed with a whitespace. For example: <code>+, *, id</code>.</li>
-                    </ul>
-                </div>
-                <textarea id="terminalsInput" rows="1"></textarea>
-
-                <p class="inputPageSubTitle">☸ Grammar:</p>
-                <div class="inputInstruction">
-                    <ul>
-                        <li>Productions with different head should be listed in different line.</li>
-                        <li>Productions with the same head can be listed in the same line, different bodies of the productions are separated by a "<code> | </code>". Please pay attention to the whitespaces around the "<code>|</code>".</li>
-                        <li>Terminals or nonterminals in the production body should be separated with whitespaces.</li>
-                        <li>Using "<code>-&gt;</code>" to denote the production arrow.</li>
-                    </ul>
-                </div>
-                <textarea id="grammarInput" rows="6"></textarea>
-
-                <button id="grammarConfirm">Confirm ▶</button>
-                
-            
-            </div>
-            
-
-
-            <!--
-                Confirm page displays the input of the user. If the input is
-                correct and the user click the confirm button, then the demo goes
-                to the next stage, namely the algorithm demo stage. Otherwise, 
-                the demo will go back to the input page.
-            -->
-            <div id="confirmPage">
-
-                <div id="inputDisplay">
-                    <p id="terminalsDisplay">✺ Terminals</p>                 
-                    <p id="grammarDisplay">✺ Grammar</p>                 
-                    <hr />
-                    <p id="confirmInstructions">The terminal set and the grammar you entered is displayed as above. No modification is made rather than some slight format changes. If you confirm that this is the grammar you want to perform later on, then choose a grammar parsing on the navigation bar. Otherwise, you can go back to input the terminal set and grammar again by clicking the "<em>back</em>" button below.</p>
-                </div>
-
-                <button id="backToInputPage">◀ back</button>
-
-            </div>
-
-
-
-            <!--
-                Page for LL(1) grammar.
-            -->
-            <div id="ll_1Page">
-                <!--
-                    Display the terminal set, grammar and the predictive analysis table
-                    which calculated by the LL(1) predictive analysis algorithm.
-                -->
-                <div id="ll_1ResultDisplay">
-
-                    <div id="firstSetsColumn">
-                        <p id="firstSetsDisplay">✺ First Sets:</p>
-                    </div>
-
-                    <div id="followSetsColumn">
-                        <p id="followSetsDisplay">✺ Follow Sets:</p>
-                    </div>
-                    <hr />
-                    
-                    <p id="predictiveTableDisplay">✺ Predictive Analysis Table:</p>
-                </div>
-
-                <!--
-                    Predictive analysis algorithm on the air.
-                -->
-                <p class="ll_1PageSubTitle">✺ Sentence:</p>
-                <textarea id="ll_1SentenceInput" rows="1"></textarea>
-                <button id="ll_1SentenceConfirm">submit</button>
-
-                <div id="ll_1ParsingResultDisplay">
-                    <p id="ll_1ParsingResult">✺ Predictive Analysis Result:</p>
-                </div>
-                <button id="ll_1Next">forward</button>
-                <button id="ll_1Prev">backward</button>
-                <button id="ll_1ShowAll">show all</button>
-
-            </div>
-
-
-
-            <!--
-                Page for LR(0) grammar.
-            -->
-            <div id="lr_0Page">
-            
-                <!--
-                    Display the items sets of the grammar.
-                -->
-                <div id="lr_0ItemSetsDisplay">
-
-                    <div id="itemSetsColumn">
-                        <p id="itemSetsDisplay">✺ Canonical LR(0) Collection:</p>
-                    </div>
-
-                </div>
-
-                <!--
-                    Display the SLR table.
-                -->
-                <div id="slrAnalysisTableDisplay">
-                    <p id="indexedGrammar">✺ Indexed Grammar:</p>
-                    <p class="indexedGrammarInstruction">The indexed grammar on the left shows the productions in the grammar separately, with an indexed number on the left. The index is applied to indicate which production will be used when a reduction operation is needed when the analysis is undergoing. For convinience, the augmented production is also listed and indexed by 0, though it will never be used.</p>
-                    <hr />
-                    <hr />
-                    <p id="slrTableDisplay">✺ SLR Analysis Table:</p>
-                </div>
-                
-                <!--
-                    SLR analysis algorithm on the air.
-                -->
-                <p class="slrPageSubTitle">✺ Sentence:</p>
-                <textarea id="slrSentenceInput" rows="1"></textarea>
-                <button id="slrSentenceConfirm">submit</button>
-
-                <div id="slrParsingResultDisplay">
-                    <p id="slrParsingResult">✺ SLR Analysis Result:</p>
-                </div>
-                <button id="slrNext">forward</button>
-                <button id="slrPrev">backward</button>
-                <button id="slrShowAll">show all</button>
-            
-            </div>
-            
-
-
-            <!--
-                Page for LR(1) grammar.
-            -->
-            <div id="lr_1Page">
-            
-                <!--
-                    Display the items sets of the grammar.
-                -->
-                <div id="lr_1ItemSetsDisplayArea">
-
-                    <div id="lr_1ItemSetsColumn">
-                        <p id="lr_1ItemSetsDisplay">✺ Canonical LR(1) Collection:</p>
-                    </div>
-
-                </div>
-
-                 <!--
-                    Display the LR(1) table.
-                -->
-                <div id="lr_1AnalysisTableDisplay">
-                    <p id="lr_1IndexedGrammar">✺ Indexed Grammar:</p>
-                    <p class="indexedGrammarInstruction">The indexed grammar on the left shows the productions in the grammar separately, with an indexed number on the left. The index is applied to indicate which production will be used when a reduction operation is needed when the analysis is undergoing. For convinience, the augmented production is also listed and indexed by 0, though it will never be used.</p>
-                    <hr />
-                    <hr />
-                    <p id="lr_1TableDisplay">✺ LR(1) Analysis Table:</p>
-                </div>
-            
-                <!--
-                    LR(1) analysis algorithm on the air.
-                -->
-                <p class="lr_1PageSubTitle">✺ Sentence:</p>
-                <textarea id="lr_1SentenceInput" rows="1"></textarea>
-                <button id="lr_1SentenceConfirm">submit</button>
-
-                <div id="lr_1ParsingResultDisplay">
-                    <p id="lr_1ParsingResult">✺ LR(1) Analysis Result:</p>
-                </div>
-                <button id="lr_1Next">forward</button>
-                <button id="lr_1Prev">backward</button>
-                <button id="lr_1ShowAll">show all</button>
-
-            </div>
-
-
-            <!--
-                Lexical welcome page shows some basic knowledge of lexical analysis.
-                And the lexical navigation shows up as this page is presented. Further
-                behavior depends on your further choices of different lexical analysis
-                stages.
-            -->
-            <div id="lexicalWelcomePage">
-            
-                <p>Test Page</p>               
-            
-            </div>
-
-
-
-            <!--
-                Postfix page shows the procedure of converting a infix regular expression to
-                its postfix form. Only in this way can the abstract syntax tree be established.
-            -->
-            <div id="postfixPage">
-
-                <p class="postfixPageSubTitle">☸ Infix Input:</p>
-                <div class="postfixInputInstruction">
-                    <ul>
-                        <li>Here is the place for you to input the regular expression, which is in infix.</li>
-                        <li>The endmarker is represented by "#".</li>
-                        <li>The "e" is used to represent the "&#603;" in Dragon book.</li>
-                        <li>Different elements in a regular expression should be separated by whitespaces. For example, the regular expression "(a|b)*abb" should be entered in the following way: <code>"( a | b ) * a b b #"</code>.</li>
-                        <li>You have no need to enter the concatenation explicitly.</li>
-                    </ul>
-                </div>
-                <textarea id="infixInput" rows="1"></textarea>
-
-                <button id="infixConfirm">Confirm ▶</button>
-
-                <div id="toPostfixResultDisplay">
-                    <p id="addConcatenation" class="postfixPageSubTitle">✺ Add Concatenation:</p>
-                    <p class="normal">Since concatenation("~"), alternation("|") and kleene closure("*") are three basic operations of a normal regular expression, we cannot ignore the concatenation though it does not appear in the input. At the same time, we have to know where the concatenation lies when the abstract syntax tree is established. It is one kind of the inner nodes of the AST which connects two subtrees. If the concatenations are ignored, the parsed regular expression may express a different meaning compared to the original one.</p>
-                    <p id="toPostfixResult" class="postfixPageSubTitle">✺ Infix to Postfix Result:</p>
-                </div>
-
-            </div>
-
-            <!--
-                NFA page.
-            -->
-            <div id="nfaPage">
-
-                <p class="nfaPageSubTitle">☸ Regular Expression Input:</p>
-                <div class="nfaInputInstruction">
-                    <ul>
-                        <li>Here is the place for you to input the regular expression, which is in infix.</li>
-                        <li>The endmarker is represented by "#".</li>
-                        <li>The "e" is used to represent the "&#603;" in Dragon book.</li>
-                        <li>Different elements in a regular expression should be separated by whitespaces. For example, the regular expression "(a|b)*abb" should be entered in the following way: <code>"( a | b ) * a b b #"</code>.</li>
-                        <li>You have no need to enter the concatenation explicitly.</li>
-                    </ul>
-                </div>
-                <textarea id="nfaInput" rows="1"></textarea>
-
-                <button id="nfaConfirm">Confirm ▶</button>
-
-                <div id="nfaTransferTableDisplayArea">
-                    <p id="nfaAlphabet" class="nfaPageSubTitle">☸ Alphabet:</p>
-                    <p id="nfaTransferTableDisplay" class="nfaPageSubTitle">☸ NFA Transfer Table:</p>
-                    <p class="normal">The NFA given above is not the optimal one. If you draw the NFA transfer graph in a piece of paper, you may find out that there are some useless states which only contains epsilon transfer. These states can be eliminated directly.</p>
-                </div>
-
-                <!--
-                    NFA parsing algorithm on the air.
-                -->
-                <p class="nfaPageSubTitle">✺ Sentence:</p>
-                <textarea id="nfaReSentenceInput" rows="1"></textarea>
-                <button id="nfaReSentenceConfirm">submit</button>
-
-                <div id="nfaReParsingResultDisplayArea">
-                    <p id="nfaReParsingResultDisplay" class="nfaPageSubTitle">✺ Regular Expression Parsing By NFA:</p>
-                </div>
-
-            </div>
-
-
-            <!--
-                DFA page.
-            -->
-            <div id="dfaPage">
-
-                <p class="dfaPageSubTitle">☸ Regular Expression Input:</p>
-                <div class="dfaInputInstruction">
-                    <ul>
-                        <li>Here is the place for you to input the regular expression, which is in infix.</li>
-                        <li>The endmarker is represented by "#".</li>
-                        <li>The "e" is used to represent the "&#603;" in Dragon book.</li>
-                        <li>Different elements in a regular expression should be separated by whitespaces. For example, the regular expression "(a|b)*abb" should be entered in the following way: <code>"( a | b ) * a b b #"</code>.</li>
-                        <li>You have no need to enter the concatenation explicitly.</li>
-                    </ul>
-                </div>
-                <textarea id="dfaInput" rows="1"></textarea>
-
-                <button id="dfaConfirm">Confirm ▶</button>
-
-                <div id="dfaTransferTableDisplayArea">
-                    <p id="dfaAlphabet" class="dfaPageSubTitle">☸ Alphabet:</p>
-                    <p id="dfaTransferTableDisplay" class="dfaPageSubTitle">☸ NFA Transfer Table:</p>
-                    <p class="normal">The DFA given above is not the optimal one. If you draw the DFA transfer graph in a piece of paper, you may find out that there are some useless states which only contains epsilon transfer. These states can be eliminated directly.</p>
-                </div>
-
-                <!--
-                    DFA parsing algorithm on the air.
-                -->
-                <p class="dfaPageSubTitle">✺ Sentence:</p>
-                <textarea id="dfaReSentenceInput" rows="1"></textarea>
-                <button id="dfaReSentenceConfirm">submit</button>
-
-                <div id="dfaReParsingResultDisplayArea">
-                    <p id="dfaReParsingResultDisplay" class="dfaPageSubTitle">✺ Regular Expression Parsing By DFA:</p>
-                </div>
-
-            </div>
-
-
-            <div id="copyleft">
-
-                <p>Copyleft &copy; 2011 Zero(nullspace.info)</p>
-
-            </div>
-
-            <div id="bgGrammar"></div>
+        <div id="slrAnalysisTableDisplay">
+          <p id="indexedGrammar">✺ Indexed Grammar:</p>
+          <p class="indexedGrammarInstruction">The indexed grammar on the left shows the productions in the grammar separately, with an indexed number on the left. The index is applied to indicate which production will be used when a reduction operation is needed when the analysis is undergoing. For convinience, the augmented production is also listed and indexed by 0, though it will never be used.</p>
+          <hr />
+          <hr />
+          <p id="slrTableDisplay">✺ SLR Analysis Table:</p>
         </div>
 
-    </body>
+        <!--
+        SLR analysis algorithm on the air.
+        -->
+        <p class="slrPageSubTitle">✺ Sentence:</p>
+        <textarea id="slrSentenceInput" rows="1"></textarea>
+        <button id="slrSentenceConfirm">submit</button>
+
+        <div id="slrParsingResultDisplay">
+          <p id="slrParsingResult">✺ SLR Analysis Result:</p>
+        </div>
+        <button id="slrNext">forward</button>
+        <button id="slrPrev">backward</button>
+        <button id="slrShowAll">show all</button>
+
+      </div>
+
+
+
+      <!--
+      Page for LR(1) grammar.
+      -->
+      <div id="lr_1Page">
+
+        <!--
+        Display the items sets of the grammar.
+        -->
+        <div id="lr_1ItemSetsDisplayArea">
+
+          <div id="lr_1ItemSetsColumn">
+            <p id="lr_1ItemSetsDisplay">✺ Canonical LR(1) Collection:</p>
+          </div>
+
+        </div>
+
+        <!--
+        Display the LR(1) table.
+        -->
+        <div id="lr_1AnalysisTableDisplay">
+          <p id="lr_1IndexedGrammar">✺ Indexed Grammar:</p>
+          <p class="indexedGrammarInstruction">The indexed grammar on the left shows the productions in the grammar separately, with an indexed number on the left. The index is applied to indicate which production will be used when a reduction operation is needed when the analysis is undergoing. For convinience, the augmented production is also listed and indexed by 0, though it will never be used.</p>
+          <hr />
+          <hr />
+          <p id="lr_1TableDisplay">✺ LR(1) Analysis Table:</p>
+        </div>
+
+        <!--
+        LR(1) analysis algorithm on the air.
+        -->
+        <p class="lr_1PageSubTitle">✺ Sentence:</p>
+        <textarea id="lr_1SentenceInput" rows="1"></textarea>
+        <button id="lr_1SentenceConfirm">submit</button>
+
+        <div id="lr_1ParsingResultDisplay">
+          <p id="lr_1ParsingResult">✺ LR(1) Analysis Result:</p>
+        </div>
+        <button id="lr_1Next">forward</button>
+        <button id="lr_1Prev">backward</button>
+        <button id="lr_1ShowAll">show all</button>
+
+      </div>
+
+
+      <!--
+      Lexical welcome page shows some basic knowledge of lexical analysis.
+      And the lexical navigation shows up as this page is presented. Further
+      behavior depends on your further choices of different lexical analysis
+      stages.
+      -->
+      <div id="lexicalWelcomePage">
+
+        <p>Test Page</p>               
+
+      </div>
+
+
+
+      <!--
+      Postfix page shows the procedure of converting a infix regular expression to
+      its postfix form. Only in this way can the abstract syntax tree be established.
+      -->
+      <div id="postfixPage">
+
+        <p class="postfixPageSubTitle">☸ Infix Input:</p>
+        <div class="postfixInputInstruction">
+          <ul>
+            <li>Here is the place for you to input the regular expression, which is in infix.</li>
+            <li>The endmarker is represented by "#".</li>
+            <li>The "e" is used to represent the "&#603;" in Dragon book.</li>
+            <li>Different elements in a regular expression should be separated by whitespaces. For example, the regular expression "(a|b)*abb" should be entered in the following way: <code>"( a | b ) * a b b #"</code>.</li>
+            <li>You have no need to enter the concatenation explicitly.</li>
+          </ul>
+        </div>
+        <textarea id="infixInput" rows="1"></textarea>
+
+        <button id="infixConfirm">Confirm ▶</button>
+
+        <div id="toPostfixResultDisplay">
+          <p id="addConcatenation" class="postfixPageSubTitle">✺ Add Concatenation:</p>
+          <p class="normal">Since concatenation("~"), alternation("|") and kleene closure("*") are three basic operations of a normal regular expression, we cannot ignore the concatenation though it does not appear in the input. At the same time, we have to know where the concatenation lies when the abstract syntax tree is established. It is one kind of the inner nodes of the AST which connects two subtrees. If the concatenations are ignored, the parsed regular expression may express a different meaning compared to the original one.</p>
+          <p id="toPostfixResult" class="postfixPageSubTitle">✺ Infix to Postfix Result:</p>
+        </div>
+
+      </div>
+
+      <!--
+      NFA page.
+      -->
+      <div id="nfaPage">
+
+        <p class="nfaPageSubTitle">☸ Regular Expression Input:</p>
+        <div class="nfaInputInstruction">
+          <ul>
+            <li>Here is the place for you to input the regular expression, which is in infix.</li>
+            <li>The endmarker is represented by "#".</li>
+            <li>The "e" is used to represent the "&#603;" in Dragon book.</li>
+            <li>Different elements in a regular expression should be separated by whitespaces. For example, the regular expression "(a|b)*abb" should be entered in the following way: <code>"( a | b ) * a b b #"</code>.</li>
+            <li>You have no need to enter the concatenation explicitly.</li>
+          </ul>
+        </div>
+        <textarea id="nfaInput" rows="1"></textarea>
+
+        <button id="nfaConfirm">Confirm ▶</button>
+
+        <div id="nfaTransferTableDisplayArea">
+          <p id="nfaAlphabet" class="nfaPageSubTitle">☸ Alphabet:</p>
+          <p id="nfaTransferTableDisplay" class="nfaPageSubTitle">☸ NFA Transfer Table:</p>
+          <p class="normal">The NFA given above is not the optimal one. If you draw the NFA transfer graph in a piece of paper, you may find out that there are some useless states which only contains epsilon transfer. These states can be eliminated directly.</p>
+        </div>
+
+        <!--
+        NFA parsing algorithm on the air.
+        -->
+        <p class="nfaPageSubTitle">✺ Sentence:</p>
+        <textarea id="nfaReSentenceInput" rows="1"></textarea>
+        <button id="nfaReSentenceConfirm">submit</button>
+
+        <div id="nfaReParsingResultDisplayArea">
+          <p id="nfaReParsingResultDisplay" class="nfaPageSubTitle">✺ Regular Expression Parsing By NFA:</p>
+        </div>
+
+      </div>
+
+
+      <!--
+      DFA page.
+      -->
+      <div id="dfaPage">
+
+        <p class="dfaPageSubTitle">☸ Regular Expression Input:</p>
+        <div class="dfaInputInstruction">
+          <ul>
+            <li>Here is the place for you to input the regular expression, which is in infix.</li>
+            <li>The endmarker is represented by "#".</li>
+            <li>The "e" is used to represent the "&#603;" in Dragon book.</li>
+            <li>Different elements in a regular expression should be separated by whitespaces. For example, the regular expression "(a|b)*abb" should be entered in the following way: <code>"( a | b ) * a b b #"</code>.</li>
+            <li>You have no need to enter the concatenation explicitly.</li>
+          </ul>
+        </div>
+        <textarea id="dfaInput" rows="1"></textarea>
+
+        <button id="dfaConfirm">Confirm ▶</button>
+
+        <div id="dfaTransferTableDisplayArea">
+          <p id="dfaAlphabet" class="dfaPageSubTitle">☸ Alphabet:</p>
+          <p id="dfaTransferTableDisplay" class="dfaPageSubTitle">☸ NFA Transfer Table:</p>
+          <p class="normal">The DFA given above is not the optimal one. If you draw the DFA transfer graph in a piece of paper, you may find out that there are some useless states which only contains epsilon transfer. These states can be eliminated directly.</p>
+        </div>
+
+        <!--
+        DFA parsing algorithm on the air.
+        -->
+        <p class="dfaPageSubTitle">✺ Sentence:</p>
+        <textarea id="dfaReSentenceInput" rows="1"></textarea>
+        <button id="dfaReSentenceConfirm">submit</button>
+
+        <div id="dfaReParsingResultDisplayArea">
+          <p id="dfaReParsingResultDisplay" class="dfaPageSubTitle">✺ Regular Expression Parsing By DFA:</p>
+        </div>
+
+      </div>
+
+
+      <!-- 
+      Lexer Page : This page is the combination of all the parts in lexical analysis. Including
+      regular expression analysis, nfa construction, dfa transformation and lexical parsing.
+      -->
+      <div id="lexerPage">
+
+        <!-- Regular Expression Input Area -->
+        <p class="lexerPageSubTitle">☸ Regular Definitions Input:</p>
+        <div class="lexerInputInstruction">
+          <ul>
+            <li>Here is the place for you to enter the regular definitions. Regular definition is a token name followed by its regular definition.</li>
+            <li>Token name can be directly enter without any double quotation marks.</li>
+            <li>The regular definition can also be entered directly without any double quotation marks.</li>
+            <li>A concatenation "-&gt;" is needed to separate the token name and its regular definition.</li>
+            <li>One "token -&gt; regular definition" pair can only be in a single line.</li>
+          </ul>
+        </div>
+        <textarea id="lexerReDefinitionInput" rows="5"></textarea>
+
+        <!-- Patterns and Rules Input Area -->
+        <p class="lexerPageSubTitle">☸ Patterns and Rules:</p>
+        <div class="lexerInputInstruction">
+          <ul>
+            <li>Here is the place for you to enter patterns and rules of the lexer.</li>
+            <li>A rule is followed by a pattern that needs to be parse. The separater is "-&gt;".</li>
+            <li>Pattern means the lexeme token. For most of the times, it is the same as what you want the lexer to return when it successfully parses a token.</li>
+            <li>Rule actually means the action that excutes right after a token is parsed.</li>
+          </ul>
+        </div>
+        <textarea id="lexerActionsInput" rows="10"></textarea>
+
+        <button id="lexerActionsConfirm">Confirm ▶</button>
+
+      </div>
+
+
+
+      <div id="copyleft">
+
+        <p>Copyleft &copy; 2011 Zero(nullspace.info)</p>
+
+      </div>
+
+      <div id="bgGrammar"></div>
+    </div>
+
+  </body>
 </html>

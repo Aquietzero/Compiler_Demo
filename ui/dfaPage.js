@@ -8,7 +8,6 @@ $(function() {
 
 function showDfaPage() {
 
-    console.log("here");
     var bullet = $("#toDfaPage");
     $("#introductionPart").css("display", "none");
 
