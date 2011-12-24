@@ -23,8 +23,8 @@ body {
 
     border-top: solid 5px white;
     border-bottom: solid 5px white;
-    -moz-box-shadow: -20px 0 10px #483D8B;
-    -webkit-box-shadow: -20px 0 10px #483D8B;
+    -moz-box-shadow: -20px 0 10px black;
+    -webkit-box-shadow: -20px 0 10px black;
     background-color: white;
     z-index: 2;
 }
@@ -53,10 +53,11 @@ body {
     width: 15%;
     height: 1000px;
 
-    border-left: solid 10px #483D8B;
-    border-right: solid 10px #483D8B;
-    -moz-box-shadow: 0 -10px 10px #483D8B;
-    -webkit-box-shadow: 0 -10px 10px #487D8B;
+    border-left: solid 10px black;
+    border-right: solid 10px black;
+    -moz-box-shadow: 0 -10px 15px black; 
+    -moz-box-shadow: 0 0 5px black inset;
+    -webkit-box-shadow: 0 -10px 10px black;
 
     font-style: italic;
     background: url("../imgs/flowers.jpg");
@@ -88,7 +89,7 @@ body {
     text-align: center;
     line-height: 15pt;
     color: #CCCCCC;
-    background-color: #483d8b;
+    background-color: black;
     -moz-box-shadow: 0 0 5px #666666;
     -webkit-box-shadow: 0 0 5px #666666;
     -moz-border-radius: 20px;
@@ -118,8 +119,8 @@ body {
     font-weight: bold;
     text-align: center;
     line-height: 15pt;
-    color: #483D8B;
-    text-shadow: 0 0 3px #483D8B;
+    color: black;
+    text-shadow: 0 0 3px black;
     background-color: white;
     -moz-box-shadow: -10px 0 10px #999999;
     -webkit-box-shadow: -10px 0 10px #999999;

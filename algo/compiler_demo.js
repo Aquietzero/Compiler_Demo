@@ -15,7 +15,8 @@ var TERMINALS,
     DF_AUTOMATON,
 
     RE_DEFINITION,
-    ACTIONS;
+    ACTIONS,
+    LEXER;
 
 function parseByLL_1() {
 
@@ -170,6 +171,9 @@ function getReDefinition() {
 
     RE_DEFINITION = $('#lexerReDefinitionInput').val();
     ACTIONS = $('#lexerActionsInput').val();
+    LEXER = new Lexer(RE_DEFINITION, ACTIONS);
+    console.log(LEXER);
+
 }
 
 window.onload = function() {

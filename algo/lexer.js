@@ -99,6 +99,9 @@ function Lexer(reDefinitions, actions) {
     // sub NFA terminal states maps to the token.
     this.nfaTokenMapping = {};
 
+    // This variable is only for output.
+    this.nfas = '';
+
     // Lexer NFA.
     this.lexerNFA = new NFA();
     this.constructLexerNFA(this.actionTable);
@@ -286,7 +289,7 @@ Lexer.prototype.constructLexerNFA = function(actionTable) {
     
         nfa = nfas[i];
 
-        console.log(nfa.displayNFA());
+        this.nfas += nfa.displayNFA();
 
         beginState.addEdge(new NFAEdge(beginState, nfa.states[nfa.begin], "e"));
         endState.pushArray(nfa.end);

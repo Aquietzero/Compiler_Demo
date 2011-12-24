@@ -2,13 +2,13 @@ var DEFAULT_REDEFINITION = "letter -> a | b | c | d\n" +
                            "digit  -> 1 | 2 | 3 | 4\n" +
                            "id     -> letter ( letter | digit ) *\n" +
                            "number -> digit digit *";
-var DEFAULT_ACTIONS = "{id}     -> { return(ID);    }\n" +
-                      "{number} -> { return(NUM)    }\n" +
-                      ">=       -> { return(RELOP); }\n" +
-                      "<=       -> { return(RELOP); }\n" +
-                      "==       -> { return(RELOP); }\n" +
-                      ">        -> { return(RELOP); }\n" +
-                      "<        -> { return(RELOP); }";
+var DEFAULT_ACTIONS = "{id}     -> {return(ID);}\n" +
+                      "{number} -> {return(NUM);}\n" +
+                      ">=       -> {return(RELOP);}\n" +
+                      "<=       -> {return(RELOP);}\n" +
+                      "==       -> {return(RELOP);}\n" +
+                      ">        -> {return(RELOP);}\n" +
+                      "<        -> {return(RELOP);}";
 
 $(function() {
     
@@ -16,6 +16,7 @@ $(function() {
     $("#lexerActionsInput").val(DEFAULT_ACTIONS);
 
     $("#toLexerPage").bind("click", showLexerPage);
+    $("#lexerConfirm").bind("click", showLexer);
 
 });
 
@@ -36,3 +37,8 @@ function showLexerPage() {
 
 }
 
+function showLexer() {
+    getReDefinition();
+    var nfasHtml = '<pre>' + LEXER.nfas + '</pre>';
+    $(nfasHtml).insertAfter('#lexerDisplay');
+}
