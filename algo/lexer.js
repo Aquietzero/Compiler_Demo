@@ -106,8 +106,12 @@ function Lexer(reDefinitions, actions) {
     this.lexerNFA = new NFA();
     this.constructLexerNFA(this.actionTable);
 
-    // construct the DFA according to the NFA which is calculated above.
+    // Construct the DFA according to the NFA which is calculated above.
     this.lexerDFA = new DFA(this.lexerNFA);
+
+    // A message that shows whether the parse is valid or what errors occures.
+    this.parseMsg = '';
+    this.parseRst = '';
 
 }
 
@@ -305,24 +309,42 @@ Lexer.prototype.constructLexerNFA = function(actionTable) {
 
 }
 
-/* !!!Attention!!!
+/* The parsing model : double pointer.
  *
- *    Add some basic error detections.
- *
+ *    a b c    >=    1 2 3
+ *        ^            ^
+ *      tokPtr      currPos
+ *        ^
+ *     tokState
+ *  
+ *  currPos  : The current position of the parsing sentence.
+ *  tokPtr   : Records the last position of the previous matched token.
+ *  tokState : The corresponding DFA state of the tokPtr.
  */
 Lexer.prototype.parse = function(input) {
 
     var dfa = this.lexerDFA;    
-    var tokPtr, currPos, symbol, tokState;
+    var tokPtr, prevTokPtr, currPos, symbol, tokState;
     var state = 0;
     var nfaState, token;
-    var rst = '';
 
+    // Reset parsing information.
+    this.parseRst = '';
+    this.parseMsg = '';
+
+    prevTokPtr = 0;
     for (var currPos = 0; currPos < input.length; ++currPos) {
 
         // Ignore whitespace.
         if (input[currPos] == ' ')
             continue;
+
+        // Detect invalid symbol.
+        if (!this.lexerDFA.alphabet.contains(input[currPos])) {
+            this.parseMsg += 'The input ' + input[currPos] +
+                             ' is not a valid symbol in the alphabet.\n';
+            break;
+        }
 
         state = dfa.states[state][input[currPos]];
 
@@ -337,11 +359,25 @@ Lexer.prototype.parse = function(input) {
         // No valid further state and needs a trace back. Matching
         // the nearest previous valid state.
         if (!state) {
+           
             nfaState = Math.min(dfa.stateMapping[tokState]);            
             token = this.nfaTokenMapping[nfaState];
-            rst += token + ' ';
             state = 0;
             currPos = tokPtr;
+            
+            // No further transition in the DFA.
+            if (currPos == prevTokPtr) {
+                this.parseMsg += "No further transition in the DFA with the symbol \'" +
+                                 input[currPos] + "\' in " + currPos + " and the comming symbol \'" + 
+                                 input[currPos + 1] + '\'\n'; 
+                break;
+            }
+            else {
+                if (token)
+                    this.parseRst += token + ' ';
+                prevTokPtr = tokPtr;
+            }
+
         }
     }
     
@@ -350,10 +386,15 @@ Lexer.prototype.parse = function(input) {
         tokState = dfa.endmarkerMove(state);
         nfaState = Math.min(dfa.stateMapping[tokState]);            
         token = this.nfaTokenMapping[nfaState];
-        rst += token;
+        this.parseRst += token;
     }
 
-    return rst;
+    if (this.parseRst == '')
+        this.parseMsg = 'The input sentence matches none of the patterns.';
+    if (this.parseRst != '' && this.parseMsg == '')
+        this.parseMsg = 'The input sentence is valid to the given pattern.';
+
+    return this.parseRst;
 
 }
 

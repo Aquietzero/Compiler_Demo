@@ -543,3 +543,20 @@ function lexerDFAToHtml() {
     return rst;
 
 }
+
+function lexerParseMassageToHtml() {
+
+    var rst = '';
+    rst += "<strong class='warning'>" +
+           "Parsing Message:<br /></strong>" +
+           "<pre class='errorMessage'>" +
+           LEXER.parseMsg + "</pre>";
+    return rst;
+
+}
+
+function lexerParseResultToHtml() {
+
+    return '<pre>' + LEXER.parseRst + '</pre>';
+
+}

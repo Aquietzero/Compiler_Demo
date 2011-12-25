@@ -213,7 +213,7 @@ window.onload = function() {
                   "==   -> {return(RELOP);}\n" +
                   ">    -> {return(RELOP);}\n" +
                   "<    -> {return(RELOP);}";
-    var lexInput = 'b12 >= d4 <= abc == b2 > 123 < 2123';
+    var lexInput = 'b12 >= 1d4 <= abc == b2 > 123 < 2123';
 
     //var lex = "digit  -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9\n" +
     //          "digits -> digit digit *\n" +

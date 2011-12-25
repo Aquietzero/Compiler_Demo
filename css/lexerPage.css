@@ -29,7 +29,7 @@
     clear: both;
 }
 
-.lexerInputInstruction {
+.lexerInputInstruction, #lexerPage p {
     font-family: serif;
     font-style: italic;
     font-size: 11pt;

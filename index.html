@@ -502,7 +502,7 @@
       <div id="lexerPage">
 
         <!-- Regular Expression Input Area -->
-        <p class="lexerPageSubTitle">☸ Regular Definitions Input:</p>
+        <h3 class="lexerPageSubTitle">☸ Regular Definitions Input:</h3>
         <div class="lexerInputInstruction">
           <ul>
             <li>Here is the place for you to enter the regular definitions. Regular definition is a token name followed by its regular definition.</li>
@@ -515,7 +515,7 @@
         <textarea id="lexerReDefinitionInput" rows="5"></textarea>
 
         <!-- Patterns and Rules Input Area -->
-        <p class="lexerPageSubTitle">☸ Patterns and Rules:</p>
+        <h3 class="lexerPageSubTitle">☸ Patterns and Rules:</h3>
         <div class="lexerInputInstruction">
           <ul>
             <li>Here is the place for you to enter patterns and rules of the lexer.</li>
@@ -529,16 +529,17 @@
         <button id="lexerConfirm">Confirm ▶</button>
 
         <div id="lexerDFATableDisplayArea">
-          <p id="lexerDFATableDisplay" class="lexerPageSubTitle">✺ Lexer DFA:</p>
+          <h3 id="lexerDFATableDisplay" class="lexerPageSubTitle">✺ Lexer DFA:</h3>
+          <p>Actually, showing the DFA here helps little with the understanding of the working mechanism of the lexer since no one will actually check those dozens of states in the DFA one by one. So it is really a cliche to show something here. Some rows in the table are marked with different colors. The begin state of the DFA is colored with red while those end states are marked with color dark purple.</p>
         </div>
         
         <!-- Lexer DFA sentence parsing on the fly. -->
-        <p class="lexerPageSubTitle">✺ Sentence:</p>
+        <h3 class="lexerPageSubTitle">✺ Sentence:</h3>
           <textarea id="lexerSentenceInput" rows="1"></textarea>
         <button id="lexerSentenceConfirm">submit</button>
 
         <div id="lexerSentenceResultDisplayArea">
-          <p id="lexerSentenceResultDisplay" class="lexerPageSubTitle">✺ Sentence Parsing By Lexer DFA:</p>
+          <h3 id="lexerSentenceResultDisplay" class="lexerPageSubTitle">✺ Sentence Parsing By Lexer DFA:</h3>
         </div>
 
       </div>

@@ -1,3 +1,4 @@
+/*
 var DEFAULT_REDEFINITION = "letter -> a | b | c | d\n" +
                            "digit  -> 1 | 2 | 3 | 4\n" +
                            "id     -> letter ( letter | digit ) *\n" +
@@ -9,11 +10,12 @@ var DEFAULT_ACTIONS = "{id}     -> {return(ID);}\n" +
                       "==       -> {return(RELOP);}\n" +
                       ">        -> {return(RELOP);}\n" +
                       "<        -> {return(RELOP);}";
+                      */
 
 $(function() {
     
-    $("#lexerReDefinitionInput").val(DEFAULT_REDEFINITION);
-    $("#lexerActionsInput").val(DEFAULT_ACTIONS);
+    //$("#lexerReDefinitionInput").val(DEFAULT_REDEFINITION);
+    //$("#lexerActionsInput").val(DEFAULT_ACTIONS);
 
     $("#toLexerPage").bind("click", showLexerPage);
     $("#lexerConfirm").bind("click", showLexer);
@@ -49,17 +51,19 @@ function showLexer() {
 
 function showSentenceParseResult() {
 
+    $('#lexerSentenceResultDisplayArea strong').remove();
     $('#lexerSentenceResultDisplayArea pre').remove();
 
     lexerSentenceParse();
-    var rst = '<pre>' + RESULT + '</pre>';
-    $(rst).insertAfter('#lexerSentenceResultDisplay');
+    $(lexerParseResultToHtml()).insertAfter('#lexerSentenceResultDisplay');
+    $(lexerParseMassageToHtml()).insertAfter('#lexerSentenceResultDisplay');
 
 }
 
 function clearLexerPage() {
 
     $('#lexerDFATableDisplayArea table').remove();
+    $('#lexerSentenceResultDisplayArea strong').remove();
     $('#lexerSentenceResultDisplayArea pre').remove();
 
 }
