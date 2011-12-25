@@ -116,10 +116,21 @@ var NUM_UPPER_CHAR_TABLE = {
     26 : 'Z'
 }
 
-
+/* Bracket handler deals with a specific type of extended regular 
+ * expression operation, which is '[]'. Inside the brackets, range
+ * selection is available such as:
+ *
+ *    [A-Za-z] selects all of the letters.
+ *    [0-9]    selects all of the digits.
+ *
+ * You can also select just a little range rather than the whole 
+ * range. For example:
+ *
+ *    [abx-z]  selects a, b, x, y, z.
+ *    [123a-z] selects all lower case letters and 1, 2, 3.
+ */
 function bracketHandler(input) {
 
-    input += ' #';
     input = input.split(' ');
 
     var rst = new Array();
@@ -163,5 +174,54 @@ function bracketHandler(input) {
 
     }
 
-    return '(' + rst.join('') + ')';
+    return '( ' + rst.join(' | ') + ' )';
+
+}
+
+function bracketProcessor(input) {
+
+    var rst = input;
+    var msg = '';
+    var begin, end;
+    var brackets = new Array();
+    var bracketStrings = new Array();
+
+    // Search for all of the bracket expressions.
+    for (var i = 0; i < input.length; ++i) {
+
+        // Beginning of the bracket expression.
+        if (input[i] == '[') {
+            begin = i;
+            brackets.push('[');
+        }
+        // Closing of the bracket expression.
+        if (input[i] == ']') {
+
+            // Bracket Match and remember the current substring.
+            if (brackets.top() == '[') {
+                brackets.pop();
+                end = i + 1;
+                bracketStrings.push(input.substring(begin, end));
+            }
+
+            // Brackets fail to match.
+            else {
+                msg += 'Brackets does not match.';
+                return [rst, msg];
+            }
+
+        }
+
+    }
+
+    // Handle the bracket expressions.
+    var r;
+    for (var i = 0; i < bracketStrings.length; ++i) {
+        r = bracketStrings[i];
+        r = r.slice(1, r.length - 1).trim();
+        rst = rst.replace(bracketStrings[i], bracketHandler(r));
+    }
+
+    return [rst, msg];
+    
 }

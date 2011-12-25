@@ -116,6 +116,7 @@ function getLR_1Grammar() {
 function getPostfix() {
 
     INFIX = $("#infixInput").val();
+    INFIX = bracketProcessor(INFIX)[0];
     INFIX += ' #';
 
     REGULAR_EXPRESSION = new ReExpression(INFIX.split(' '));
@@ -127,6 +128,7 @@ function getPostfix() {
 function getNFARegularExpression() {
 
     INFIX = $("#nfaInput").val();
+    INFIX = bracketProcessor(INFIX)[0];
     INFIX += ' #';
 
     REGULAR_EXPRESSION = new ReExpression(INFIX.split(' '));
@@ -148,6 +150,7 @@ function parseNFARegularExpression() {
 function getDFARegularExpression() {
 
     INFIX = $("#dfaInput").val();
+    INFIX = bracketProcessor(INFIX)[0];
     INFIX += ' #';
 
     REGULAR_EXPRESSION = new ReExpression(INFIX.split(' '));
@@ -161,6 +164,7 @@ function getDFARegularExpression() {
 function parseDFARegularExpression() {
 
     var reInput = $("#dfaReSentenceInput").val();
+    reInput = bracketProcessor(reInput)[0];
     reInput += ' #';
     RESULT = DF_AUTOMATON.scan(reInput.split(' '));
 
@@ -226,6 +230,7 @@ window.onload = function() {
 
     console.log(bracketHandler('a b 1 - 9'));
     console.log(bracketHandler('a - z 0 - 9'));
-    console.log(bracketHandler('A - C k - z 4 - 7'));
+    console.log(bracketHandler('1 2 3 a - z'));
+    console.log(bracketProcessor('[ a b c ] * [ 1 - 5 ]'));
 
 };
