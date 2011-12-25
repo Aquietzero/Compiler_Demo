@@ -2,6 +2,22 @@ Array.prototype.contains = function(elem) {
     return this.indexOf(elem) != -1;
 }
 
+Array.prototype.first = function() {
+    return this[0];
+}
+
+Array.prototype.last = function() {
+    return this[this.length - 1];
+}
+
+Array.prototype.top = function() {
+    return this[this.length - 1] || undefined;
+}
+
+Array.prototype.isEmpty = function() {
+    return this.length == 0;
+}
+
 Array.prototype.containsArray = function(arr) {
     for (var i = 0; i < this.length; ++i) {
         if (this[i].length == arr.length) {
@@ -59,4 +75,34 @@ Array.prototype.equalsTo = function(arr) {
         if (arr[i] != this[i])
             return false;
     return true;
+}
+
+Array.prototype.getPositions = function(elem) {
+    var posistions = new Array();
+    for (var i = 0; i < this.length; ++i)
+        if (this[i] == elem)
+            posistions.push(i);
+    return posistions;
+}
+
+Array.prototype.intersection = function(arr) {
+    var intersection = new Array();
+    for (var i = 0; i < arr.length; ++i)
+        if (this.contains(arr[i]))
+            intersection.push(arr[i]);
+    return intersection;
+}
+
+/* Insert expands the array.
+ * Add only adds an element to the array if the given
+ * position in the array has not been occupied.
+ */
+Array.prototype.insert = function(elem, pos) {
+    this.splice(pos, 0, elem);
+}
+
+Array.prototype.splice2 = function(start, count, arr) {
+    this.splice(start, count);
+    for (var i = 0; i < arr.length; ++i)
+        this.splice(start + i, 0, arr[i]);
 }

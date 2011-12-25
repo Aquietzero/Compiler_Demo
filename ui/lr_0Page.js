@@ -10,8 +10,7 @@ function showLR_0Page() {
     var bullet = $("#toLR_0Page");
     $("#introductionPart").css("display", "none");
 
-    clearLL_1Page();
-    clearLR_0Page();
+    clearAllPages();
 
     modifyTitle();
     restoreAllBullets();
@@ -25,7 +24,7 @@ function showLR_0Page() {
     $(slrTableToHtml()).insertAfter("#slrTableDisplay");
 
     $("#lr_0Page").fadeIn("slow");
-    showNavigation();
+    showSyntaxNavigation();
 }
 
 function clearLR_0Page() {
@@ -35,11 +34,12 @@ function clearLR_0Page() {
         $(itemSetsColumns[i]).remove();
 
     // Clear SLR table.
-    $("#slrTable").remove();
-    $("pre.errorMessage").remove();
+    $("#lr_0Page #slrTable").remove();
+    $("#lr_0Page pre.errorMessage").remove();
+    $("#lr_0Page strong.warning").remove();
 
     // Clear Production List
-    $("#slrProductionList").remove();
+    $("#lr_0Page #slrProductionList").remove();
 }
 
 function slrParseSentence() {

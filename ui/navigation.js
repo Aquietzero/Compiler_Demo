@@ -1,8 +1,17 @@
-function showNavigation() {
-    $("#navigation").fadeIn("slow");
+function showSyntaxNavigation() {
+    $("#syntaxNavigation").fadeIn("slow");
     addBulletHoverBehavior();
 }
 
-function hideNavigation() {
-    $("#navigation").css("display", "none");
+function hideSyntaxNavigation() {
+    $("#syntaxNavigation").css("display", "none");
+}
+
+function showLexicalNavigation() {
+    $("#lexicalNavigation").fadeIn("slow");
+    addBulletHoverBehavior();
+}
+
+function hideLexicalNavigation() {
+    $("#lexicalNavigation").css("display", "none");
 }

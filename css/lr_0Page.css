@@ -120,7 +120,7 @@
 }
 
 .errorMessage {
-    margin: auto 20px;
+    margin: 5px 20px;
     font-family: serif;
     font-size: 10pt;
     font-style: italic;
@@ -138,3 +138,14 @@
     font-size: 20pt;    
 }
 
+.normalStrong {
+    margin: 0 auto;
+    font-family: serif;
+    font-size: 13pt;
+}
+
+.resultPre {
+    margin: 5px 20px;
+    font-family: monospace, sans-serif, serif;
+    font-size: 10pt;
+}

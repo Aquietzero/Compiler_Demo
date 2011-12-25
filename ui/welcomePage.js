@@ -1,3 +1,3 @@
 $(function() {
-    $("#welcomePageToInputPage").bind("click", showInputPage);
+    $("#welcomePageToNavigationPage").bind("click", showNavigationPage);
 });

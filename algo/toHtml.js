@@ -22,7 +22,7 @@ function grammarToHtml() {
 
         // Insert the bodies.
         for (var j = 0; j < production.bodies.length; ++j) {
-            rst += production.bodies[j].join("");
+            rst += production.bodies[j].join(" ");
             if (j != production.bodies.length - 1)
                 rst += " | ";
         }
@@ -134,6 +134,7 @@ function predictiveTableToHtml() {
 }
 
 function ll_1ResultToHtml() {
+
     RESULT = "<tr class='tableHead'>" + 
                  "<td>Matched</td>" + 
                  "<td>Stack</td>"   +
@@ -141,9 +142,11 @@ function ll_1ResultToHtml() {
                  "<td>Action</td>"  +
              "</tr>" + RESULT;
     return "<table id='predictiveAnalysisResult'>" + RESULT + "</table>";
+
 }
 
 function slrResultToHtml() {
+
     RESULT = "<tr class='tableHead'>" + 
                  "<td>Stack</td>" + 
                  "<td>Symbol</td>"   +
@@ -151,6 +154,60 @@ function slrResultToHtml() {
                  "<td>Action</td>"  +
              "</tr>" + RESULT;
     return "<table id='slrAnalysisResult'>" + RESULT + "</table>";
+
+}
+
+function toPostfixResultToHtml() {
+
+    RESULT = "<tr class='tableHead'>" +
+                "<td>Stack</td>" +
+                "<td>Postfix</td>" +
+                "<td>Symbol</td>" +
+                "<td>Parsed</td>" +
+             "</tr>" + RESULT;
+    return "<table id='postfixResult'>" + RESULT + "</table>";
+
+}
+
+function nfaReParsingResultToHtml() {
+
+    RESULT = "<tr class='tableHead'>" +
+                "<td>Current States</td>" +
+                "<td>Input</td>" +
+                "<td>Next States</td>" +
+                "<td>Rest Input</td>" +
+             "</tr>" + RESULT;
+    return "<table id='nfaReParsingResult'>" + RESULT + "</table>";
+
+}
+
+function dfaReParsingResultToHtml() {
+
+    RESULT = "<tr class='tableHead'>" +
+                "<td>Current State</td>" +
+                "<td>Input</td>" +
+                "<td>Next State</td>" +
+                "<td>Rest Input</td>" +
+             "</tr>" + RESULT;
+    return "<table id='dfaReParsingResult'>" + RESULT + "</table>";
+
+}
+
+function addConcatenationToHtml() {
+    
+    var rst = "";
+    for (var i = 0; i < REGULAR_EXPRESSION.reExp.length; ++i)
+        rst += REGULAR_EXPRESSION.reExp[i].character + " ";
+    return "<pre>" + rst + "</pre>";
+
+}
+
+function postfixToHtml() {
+
+    var rst = "";
+    for (var i = 0; i < REGULAR_EXPRESSION.postfixExp.length; ++i)
+        rst += REGULAR_EXPRESSION.postfixExp[i].character + " ";
+    return "<pre>" + rst + "</pre>";
 
 }
 
@@ -340,6 +397,7 @@ function parseSLRTableItem(slrTableItem) {
 }
 
 function slrProductionListToHtml() {
+
     var rst = "";
     var currItem, maxLength;
     var productionHeads = new Array();
@@ -361,4 +419,146 @@ function slrProductionListToHtml() {
     }    
 
     return "<pre id='slrProductionList'>" + rst + "</pre>";
+
+}
+
+function nfaToHtml() {
+    
+    var rst = "";
+    var currState, currEdges;
+    var currSet;
+    var alphabet = NF_AUTOMATON.alphabet;
+
+    // Print the letters in alphabet and the epsilon and endmarker.
+    rst += "<tr>" + "<td>states</td>";
+    for (var i = 0; i < alphabet.length; ++i)
+        rst += "<td>" + alphabet[i] + "</td>";
+    rst += "<td>&#603;</td>";
+    rst += "</tr>";
+
+    alphabet.push("e");
+
+    for (var id in NF_AUTOMATON.states) {
+
+        rst += "<tr>";
+        rst += "<td>" + id + "</td>";
+
+        currState = NF_AUTOMATON.states[id];
+        for (var j = 0; j < alphabet.length; ++j) {
+            currEdges = currState.searchEdge(alphabet[j]);
+            if (!currEdges.isEmpty()) {
+                currSet = new Array();
+                for (var n = 0; n < currEdges.length; ++n)
+                    currSet.push(currEdges[n].next.id);
+                rst += "<td>{ " + currSet.join(", ") + " }</td>";
+            }
+            else
+                rst += "<td>&#8709;</td>";
+        }
+        rst += "</tr>";
+
+    }
+
+    return "<table id='nfaTransferTable'>" + rst + "</table>";
+
+}
+
+function dfaToHtml() {
+    
+    var rst = "";
+    var currState, nextState;
+    var alphabet = DF_AUTOMATON.alphabet;
+
+    // Print the letters in alphabet and the epsilon and endmarker.
+    rst += "<tr>" + "<td>state</td>";
+    for (var i = 0; i < alphabet.length; ++i)
+        rst += "<td>" + alphabet[i] + "</td>";
+    rst += "</tr>";
+
+    for (var id in DF_AUTOMATON.states) {
+
+        rst += "<tr>";
+        rst += "<td>" + id + "</td>";
+
+        for (var j = 0; j < alphabet.length; ++j) {
+            nextState = DF_AUTOMATON.states[id][alphabet[j]];
+            if (nextState)
+                rst += "<td>" + nextState + "</td>";
+            else
+                rst += "<td>&#8709;</td>";
+        }
+        rst += "</tr>";
+
+    }
+
+    return "<table id='dfaTransferTable'>" + rst + "</table>";
+
+}
+
+function reAlphabetToHtml() {
+
+    var alphabet = new Array();
+    for (var i = 0; i < REGULAR_EXPRESSION.alphabet.length; ++i)
+        alphabet.push(REGULAR_EXPRESSION.alphabet[i]);
+    return "<pre>{ " + alphabet.join(", ") + " }</pre>";
+
+}
+
+function lexerDFAToHtml() {
+
+    var dfa = LEXER.lexerDFA;
+    var rst = '';
+    var nextState;
+    var alphabet = dfa.alphabet;
+
+    rst += "<table id='lexerDFATable'>";
+    rst += '<tr>';
+    rst += '<td>states</td>';
+    for (var i = 0; i < alphabet.length; ++i)
+        rst += '<td>' + alphabet[i] + '</td>';
+    rst += '</tr>';
+    
+    for (var id in dfa.states) {
+
+        if (id == 0)
+            rst += "<tr class='dfaBegin'>";
+        else if (dfa.end.contains(parseInt(id)))
+            rst += "<tr class='dfaEnd'>";
+        else
+            rst += "<tr>";
+
+        rst += '<td>' + id + '</td>';
+        for (var i = 0; i < alphabet.length; ++i) {
+            nextState = dfa.states[id][alphabet[i]];
+            if (nextState)
+                rst += '<td>' + nextState + '</td>';
+            else
+                rst += '<td>&#8709;</td>';
+        }
+
+        rst += '</tr>';
+    }
+    rst += '</table>';
+
+    return rst;
+
+}
+
+function lexerParseMassageToHtml() {
+
+    var rst = '';
+    rst += "<strong class='warning'>" +
+           "Parsing Message:<br /></strong>" +
+           "<pre class='errorMessage'>" +
+           LEXER.parseMsg + "</pre>";
+    return rst;
+
+}
+
+function lexerParseResultToHtml() {
+
+    return "<strong class='normalStrong'>" +
+           "<br />Parsing Result:<br /></strong>" +
+           "<pre class='resultPre'>" + LEXER.parseRst + "</pre>";
+
 }

@@ -1,3 +1,9 @@
+@font-face {
+    font-family: jennasue;
+    src: url('../fonts/JennaSue.ttf');
+}
+
+
 body {
     margin: 0;
     padding: 0;
@@ -5,6 +11,10 @@ body {
     font-family: serif, sans-serif;
     font-size: 12pt;
     z-index: 0;
+}
+
+textarea {
+    color: #333333;
 }
 
 #titleBar {
@@ -17,15 +27,14 @@ body {
 
     border-top: solid 5px white;
     border-bottom: solid 5px white;
-    -moz-box-shadow: -20px 0 10px #483D8B;
-    -webkit-box-shadow: -20px 0 10px #483D8B;
+    -moz-box-shadow: -20px 0 10px black;
+    -webkit-box-shadow: -20px 0 10px black;
     background-color: white;
     z-index: 2;
 }
 
 #titleBar h1 {
     display: inline;
-    font-style: oblique;
     font-size: 30pt;
 
     text-shadow: 0 0 2px #666666;
@@ -38,7 +47,7 @@ body {
     font-size: 60pt;
     text-shadow: 0 0 2px #666666;
     font-style: oblique;
-    letter-spacing: -15px;
+    letter-spacing: -10px;
 }
 
 #leftColumn {
@@ -46,31 +55,33 @@ body {
     margin: 0 auto 0 100px;
     padding: 170px 10px 10px 10px;
     width: 15%;
-    height: 1000px;
+    height: 900px;
 
-    border-left: solid 5px #483D8B;
-    border-right: solid 5px #483D8B;
-    -moz-box-shadow: 0 -10px 10px #483D8B;
-    -webkit-box-shadow: 0 -10px 10px #487D8B;
+    border-top: solid 10px black;
+    border-left: solid 10px black;
+    border-right: solid 10px black;
+    -moz-box-shadow: 0 -15px 15px black; 
+    /*-moz-box-shadow: 0 5px 6px black inset;*/
+    -webkit-box-shadow: 0 -15px 10px black;
 
     font-style: italic;
-    background: url("../imgs/flowers.jpg");
+    background: url("../imgs/flowers.png");
     background-repeat: no-repeat;
     color: #333333;
     z-index: 2;
 }
 
-#navigation {
+#syntaxNavigation, #lexicalNavigation {
     display: none;
     z-index: 2;
 }
 
-#navigation ul {
+#syntaxNavigation ul, #lexicalNavigation ul {
     list-style-type: none;
     z-index: 2;
 }
 
-#navigation ul li {
+#syntaxNavigation ul li, #lexicalNavigation ul li {
     margin: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -82,8 +93,8 @@ body {
     font-weight: bold;
     text-align: center;
     line-height: 15pt;
-    color: white;
-    background-color: #483d8b;
+    color: #CCCCCC;
+    background-color: black;
     -moz-box-shadow: 0 0 5px #666666;
     -webkit-box-shadow: 0 0 5px #666666;
     -moz-border-radius: 20px;
@@ -94,7 +105,14 @@ body {
     opacity: 0.95;
 }
 
-#navigation ul li.clicked {
+#syntaxNavigation ul li:hover,
+#lexicalNavigation ul li:hover {
+    color: white;
+    text-shadow: 0 0 2px white;
+}
+
+#syntaxNavigation ul li.clicked,
+#lexicalNavigation ul li.clicked {
     margin: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -106,8 +124,8 @@ body {
     font-weight: bold;
     text-align: center;
     line-height: 15pt;
-    color: #483D8B;
-    text-shadow: 0 0 3px #483D8B;
+    color: black;
+    text-shadow: 0 0 3px black;
     background-color: white;
     -moz-box-shadow: -10px 0 10px #999999;
     -webkit-box-shadow: -10px 0 10px #999999;
@@ -205,6 +223,7 @@ button:hover {
     font-size: 20pt;
     padding: 5px;
     line-height: 10px;
+    vertical-align: -30%;
 }
 
 em {

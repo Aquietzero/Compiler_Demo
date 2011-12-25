@@ -1,12 +1,24 @@
 var PAGES = ["#welcomePage",
+             "#navigationPage",
              "#inputPage",
              "#confirmPage",
+             "#lexicalWelcomePage",
+             "#postfixPage",
+             "#nfaPage",
+             "#dfaPage",
+             "#lexerPage",
              "#ll_1Page",
              "#lr_0Page",
              "#lr_1Page"];
 var BULLETS = ["#toLL_1Page",
                "#toLR_0Page",
                "#toLR_1Page",
+               "#toPostfix",
+               "#toNfaPage",
+               "#toDfaPage",
+               "#toLexerPage",
+               "#syntaxToNavigation",
+               "#lexicalToNavigation",
                "#toHelpPage"];
 
 /* Hide and show all pages
@@ -24,6 +36,16 @@ function hideAllPages() {
         pages[i].css("display", "none");
 }
 
+function clearAllPages() {
+    clearLL_1Page();
+    clearLR_0Page();
+    clearLR_1Page();
+    clearPostfixPage();
+    clearNfaPage();
+    clearDfaPage();
+    clearLexerPage();
+}
+
 /* Title behaviors control
  */
 function modifyTitle() {
@@ -39,7 +61,7 @@ function restoreTitle() {
     var mainColumn = $("#mainColumn")
     var title = $("#titleBar");
 
-    title.css("width", "55%");
+    title.animate({"width" : "95%"}, 400);
     mainColumn.css("paddingTop", "170px");
 }
 
@@ -50,9 +72,9 @@ function addBulletHoverBehavior() {
     for (var i = 0; i < BULLETS.length; ++i) {
         bullet = $(BULLETS[i]);
         bullet.hover(function() {
-            $(this).animate({ "marginLeft" : "25px" }, 100);
+            $(this).animate({ marginLeft : "25px"}, 100);
         }, function() {
-            $(this).animate({ "marginLeft" : "20px" }, 100);
+            $(this).animate({ marginLeft : "20px"}, 100);
         });
     }
 }

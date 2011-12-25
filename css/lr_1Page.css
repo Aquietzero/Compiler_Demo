@@ -6,3 +6,28 @@
     color: #666666;
     overflow: hidden;
 }
+
+#lr_1ItemSetsDisplayArea, #lr_1AnalysisTableDisplay,
+#lr_1ParsingResultDisplay {
+    width: 95%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: 0;
+
+    background: url("../imgs/paper.jpg");
+    -moz-box-shadow: 0 0 15px #BBBBBB;
+    -webkit-box-shadow: 0 0 15px #BBBBBB;
+    clear: both;
+    overflow: hidden;
+}
+
+#lr_1ItemSetsDisplay, #lr_1IndexedGrammar, #lr_1TableDisplay,
+.lr_1PageSubTitle, #lr_1ParsingResult {
+    font-variant: small-caps;
+    font-size: 15pt;
+    font-style: oblique;
+    font-weight: bold;
+    color: #666666;
+    clear: both;
+    margin: 20px auto 10px auto;
+}

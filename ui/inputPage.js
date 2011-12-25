@@ -3,14 +3,14 @@ var DEFAULT_TERMINALS = "id, +, *, (, )",
 
 
 $(function() {
-    document.getElementById("terminalsInput").value = DEFAULT_TERMINALS;
-    document.getElementById("grammarInput").value = DEFAULT_GRAMMAR;
+    $("#terminalsInput").val(DEFAULT_TERMINALS);
+    $("#grammarInput").val(DEFAULT_GRAMMAR);
 
     $("#grammarConfirm").bind("click", showConfirmPage);
 });
 
 function showInputPage() {
-    hideNavigation();
+    hideSyntaxNavigation();
     hideAllPages();
 
     $("#inputPage").fadeIn("slow");
