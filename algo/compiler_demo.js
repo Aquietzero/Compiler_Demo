@@ -179,7 +179,7 @@ function getReDefinition() {
 function lexerSentenceParse() {
   
     var sentenceInput = $('#lexerSentenceInput').val();
-    RESULT = LEXER.parse(sentenceInput);
+    LEXER.parse(sentenceInput);
 
 }
 

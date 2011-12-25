@@ -557,6 +557,8 @@ function lexerParseMassageToHtml() {
 
 function lexerParseResultToHtml() {
 
-    return '<pre>' + LEXER.parseRst + '</pre>';
+    return "<strong class='normalStrong'>" +
+           "<br />Parsing Result:<br /></strong>" +
+           "<pre class='resultPre'>" + LEXER.parseRst + "</pre>";
 
 }

@@ -66,3 +66,7 @@
 #lexerPage .dfaEnd {
     background-color: rgba(100, 0, 0, 0.15) !important;
 }
+
+.errorPosition {
+    color: red;
+}

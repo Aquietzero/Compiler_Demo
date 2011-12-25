@@ -333,6 +333,8 @@ Lexer.prototype.parse = function(input) {
     this.parseMsg = '';
 
     prevTokPtr = 0;
+    tokPtr = 0;
+    input += '#'; // Add an endmarker manually.
     for (var currPos = 0; currPos < input.length; ++currPos) {
 
         // Ignore whitespace.
@@ -346,15 +348,22 @@ Lexer.prototype.parse = function(input) {
             break;
         }
 
-        state = dfa.states[state][input[currPos]];
+        // If the scanning has not reach the end, then the scanning can
+        // be freely continuing. But once the '#' appears, no more scanning
+        // is allowed. So at this time, the next state is set to be undefined.
+        if (input[currPos] != '#') {
+            state = dfa.states[state][input[currPos]];
 
-        // If the current state is one of the end state, then keep
-        // going scanning according to the maximum matching and
-        // record the current position.
-        if (state && dfa.end.contains(dfa.endmarkerMove(state))) {
-            tokPtr = currPos;
-            tokState = dfa.endmarkerMove(state);
+            // If the current state is one of the end state, then keep
+            // going scanning according to the maximum matching and
+            // record the current position.
+            if (state && dfa.end.contains(dfa.endmarkerMove(state))) {
+                tokPtr = currPos;
+                tokState = dfa.endmarkerMove(state);
+            }
         }
+        else
+            state = undefined;
 
         // No valid further state and needs a trace back. Matching
         // the nearest previous valid state.
@@ -367,21 +376,41 @@ Lexer.prototype.parse = function(input) {
             
             // No further transition in the DFA.
             if (currPos == prevTokPtr) {
-                this.parseMsg += "No further transition in the DFA with the symbol \'" +
-                                 input[currPos] + "\' in " + currPos + " and the comming symbol \'" + 
-                                 input[currPos + 1] + '\'\n'; 
+                if (input[currPos + 1] != '#')
+                    this.parseMsg += "No further transition in the DFA with the symbol \'" +
+                                     input[currPos] + "\' in " + currPos + " and the comming symbol \'" + 
+                                     input[currPos + 1] + '\'\n'; 
                 break;
             }
-            else {
-                if (token)
-                    this.parseRst += token + ' ';
-                prevTokPtr = tokPtr;
+
+            if (token)
+                this.parseRst += token + ' ';
+            prevTokPtr = tokPtr;
+
+            // For the input end matching.
+            if (input[currPos] == '#') {
+                // If the scanning reaches the end of the input and the last token
+                // matches, then matches it and return. 
+                if (state && dfa.end.contains(dfa.endmarkerMove(state))) {
+                    tokState = dfa.endmarkerMove(state);
+                    nfaState = Math.min(dfa.stateMapping[tokState]);            
+                    token = this.nfaTokenMapping[nfaState];
+                    this.parseRst += token;
+                }
+                // If no tokens matched though the scanning reaches the end, a trace
+                // back is needed.
+                else {
+                    nfaState = Math.min(dfa.stateMapping[tokState]);            
+                    token = this.nfaTokenMapping[nfaState];
+                    this.parseRst += token;
+                    state = 0;
+                    currPos = tokPtr;
+                }
             }
 
         }
     }
-    
-    // For the last matching.
+
     if (state && dfa.end.contains(dfa.endmarkerMove(state))) {
         tokState = dfa.endmarkerMove(state);
         nfaState = Math.min(dfa.stateMapping[tokState]);            
@@ -390,11 +419,9 @@ Lexer.prototype.parse = function(input) {
     }
 
     if (this.parseRst == '')
-        this.parseMsg = 'The input sentence matches none of the patterns.';
+        this.parseMsg += 'The input sentence matches none of the patterns.';
     if (this.parseRst != '' && this.parseMsg == '')
-        this.parseMsg = 'The input sentence is valid to the given pattern.';
-
-    return this.parseRst;
+        this.parseMsg += 'The input sentence is valid to the given pattern.';
 
 }
 
