@@ -116,9 +116,9 @@ function getLR_1Grammar() {
 function getPostfix() {
 
     INFIX = $("#infixInput").val();
-    INFIX += " #";
+    INFIX += ' #';
 
-    REGULAR_EXPRESSION = new ReExpression(INFIX.split(" "));
+    REGULAR_EXPRESSION = new ReExpression(INFIX.split(' '));
     RESULT = REGULAR_EXPRESSION.toPostfix();
     POSTFIX = REGULAR_EXPRESSION.postfixExp;
 
@@ -127,9 +127,9 @@ function getPostfix() {
 function getNFARegularExpression() {
 
     INFIX = $("#nfaInput").val();
-    INFIX += " #";
+    INFIX += ' #';
 
-    REGULAR_EXPRESSION = new ReExpression(INFIX.split(" "));
+    REGULAR_EXPRESSION = new ReExpression(INFIX.split(' '));
     REGULAR_EXPRESSION.toPostfix();
     //REGULAR_EXPRESSION.deleteEndmarker();
     NF_AUTOMATON = new NFA(REGULAR_EXPRESSION);
@@ -140,17 +140,17 @@ function parseNFARegularExpression() {
 
     var reInput = $("#nfaReSentenceInput").val();
 
-    reInput += " #";
-    RESULT = NF_AUTOMATON.scan(reInput.split(" "));
+    reInput += ' #';
+    RESULT = NF_AUTOMATON.scan(reInput.split(' '));
 
 }
 
 function getDFARegularExpression() {
 
     INFIX = $("#dfaInput").val();
-    INFIX += " #";
+    INFIX += ' #';
 
-    REGULAR_EXPRESSION = new ReExpression(INFIX.split(" "));
+    REGULAR_EXPRESSION = new ReExpression(INFIX.split(' '));
     REGULAR_EXPRESSION.toPostfix();
     //REGULAR_EXPRESSION.deleteEndmarker();
     NF_AUTOMATON = new NFA(REGULAR_EXPRESSION);
@@ -161,9 +161,8 @@ function getDFARegularExpression() {
 function parseDFARegularExpression() {
 
     var reInput = $("#dfaReSentenceInput").val();
-
-    reInput += " #";
-    RESULT = DF_AUTOMATON.scan(reInput.split(" "));
+    reInput += ' #';
+    RESULT = DF_AUTOMATON.scan(reInput.split(' '));
 
 }
 
@@ -220,9 +219,13 @@ window.onload = function() {
     //          "optionalFraction -> . digits | e";
     var lexerTest = new Lexer(lex, actions);
 
-    console.log(lexerTest);
+    //console.log(lexerTest);
     //console.log(lexerTest.lexerNFA.displayNFA());
-    console.log(lexerTest.lexerDFA.displayDFA());
+    //console.log(lexerTest.lexerDFA.displayDFA());
     lexerTest.parse(lexInput);
+
+    console.log(bracketHandler('a b 1 - 9'));
+    console.log(bracketHandler('a - z 0 - 9'));
+    console.log(bracketHandler('A - C k - z 4 - 7'));
 
 };

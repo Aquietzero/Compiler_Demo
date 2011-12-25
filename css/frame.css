@@ -55,14 +55,14 @@ textarea {
     margin: 0 auto 0 100px;
     padding: 170px 10px 10px 10px;
     width: 15%;
-    height: 1000px;
+    height: 900px;
 
     border-top: solid 10px black;
     border-left: solid 10px black;
     border-right: solid 10px black;
-    -moz-box-shadow: 0 -10px 15px black; 
+    -moz-box-shadow: 0 -15px 15px black; 
     /*-moz-box-shadow: 0 5px 6px black inset;*/
-    -webkit-box-shadow: 0 -10px 10px black;
+    -webkit-box-shadow: 0 -15px 10px black;
 
     font-style: italic;
     background: url("../imgs/flowers.png");

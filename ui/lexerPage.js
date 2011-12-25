@@ -1,4 +1,3 @@
-/*
 var DEFAULT_REDEFINITION = "letter -> a | b | c | d\n" +
                            "digit  -> 1 | 2 | 3 | 4\n" +
                            "id     -> letter ( letter | digit ) *\n" +
@@ -10,12 +9,11 @@ var DEFAULT_ACTIONS = "{id}     -> {return(ID);}\n" +
                       "==       -> {return(RELOP);}\n" +
                       ">        -> {return(RELOP);}\n" +
                       "<        -> {return(RELOP);}";
-                      */
 
 $(function() {
     
-    //$("#lexerReDefinitionInput").val(DEFAULT_REDEFINITION);
-    //$("#lexerActionsInput").val(DEFAULT_ACTIONS);
+    $("#lexerReDefinitionInput").val(DEFAULT_REDEFINITION);
+    $("#lexerActionsInput").val(DEFAULT_ACTIONS);
 
     $("#toLexerPage").bind("click", showLexerPage);
     $("#lexerConfirm").bind("click", showLexer);

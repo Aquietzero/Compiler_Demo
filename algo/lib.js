@@ -7,6 +7,14 @@ function isLetter(c) {
            c >= 'A' && c <= 'Z';
 }
 
+function isUpperCase(c) {
+    return c >= 'A' && c <= 'Z';
+}
+
+function isLowerCase(c) {
+    return c >= 'a' && c <= 'z';
+}
+
 function bracketMatching(input) {
     var bracketStack = new Array();
 

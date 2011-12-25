@@ -60,7 +60,7 @@
 }
 
 #lexerPage .dfaBegin {
-    background-color: rgba(255, 0, 255, 0.15) !important;
+    background-color: rgba(0, 0, 255, 0.15) !important;
 }
 
 #lexerPage .dfaEnd {
