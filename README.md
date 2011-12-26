@@ -26,5 +26,3 @@ Compliers Theorem is one of my most important courses this term. However, the te
     3. DFA parsing.
     4. AST construction.
 
-##Test##
-Come [here](http://aquietzero.github.com/Compiler_Demo) to have a test.
