@@ -25,6 +25,7 @@ Compliers Theorem is one of my most important courses this term. However, the te
     2. NFA parsing.
     3. DFA parsing.
     4. AST construction.
+    5. LEXER demo.
 
 ##Test##
 Come [here](http://aquietzero.github.com/Compiler_Demo) to have a test.

@@ -121,7 +121,9 @@ Lexer.prototype.getReDefinition = function() {
     var token, re;
     for (var i = 0; i < lines.length; ++i) {
         token = lines[i].split("->")[0].trim();
-        re    = lines[i].split("->")[1].trim().split(" ");
+        //re    = lines[i].split("->")[1].trim().split(" ");
+        re = lines[i].split("->")[1].trim();
+        re = bracketProcessor(re)[0].split(' ');
         this.reDefinitions.push([token, re]);
     }
 
