@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2012/dev/Arch Linux) (format=pdflatex 2012.1.3)  18 JAN 2012 16:28
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2012/dev/Arch Linux) (format=pdflatex 2012.1.3)  18 JAN 2012 17:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -277,31 +277,31 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
  (./general_idea.tex
 Chapter 1.
-) [1
+[1
 
 
-]
+]) [2]
 \openout2 = `syntax_analysis.aux'.
 
- (./syntax_analysis.tex [2
-
-
-
-]
+ (./syntax_analysis.tex
 Chapter 2.
-[3]) [4] (./compiler_demo.aux (./general_idea.aux) (./syntax_analysis.aux))
+[3
+
+
+
+]) [4] (./compiler_demo.aux (./general_idea.aux) (./syntax_analysis.aux))
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 3041 strings out of 493629
- 42122 string characters out of 3148779
+ 3142 strings out of 493629
+ 44152 string characters out of 3148779
  101948 words of memory out of 3000000
- 6241 multiletter control sequences out of 15000+200000
- 40725 words of font info for 144 fonts, out of 3000000 for 9000
+ 6339 multiletter control sequences out of 15000+200000
+ 42020 words of font info for 150 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
- 38i,6n,30p,239b,358s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,6n,30p,1077b,358s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/font
 s/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/a
@@ -325,42 +325,44 @@ gbsnu/gbsnu63.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu65.pfb><
 /usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu66.pfb></usr/share/texmf-di
 st/fonts/type1/arphic/gbsnu/gbsnu67.pfb></usr/share/texmf-dist/fonts/type1/arph
 ic/gbsnu/gbsnu68.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu69.pf
-b></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu6b.pfb></usr/share/texmf
--dist/fonts/type1/arphic/gbsnu/gbsnu6c.pfb></usr/share/texmf-dist/fonts/type1/a
-rphic/gbsnu/gbsnu6d.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu6e
-.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu6f.pfb></usr/share/te
-xmf-dist/fonts/type1/arphic/gbsnu/gbsnu70.pfb></usr/share/texmf-dist/fonts/type
-1/arphic/gbsnu/gbsnu71.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsn
-u72.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu73.pfb></usr/share
-/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu74.pfb></usr/share/texmf-dist/fonts/t
-ype1/arphic/gbsnu/gbsnu75.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/g
-bsnu76.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu77.pfb></usr/sh
-are/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu78.pfb></usr/share/texmf-dist/font
-s/type1/arphic/gbsnu/gbsnu79.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsn
-u/gbsnu7a.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu7b.pfb></usr
-/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu7c.pfb></usr/share/texmf-dist/f
-onts/type1/arphic/gbsnu/gbsnu7d.pfb></usr/share/texmf-dist/fonts/type1/arphic/g
-bsnu/gbsnu7e.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu7f.pfb></
-usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu80.pfb></usr/share/texmf-dis
-t/fonts/type1/arphic/gbsnu/gbsnu81.pfb></usr/share/texmf-dist/fonts/type1/arphi
-c/gbsnu/gbsnu82.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu85.pfb
-></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu86.pfb></usr/share/texmf-
-dist/fonts/type1/arphic/gbsnu/gbsnu88.pfb></usr/share/texmf-dist/fonts/type1/ar
-phic/gbsnu/gbsnu89.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu8a.
-pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu8b.pfb></usr/share/tex
-mf-dist/fonts/type1/arphic/gbsnu/gbsnu8c.pfb></usr/share/texmf-dist/fonts/type1
-/arphic/gbsnu/gbsnu8d.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu
-8e.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu8f.pfb></usr/share/
-texmf-dist/fonts/type1/arphic/gbsnu/gbsnu90.pfb></usr/share/texmf-dist/fonts/ty
-pe1/arphic/gbsnu/gbsnu91.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gb
-snu95.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu96.pfb></usr/sha
-re/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu97.pfb></usr/share/texmf-dist/fonts
-/type1/arphic/gbsnu/gbsnu9f.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu
-/gbsnuff.pfb>
-Output written on compiler_demo.pdf (9 pages, 337946 bytes).
+b></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu6a.pfb></usr/share/texmf
+-dist/fonts/type1/arphic/gbsnu/gbsnu6b.pfb></usr/share/texmf-dist/fonts/type1/a
+rphic/gbsnu/gbsnu6c.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu6d
+.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu6e.pfb></usr/share/te
+xmf-dist/fonts/type1/arphic/gbsnu/gbsnu6f.pfb></usr/share/texmf-dist/fonts/type
+1/arphic/gbsnu/gbsnu70.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsn
+u71.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu72.pfb></usr/share
+/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu73.pfb></usr/share/texmf-dist/fonts/t
+ype1/arphic/gbsnu/gbsnu74.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/g
+bsnu75.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu76.pfb></usr/sh
+are/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu77.pfb></usr/share/texmf-dist/font
+s/type1/arphic/gbsnu/gbsnu78.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsn
+u/gbsnu79.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu7a.pfb></usr
+/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu7b.pfb></usr/share/texmf-dist/f
+onts/type1/arphic/gbsnu/gbsnu7c.pfb></usr/share/texmf-dist/fonts/type1/arphic/g
+bsnu/gbsnu7d.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu7e.pfb></
+usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu7f.pfb></usr/share/texmf-dis
+t/fonts/type1/arphic/gbsnu/gbsnu80.pfb></usr/share/texmf-dist/fonts/type1/arphi
+c/gbsnu/gbsnu81.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu82.pfb
+></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu85.pfb></usr/share/texmf-
+dist/fonts/type1/arphic/gbsnu/gbsnu86.pfb></usr/share/texmf-dist/fonts/type1/ar
+phic/gbsnu/gbsnu88.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu89.
+pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu8a.pfb></usr/share/tex
+mf-dist/fonts/type1/arphic/gbsnu/gbsnu8b.pfb></usr/share/texmf-dist/fonts/type1
+/arphic/gbsnu/gbsnu8c.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu
+8d.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu8e.pfb></usr/share/
+texmf-dist/fonts/type1/arphic/gbsnu/gbsnu8f.pfb></usr/share/texmf-dist/fonts/ty
+pe1/arphic/gbsnu/gbsnu90.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gb
+snu91.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu95.pfb></usr/sha
+re/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu96.pfb></usr/share/texmf-dist/fonts
+/type1/arphic/gbsnu/gbsnu97.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu
+/gbsnu98.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu9a.pfb></usr/
+share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu9f.pfb></usr/share/texmf-dist/fo
+nts/type1/arphic/gbsnu/gbsnuff.pfb>
+Output written on compiler_demo.pdf (9 pages, 391691 bytes).
 PDF statistics:
- 320 PDF objects out of 1000 (max. 8388607)
- 235 compressed objects within 3 object streams
+ 332 PDF objects out of 1000 (max. 8388607)
+ 244 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
