@@ -1,0 +1,366 @@
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2012/dev/Arch Linux) (format=pdflatex 2012.1.3)  18 JAN 2012 16:28
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**compiler_demo.tex
+(./compiler_demo.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman-x-2011-07-01, ngerman-x-2011-07-01, afrikaans, ancientgreek, ibycus, arabi
+c, armenian, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danis
+h, dutch, ukenglish, usenglishmax, esperanto, estonian, ethiopic, farsi, finnis
+h, french, galician, german, ngerman, swissgerman, monogreek, greek, hungarian,
+ icelandic, assamese, bengali, gujarati, hindi, kannada, malayalam, marathi, or
+iya, panjabi, tamil, telugu, indonesian, interlingua, irish, italian, kurmanji,
+ lao, latin, latvian, lithuanian, mongolian, mongolianlmc, bokmal, nynorsk, pol
+ish, portuguese, romanian, russian, sanskrit, serbian, serbianc, slovak, sloven
+ian, spanish, swedish, turkish, turkmen, ukrainian, uppersorbian, welsh, loaded
+.
+(/usr/share/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texmf-dist/tex/latex/base/leqno.clo
+File: leqno.clo 1998/08/17 v1.1c Standard LaTeX option (left equation numbers)
+)
+(/usr/share/texmf-dist/tex/latex/base/bk12.clo
+File: bk12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+(/usr/share/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/message (HO)
+)
+(/usr/share/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/04/18 v1.20 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count88
+))
+(/usr/share/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+
+(/usr/share/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 130.
+)
+(/usr/share/texmf-dist/tex/latex/cjk/texinput/CJK.sty
+Package: CJK 2008/12/29 4.8.2
+
+(/usr/share/texmf-dist/tex/latex/cjk/texinput/mule/MULEenc.sty
+Package: MULEenc 2008/12/29 4.8.2
+)
+(/usr/share/texmf-dist/tex/latex/cjk/texinput/CJK.enc
+File: CJK.enc 2008/12/29 4.8.2
+)
+LaTeX Info: Redefining \selectfont on input line 756.
+\CJK@indent=\box26
+) (./compiler_demo.aux
+(./general_idea.aux) (./syntax_analysis.aux))
+\openout1 = `compiler_demo.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C00/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C05/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C09/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C10/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C20/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C19/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C40/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C42/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C43/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C50/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C52/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C49/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C60/mj/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C61/mj/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C63/mj/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C64/mj/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C65/mj/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C70/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C31/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C32/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C33/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C34/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C35/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C36/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C37/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C80/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C81/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C01/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C11/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C21/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C41/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for C62/song/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+
+(/usr/share/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count89
+\scratchdimen=\dimen103
+\scratchbox=\box27
+\nofMPsegments=\count90
+\nofMParguments=\count91
+\everyMPshowfont=\toks14
+\MPscratchCnt=\count92
+\MPscratchDim=\dimen104
+\MPnumerator=\count93
+\makeMPintoPDFobject=\count94
+\everyMPtoPDFconversion=\toks15
+) (/usr/share/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/04/22 v0.16 Utilities of pdfTeX for LuaTeX (HO)
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+(/usr/share/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/share/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/share/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Managing graphics extensions (HO)
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Defining keys (HO)
+))
+(/usr/share/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2010/12/23 v3.10 Keyval support for LaTeX options (HO)
+
+(/usr/share/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks16
+)
+(/usr/share/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2011/04/07 v1.13 Key value parser (HO)
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Prefix for e-TeX command names (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+(/usr/share/texmf-dist/tex/latex/cjk/texinput/UTF8/UTF8.bdg
+File: UTF8.bdg 2008/12/29 4.8.2
+)
+(/usr/share/texmf-dist/tex/latex/cjk/texinput/UTF8/UTF8.enc
+File: UTF8.enc 2008/12/29 4.8.2
+)
+(/usr/share/texmf-dist/tex/latex/cjk/texinput/UTF8/UTF8.chr
+File: UTF8.chr 2008/12/29 4.8.2
+)
+LaTeX Font Info:    Try loading font information for C70+gbsn on input line 17.
+
+
+(/usr/share/texmf-dist/tex/latex/cjk/texinput/UTF8/c70gbsn.fd
+File: c70gbsn.fd 2008/12/29 4.8.2
+)
+(/usr/share/texmf-dist/tex/latex/cjk/texinput/UTF8/c70gbsn.fdx
+File: c70gbsn.fdx 2008/12/29 4.8.2
+)
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 17.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 17.
+ [1
+
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./compiler_demo.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 2.
+)
+\tf@toc=\write3
+\openout3 = `compiler_demo.toc'.
+
+ [1
+
+]
+
+LaTeX Font Warning: Font shape `C70/gbsn/m/sl' undefined
+(Font)              using `C70/gbsn/m/n' instead on input line 26.
+
+[2
+
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [3]
+[4]
+\openout2 = `general_idea.aux'.
+
+ (./general_idea.tex
+Chapter 1.
+) [1
+
+
+]
+\openout2 = `syntax_analysis.aux'.
+
+ (./syntax_analysis.tex [2
+
+
+
+]
+Chapter 2.
+[3]) [4] (./compiler_demo.aux (./general_idea.aux) (./syntax_analysis.aux))
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 3041 strings out of 493629
+ 42122 string characters out of 3148779
+ 101948 words of memory out of 3000000
+ 6241 multiletter control sequences out of 15000+200000
+ 40725 words of font info for 144 fonts, out of 3000000 for 9000
+ 831 hyphenation exceptions out of 8191
+ 38i,6n,30p,239b,358s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmsl12.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu30.p
+fb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu4e.pfb></usr/share/texm
+f-dist/fonts/type1/arphic/gbsnu/gbsnu4f.pfb></usr/share/texmf-dist/fonts/type1/
+arphic/gbsnu/gbsnu50.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu5
+1.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu52.pfb></usr/share/t
+exmf-dist/fonts/type1/arphic/gbsnu/gbsnu53.pfb></usr/share/texmf-dist/fonts/typ
+e1/arphic/gbsnu/gbsnu54.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbs
+nu55.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu56.pfb></usr/shar
+e/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu57.pfb></usr/share/texmf-dist/fonts/
+type1/arphic/gbsnu/gbsnu59.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/
+gbsnu5b.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu5c.pfb></usr/s
+hare/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu5d.pfb></usr/share/texmf-dist/fon
+ts/type1/arphic/gbsnu/gbsnu5e.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbs
+nu/gbsnu5f.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu60.pfb></us
+r/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu61.pfb></usr/share/texmf-dist/
+fonts/type1/arphic/gbsnu/gbsnu62.pfb></usr/share/texmf-dist/fonts/type1/arphic/
+gbsnu/gbsnu63.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu65.pfb><
+/usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu66.pfb></usr/share/texmf-di
+st/fonts/type1/arphic/gbsnu/gbsnu67.pfb></usr/share/texmf-dist/fonts/type1/arph
+ic/gbsnu/gbsnu68.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu69.pf
+b></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu6b.pfb></usr/share/texmf
+-dist/fonts/type1/arphic/gbsnu/gbsnu6c.pfb></usr/share/texmf-dist/fonts/type1/a
+rphic/gbsnu/gbsnu6d.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu6e
+.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu6f.pfb></usr/share/te
+xmf-dist/fonts/type1/arphic/gbsnu/gbsnu70.pfb></usr/share/texmf-dist/fonts/type
+1/arphic/gbsnu/gbsnu71.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsn
+u72.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu73.pfb></usr/share
+/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu74.pfb></usr/share/texmf-dist/fonts/t
+ype1/arphic/gbsnu/gbsnu75.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/g
+bsnu76.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu77.pfb></usr/sh
+are/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu78.pfb></usr/share/texmf-dist/font
+s/type1/arphic/gbsnu/gbsnu79.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsn
+u/gbsnu7a.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu7b.pfb></usr
+/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu7c.pfb></usr/share/texmf-dist/f
+onts/type1/arphic/gbsnu/gbsnu7d.pfb></usr/share/texmf-dist/fonts/type1/arphic/g
+bsnu/gbsnu7e.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu7f.pfb></
+usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu80.pfb></usr/share/texmf-dis
+t/fonts/type1/arphic/gbsnu/gbsnu81.pfb></usr/share/texmf-dist/fonts/type1/arphi
+c/gbsnu/gbsnu82.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu85.pfb
+></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu86.pfb></usr/share/texmf-
+dist/fonts/type1/arphic/gbsnu/gbsnu88.pfb></usr/share/texmf-dist/fonts/type1/ar
+phic/gbsnu/gbsnu89.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu8a.
+pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu8b.pfb></usr/share/tex
+mf-dist/fonts/type1/arphic/gbsnu/gbsnu8c.pfb></usr/share/texmf-dist/fonts/type1
+/arphic/gbsnu/gbsnu8d.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu
+8e.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu8f.pfb></usr/share/
+texmf-dist/fonts/type1/arphic/gbsnu/gbsnu90.pfb></usr/share/texmf-dist/fonts/ty
+pe1/arphic/gbsnu/gbsnu91.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gb
+snu95.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu96.pfb></usr/sha
+re/texmf-dist/fonts/type1/arphic/gbsnu/gbsnu97.pfb></usr/share/texmf-dist/fonts
+/type1/arphic/gbsnu/gbsnu9f.pfb></usr/share/texmf-dist/fonts/type1/arphic/gbsnu
+/gbsnuff.pfb>
+Output written on compiler_demo.pdf (9 pages, 337946 bytes).
+PDF statistics:
+ 320 PDF objects out of 1000 (max. 8388607)
+ 235 compressed objects within 3 object streams
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
