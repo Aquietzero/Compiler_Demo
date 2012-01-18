@@ -1,4 +1,0 @@
-PAY ATTENTION:
-
-ui/index.js:             32: showResult(); commented
-algo/compiler_demo.js:   in function getGrammar(); so many important sentenses are commented for test the LR(0).
