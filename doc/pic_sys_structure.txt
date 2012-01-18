@@ -1,0 +1,15 @@
+digraph sys_structure {
+    rankdir=LR;
+    size="8,6"
+    node [shape = ellipse];
+    node [fontsize = "8"];
+    edge [fontsize = "10"];
+    User -> HTML [ label = "request" ];
+    HTML -> User [ label = "response" ];
+    CSS  -> HTML [ label = "stylize" ];
+    UI   -> HTML [ label = "modify" ];
+    UI   -> CSS  [ label = "modify" ];
+    HTML -> UI   [ label = "call" ];
+    Algorithm -> UI [ label = "result" ];
+    UI   -> Algorithm [ label = "select" ];
+}

@@ -4,9 +4,19 @@
 %\usepackage{hyperref}
 \usepackage{CJK}
 
+%package for graph
+\usepackage[x11names,rgb]{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{snakes,arrows,shapes}
+\usepackage{amsmath}
+
 % global settings
 \parindent 0em
-\parskip 1em
+\textwidth 15cm
+\textheight 21cm
+\oddsidemargin 1cm
+\evensidemargin 1cm
 
 \begin{document}
 \begin{CJK}{UTF8}{gbsn}
@@ -18,11 +28,13 @@
 \newpage
 
 % contents
+\parskip 0.2em
 \pagenumbering{roman}
 \renewcommand{\contentsname}{目录}
 \tableofcontents
 
 % preface
+\parskip 1em
 \chapter*{前言}
 \addcontentsline{toc}{chapter}{前言}
 \pagestyle{plain}

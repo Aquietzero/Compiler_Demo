@@ -1,0 +1,77 @@
+\pagestyle{empty}
+%
+%
+%
+
+\enlargethispage{100cm}
+% Start of code
+% \begin{tikzpicture}[anchor=mid,>=latex',line join=bevel,]
+\begin{tikzpicture}[>=latex',line join=bevel,]
+  \pgfsetlinewidth{1bp}
+%%
+\pgfsetcolor{black}
+  % Edge: UI -> CSS
+  \draw [->] (296.34bp,55.74bp) .. controls (303.27bp,52.901bp) and (310.94bp,49.791bp)  .. (318bp,47bp) .. controls (332.27bp,41.361bp) and (348.11bp,35.285bp)  .. (371bp,26.615bp);
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (333bp,52.5bp) node {modify};
+  % Edge: Algorithm -> UI
+  \draw [->] (366.43bp,79.307bp) .. controls (351.95bp,79.574bp) and (333.94bp,79.242bp)  .. (318bp,77bp) .. controls (314.52bp,76.511bp) and (310.93bp,75.831bp)  .. (297.52bp,72.593bp);
+  \draw (333bp,84.5bp) node {result};
+  % Edge: UI -> Algorithm
+  \draw [->] (299.82bp,62.625bp) .. controls (314.1bp,61.819bp) and (332.11bp,61.636bp)  .. (348bp,64bp) .. controls (351.97bp,64.591bp) and (356.08bp,65.455bp)  .. (369.96bp,69.222bp);
+  \draw (333bp,69.5bp) node {select};
+  % Edge: UI -> HTML
+  \draw [->] (257.12bp,50.085bp) .. controls (249.19bp,43.179bp) and (238.85bp,35.697bp)  .. (228bp,32bp) .. controls (215.93bp,27.887bp) and (202.1bp,26.812bp)  .. (179.67bp,27.496bp);
+  \draw (213bp,37.5bp) node {modify};
+  % Edge: CSS -> HTML
+  \draw [->] (367.92bp,17.39bp) .. controls (330.29bp,16.799bp) and (258.61bp,16.755bp)  .. (198bp,23bp) .. controls (195.1bp,23.298bp) and (192.11bp,23.681bp)  .. (179.03bp,25.758bp);
+  \draw (273bp,24.5bp) node {stylize};
+  % Edge: User -> HTML
+  \draw [->] (54.297bp,31bp) .. controls (72.135bp,31bp) and (95.953bp,31bp)  .. (125.74bp,31bp);
+  \draw (90bp,36.5bp) node {request};
+  % Edge: HTML -> UI
+  \draw [->] (178.16bp,37.962bp) .. controls (195.42bp,42.936bp) and (218.88bp,49.695bp)  .. (247.87bp,58.047bp);
+  \draw (213bp,57.5bp) node {call};
+  % Edge: HTML -> User
+  \draw [->] (129.53bp,21.757bp) .. controls (122.73bp,19.394bp) and (115.17bp,17.188bp)  .. (108bp,16bp) .. controls (92.215bp,13.383bp) and (87.785bp,13.383bp)  .. (72bp,16bp) .. controls (68.081bp,16.65bp) and (64.043bp,17.604bp)  .. (50.47bp,21.757bp);
+  \draw (90bp,21.5bp) node {response};
+  % Node: Algorithm
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (395bp,78bp) ellipse (28bp and 18bp);
+  \draw (395bp,78bp) node {Algorithm};
+\end{scope}
+  % Node: HTML
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (153bp,31bp) ellipse (27bp and 18bp);
+  \draw (153bp,31bp) node {HTML};
+\end{scope}
+  % Node: UI
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (273bp,65bp) ellipse (27bp and 18bp);
+  \draw (273bp,65bp) node {UI};
+\end{scope}
+  % Node: User
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (27bp,31bp) ellipse (27bp and 18bp);
+  \draw (27bp,31bp) node {User};
+\end{scope}
+  % Node: CSS
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (395bp,18bp) ellipse (27bp and 18bp);
+  \draw (395bp,18bp) node {CSS};
+\end{scope}
+%
+\end{tikzpicture}
+% End of code
+
