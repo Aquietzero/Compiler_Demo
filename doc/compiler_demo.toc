@@ -1,9 +1,0 @@
-\contentsline {chapter}{前言}{iii}
-\contentsline {section}{对编译原理的一点感觉}{iii}
-\contentsline {section}{有关本文档}{iv}
-\contentsline {chapter}{\numberline {1}系统概述}{1}
-\contentsline {section}{\numberline {1.1}动机}{1}
-\contentsline {section}{\numberline {1.2}语言的选择}{1}
-\contentsline {section}{\numberline {1.3}系统结构}{2}
-\contentsline {chapter}{\numberline {2}语法分析}{3}
-\contentsline {section}{\numberline {2.1}这里是第一个部分}{3}
