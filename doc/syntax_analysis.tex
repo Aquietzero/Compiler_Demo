@@ -37,14 +37,14 @@
 
 \begin{verbatim}
 Grammar:
-    terminals   -> Array(String)     # 终结符集合
-    productions -> Array(Production) # 产生式集合
+  terminals   -> Array(String)     # 终结符集合
+  productions -> Array(Production) # 产生式集合
 
 Production:
-    head   -> Char            # 产生式头
-    bodies -> Array(String)   # 产生式体集合
-    first  -> Array(String)   # First集
-    follow -> Array(String)   # Follow集
+  head   -> Char            # 产生式头
+  bodies -> Array(String)   # 产生式体集合
+  first  -> Array(String)   # First集
+  follow -> Array(String)   # Follow集
 \end{verbatim}
 
 \section{消除冗余以及消除左递归}
@@ -114,28 +114,75 @@ $Fisrt$集被定义为可以从$\alpha$推导得到的串的首符号的集合�
 
 function firstSetIter(grammar, nonterminal, preHeads)
 
-    if terminals contains nonterminal:
-        return { nonterminal }
+  if terminals contains nonterminal:
+    return { nonterminal }
 
-    if nonterminal is epsilon:
-        return { epsilon }
+  if nonterminal is epsilon:
+    return { epsilon }
 
-    result = {}
+  result = {}
 
-    for bodies in a production:
-        if preHeads contains the head of current body:
-            continue
-            
-        for symbols in the current body:
-            push the current symbol to preHeads
-            subFirstSet = firstSetIter(grammar, currentSymbol, prevHeads)
-            merge subfirstset with the current result
-            if subfirstset does not contains the epsilon:
-                break
+  for bodies in a production:
+    if preHeads contains the head of current body:
+      continue
+          
+    for symbols in the current body:
+      push the current symbol to preHeads
+      subFirstSet = firstSetIter(grammar, currentSymbol, prevHeads)
+      merge subfirstset with the current result
+      if subfirstset does not contains the epsilon:
+        break
 
-     return result
+   return result
 
 \end{verbatim}
+
+对于$Follow$集来说，它对预测的作用还是挺大的。$Follow(A)$被定义为可能在某些句型中紧跟在$A$右边的终结符号集合。这个描述正好是这种情况的一个写照：即当分析进行到某一个时刻，即此时我们的焦点在一个句子的某一个位置，那么我们可以看看紧跟在当前这个位置有可能会出现什么样的终结符号，而这些可能的集合，正是$Follow$集所要描述的东西。书中给出的三个计算规则如下：
+
+\begin{enumerate}
+    \item 把\$放到$Follow(S)$中，其中$S$是开始符号，而\$是输入右端的结束标记。
+    \item 如果存在一个产生式$A \rightarrow \alpha B \beta$，那么$First(\beta)$中除了$\epsilon$之外的所有符号都在$Follow(B)$中。
+    \item 如果存在一个产生式$A \rightarrow \alpha B$，或者存在一个产生式$A \rightarrow \alpha B \beta$且$First(\beta)$包含$\epsilon$，那么$Follow(A)$中的所有符号都在$Follow(B)$中。
+\end{enumerate}
+
+对于程序来说，是可以直接把这三条规则直接翻译为程序语言的，当然为了消去跟在计算$First$集时遇到的循环，我们也同样可以引入一个记录计算$Follow$集的非终结符，具体可以参看下面的伪代码：
+
+\begin{verbatim}
+
+function followSetIter(grammar, nonterminal, prevHeads)
+  result = {}
+
+  if nonterminal is the start symbol:
+    merge result and { $ }
+
+  for each production in the grammar:
+    for each body in the current production:
+      for 0 to pos:
+        if nonterminal is not in the production:
+          continue
+        if nonterminal is at the end of the body and
+          prevHeads does not contain the head of the production:
+          push current production head to prevHeads
+          subfollowset = followsetiter(grammar, production head, prevHeads)
+          merge result and subfollowset
+        else:
+          if the first set of the rest of the body does not
+            contains the epsilon:
+            merge result with the first set of the rest of the body
+          else:
+            exclude epsilon out of the first set
+            merge result with the first set of the rest of the body
+            if prevHeads does not contain the production head:
+              subfollowset = followsetiter(grammar, production head, prevHeads)
+              merge result and subfollowset
+              
+  return result
+
+\end{verbatim}
+
+其中的参数含义与$First$集的是一样的。不过在计算$Follow$集的时候，有必要对整个语法都进行遍历，因为仅仅根据一个非终结符的产生式组并不能完全得到其$Follow$集。函数看起来虽然很长，但是结构性还是挺强的。首先第一个$if$语句仅仅是简单的异常判断。第二个$if$是针对规则2的，而$else$则是针对规则3的。其中$else$里面的$if$是规则3的第一个部分，$else$里面的$else$是规则3的第二部分。
+
+在这里结束$First$与$Follow$集的讨论。由于这两者的计算实在是非常重要，但更为细致的代码讨论会使得整个报告的结构冗长，所以这里也只是简要的提到一下重点，即递归循环的避免，其余的均不难从伪代码翻译为代码。
 
 
 \newpage
