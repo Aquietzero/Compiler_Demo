@@ -184,6 +184,65 @@ function followSetIter(grammar, nonterminal, prevHeads)
 
 在这里结束$First$与$Follow$集的讨论。由于这两者的计算实在是非常重要，但更为细致的代码讨论会使得整个报告的结构冗长，所以这里也只是简要的提到一下重点，即递归循环的避免，其余的均不难从伪代码翻译为代码。
 
+\section{LL(1)语法分析}
+
+$LL(1)$语法分析是一种自顶向下的语法分析，它的整个过程相当于为一个句子构建一棵语法分析树。从这个角度可以很好的理解二义性的问题，一个具有二义性的文法可以构建出多棵语法分析树，所以具有二义性的文法并不能用$LL(1)$进行语法分析。其实语法分析都是表驱动的，整个分析可以分为两个步骤，一个是建表，而另一个就是根据表来进行分析。
+
+在分析过程中，我们首要面临的问题就是用什么数据结构进行表的表示。在考虑所用的数据结构之前，我们应该思考一下需求。对于查表动作，可以用下面的动作来描述：
+
+\[
+    Action = ActionTable(CurrentState)
+\]
+
+在这里，我们通过用当前状态来进行查表的输入，然后根据表中查得的结果进行动作的执行。对于没有二义性的语法，每个时刻所要执行的动作都是固定的，所以每个表项里面要么为空，要么就是只有一个动作，所以根据这样的性质来考虑，数据结构可以用$hash$表，或是\begin{bfseries}字典\end{bfseries}（其实字典这样的数据结构实质上也还是一个$hash$表）。在JavaScript里面，数组实际上就是一个对象，而一个对象其实也是一个字典的模拟，所以我直接就使用了JavaScript里面的数组来模拟预测分析表，以致使我可以如下进行表查询：
+
+\[
+    Production = PredictiveTable[Nonterminal][InputSymbol]
+\]
+
+由此，我们得到预测分析表的数据结构如下：
+
+\begin{verbatim}
+
+Predictivetable:
+  table       -> Array(String) # 预测分析表 
+  startSymbol -> String        # 开始符号 
+  terminals   -> Array(Char)   # 终结符号集 
+
+\end{verbatim}
+
+对于表的构建，书中列出了两个规则，分别是针对于$First$里面是否含有$\epsilon$的。如果不含，那么直接用$First$集合就可以判断到后面的预测方向，如果有$\epsilon$，那么就需要结合$Follow$进行判断，具体如下：
+
+\begin{enumerate}
+    \item 对于$First(\alpha)$中的每个终结符号$\alpha$，将$A \rightarrow \alpha$加入到$M[A, \alpha]$中。
+    \item 如果$\epsilon$在$First(\alpha)$中，那么对于$Follow(A)$中的每个终结符号$b$，将$A \rightarrow \alpha$加入到$M[A, b]$中。如果$\epsilon$在$First(\alpha)$中，且\$在$Follow(A)$中，也将$A \rightarrow \alpha$加入到$M[A, \$]$中。
+\end{enumerate}
+
+这些步骤都非常直观，可以直接翻译为程序语言。看如下伪代码：
+
+\begin{verbatim}
+
+function generateTable(grammar)
+  for productions in grammar:
+    for body in current production:
+      # 规则2：First集里有epsilon
+      if first set of current body contains epsilon:
+        for symbol in follow set of current body:
+          table[current production head][symbol] = current body
+        if epsilon in follow set of current body:
+          table[current production head]['$'] = current body
+      # 规则1：对于First集里面的其他符号
+      for symbol in first set of current body:
+        table[current production head][symbol] = body
+
+\end{verbatim}
+
+对于伪代码不作过多解释，因为实在是非常直观的翻译。不过这里可以稍微谈一下报错的问题。可以看到上面的伪代码是直接为表项赋值，但可以进一步改进。在为表项赋值之前，可以先看一下表项当前是否为空，如果为空，那么可以直接进行赋值；但如果不为空的话，那么就说明在这个表项所对应的情况下，可以做出不同的动作，这同时说明了语法是具有二义性的。所以在生成表达的时候可以顺便对文法是否具有二义性进行一个判断。并且也能准确地将错误报告出来。而将这个错误显示出来只涉及到UI的问题，所以这里不进行详述。
+
+在建立表之后，就可以进行预测分析。预测分析的伪代码书上有，所以这里就不给出了，只是谈论一下细节的问题。由于在文法或者句子输入的时候，并不会特别地加上一个\$终结符，所以这个符号必须要另外处理。可以简单地在分析之前检测一下句子末尾是否有这个符号，如果没有的话就自动地添加一个。而对于分析结果的保存也是需要注意的。由于我的目标是将整个分析过程的结果都输出出来，所以在分析的过程中就需要把结果保存下来。考虑到最后呈现出来的结果是一个表格形式的状态表，所以可以使用HTML的表格来进行记录。每一个状态的各种信息就是表中的一行，将这样的信息转化为格式化字符串，再将其用HTML的表格语句包装起来即可。
+
+这里同样可以考虑报错的问题，由于整个分析过程都是透明的，如果有某个地方出现了错误，都可以清晰地知道。比如在某个查表动作中，表项并没有对应的动作，这样即可判断需要分析的语句并不是该文法的句子。再有，如果给出的终结符或非终结符并不在文法之中，这样在查表的时候根本就不会指到合法的表项中去，这样也可以进行一个报错。这些都是涉及到UI的问题，这里也不再细说。
+
 
 \newpage
 
