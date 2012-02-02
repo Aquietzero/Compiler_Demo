@@ -157,4 +157,58 @@ function toPosfix(precedencyTable, dimensionTable):
 
 \section{状态机图结构}
 
-理论上在得到后序正则表达式以后即可进行NFA的构建，但在此先用一个小节来谈谈NFA的结构。
+理论上在得到后序正则表达式以后即可进行NFA的构建，但在此先用一个小节来谈谈NFA的结构。NFA与DFA实际上都是图，其状态对应图的节点，其状态的转移对应于图的边，所以必须确定一种图结构来描述状态机，才能够使得状态机的建立尽可能的方便。
+
+考虑NFA，每个状态用状态编号唯一标记，并且可以作为多条边的起始节点；对于状态的转移，可以用一个三元组来标记，即起始状态，触发转移的输入符号，以及结束状态。这样已经可以初步确立状态以及边的数据结构，看下面的伪代码：
+
+\begin{verbatim}
+
+NFAState:
+  id    -> Int            # 唯一标识状态的整型
+  edges -> Array(NFAEdge) # 以该状态为起始状态的边的集合
+
+NFAEdge:
+  prev  -> Int  # 起始状态的id
+  next  -> Int  # 结束状态的id
+  input -> Char # 触发转移的输入字符
+
+\end{verbatim}
+
+这里要辨析一下起始状态以及结束状态的概念。这里的起始状态并不是指整个状态机的起始状态，结束状态亦然。这两个概念仅仅针对于状态机中的一条边所关联的两个状态而已。既然状态节点以及状态转移的边的数据结构都有了，那么很自然的就可以得出图的结构：
+
+\begin{verbatim}
+
+Graph:
+  begin  -> NFAState        # 图的开始状态
+  end    -> Array(NFAState) # 图的结束状态集合
+  states -> Array(NFAState) # 图的状态集合
+
+\end{verbatim}
+
+图的开始状态有且仅有一个，而结束状态可以有多个，从上面可以看出，图的结构确实可以非常简单。如果要将这些子图连接在一起，那么可以为两个图之间的某些状态添加边。但这里涉及到一个状态编号唯一性的问题。如果有两个图，其中一个状态编号为$1$到$9$，而另一个图的状态编号为$1$到$7$，那么这两个图合并以后，状态的编号就不唯一了，显然这是不行的。
+
+解决的办法也很容易，我另外写了一个$ID$分配器，这个分配器是将标识号递增分配的，所以每次获得的标识号都不一样。当然，前提是每次分配都使用同一个分配器的实例。这个分配器代码简单，贴上来也不妨：
+
+\begin{verbatim}
+
+function IDGenerator(begin) {
+  this.id = begin || 0;
+}
+
+IDGenerator.prototype.nextID = function() {
+  return this.id++;
+} 
+
+IDGenerator.prototype.currID = function() {
+  return this.id;
+} 
+
+IDGenerator.prototype.resetID = function() {
+  this.id = 0;
+}
+
+\end{verbatim}
+
+至此以万事俱备，可以进入到NFA的构建了。
+
+\section{NFA的构建}
