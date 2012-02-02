@@ -212,7 +212,7 @@ IDGenerator.prototype.resetID = function() {
 至此以万事俱备，可以进入到NFA的构建了。
 
 
-\section{NFA的构建}
+\section{$NFA$的构建}
 
 对于NFA的构建，我才用的是效率较低，但非常直观的$McMaughton$-$Yamada$-$Thompson$算法。这种算法是一个递归的构建NFA方法，从细致处出发，慢慢构建成庞大的NFA。由于书中对算法进行了详细的描述，这里就不细说了。下面谈谈实现的问题。先看看伪代码：
 
@@ -244,6 +244,41 @@ function NFAConstruction(beginID, postfix):
 
 整个算法对后序正则表达式里面的每个符号进行扫描，在每一轮循环里面，先判断符号是不是操作符，即$\sim$，$|$或者$*$，如果不是的话，那么直接为开始状态添加一条以该符号作为触发符号的转移边。如果当前符号是操作符的话，那么就意味着此时需要对过去的子NFA进行组合构建了。这样的子NFA合并跟操作符的操作数有关，对于$|$和$\sim$，会需要到$nfa1$和$nfa2$，而由于$*$是一元操作符，所以只需要到$nfa1$。
 
-上面对子NFA的组合进行了非常简略的描述，仅仅用了伪代码“$generate\quad symbol\quad NFA$”来表示，下面以操作符$|$为例阐述一下合并的过程。
+上面对子NFA的组合进行了非常简略的描述，仅仅用了伪代码“generate symbol NFA”来表示，下面以操作符“$|$”为例阐述一下合并的过程。
 
 \input{pic_nfa1}
+
+从图中可以看出，其中$N(s)$和$N(t)$都是子NFA，在这一步中，需要添加两个状态，一个为$i$，另一个为$f$，并且需要添加四条边，触发符号都是$\epsilon$。四条边的起始状态，结束状态分别为：
+
+\begin{center}
+\begin{eqnarray*}
+     i & \rightarrow & begin[N(s)] \\
+     i & \rightarrow & begin[N(t)] \\
+     f & \rightarrow & end[N(s)] \\
+     f & \rightarrow & end[N(t)] 
+\end{eqnarray*}
+\end{center}
+
+\newpage
+
+那么怎样才可以拿到那两个子NFA呢？上面的NFA构造的伪代码中，有一个栈，称为“nfaStack”，这个栈记录的是子NFA，每次遇到这些操作符的时候，可以根据操作符的元数来取出相应个数的子NFA，所以只要取出栈顶的两个子NFA即可。这里还需要注意一个小小的问题，那就是取出的顺序。我们可以从减法中看到教训，如果取出的两个操作数顺序不对，被减数与减数的位置就会被调换。虽然“$|$”和“$\sim$”操作符都是满足交换律，但是为了严谨，我们还是搞清楚这个顺序比较好。栈顶的元素作为\begin{bfseries}第二个子NFA\end{bfseries}。看到如下合并的伪代码：
+
+\begin{verbatim}
+
+case ``|'':
+  nfa2 = nfaStack.pop
+  nfa1 = nfaStack.pop
+  begin.addEdge(begin, nfa1.begin, epsilon)
+  begin.addEdge(begin, nfa2.begin, epsilon)
+  nfa1.end.addEdge(nfa1.end, end, epsilon)
+  nfa2.end.addEdge(nfa2.end, end, epsilon)
+  break
+
+\end{verbatim}
+
+其中代码的前两句是取出栈顶的两个子NFA，接下来四句创建上面说到的四条新的状态转移边，而两个新的状态$begin$和$end$则是在循环开始的地方建立的。具体可以看上面NFA构建的伪代码。
+
+
+\section{$\epsilon$闭包与$Move$函数}
+
+在NFA里面有两个重要的函数，它们是$\epsilon$闭包函数以及$Move$函数，其重要性与语法分析中的$Closure$函数和$Goto$函数相当，而且我们也能从其相似性再一次看出词法分析与语法分析工作的层次有何异同。可以说，$\epsilon$闭包与$Closure$函数相互对应，$Move$函数与$Goto$函数相互对应。
