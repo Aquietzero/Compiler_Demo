@@ -211,4 +211,39 @@ IDGenerator.prototype.resetID = function() {
 
 至此以万事俱备，可以进入到NFA的构建了。
 
+
 \section{NFA的构建}
+
+对于NFA的构建，我才用的是效率较低，但非常直观的$McMaughton$-$Yamada$-$Thompson$算法。这种算法是一个递归的构建NFA方法，从细致处出发，慢慢构建成庞大的NFA。由于书中对算法进行了详细的描述，这里就不细说了。下面谈谈实现的问题。先看看伪代码：
+
+\begin{verbatim}
+
+function NFAConstruction(beginID, postfix):
+  nfa1, nfa2, begin, end, edge
+  nfaStack = {}
+  id = new IDGenerator(begin || 0)
+
+  for symbol in postfix:
+    begin = new NFAState(id.next)
+    end   = new NFAState(id.next)
+
+    if symbol is not operator:
+      begin.addEdge(begin, end, symbol)
+
+    else:
+      switch symbol:
+        case ``|'': generate ``|'' NFA
+        case ``~'': generate ``~'' NFA
+        case ``*'': generate ``*'' NFA
+
+    nfaStack.push(begin, end)
+
+\end{verbatim}
+
+首先这一个NFA的构建函数接受两个参数（真正的代码会有所不同），其中一个是$beginID$，另一个是$postfix$。$beginID$在现阶段是没有作用的，等到后面构建词法分析器的时候，需要将各个正则表达式的NFA合并的时候，这个参数能够指明在NFA构建的时候，选取的第一个标识号为多少，通过这样指定，能够使得不同NFA里面的每个状态的标识号都不会有重复。至于第二个参数，即后序的正则表达式。
+
+整个算法对后序正则表达式里面的每个符号进行扫描，在每一轮循环里面，先判断符号是不是操作符，即$\sim$，$|$或者$*$，如果不是的话，那么直接为开始状态添加一条以该符号作为触发符号的转移边。如果当前符号是操作符的话，那么就意味着此时需要对过去的子NFA进行组合构建了。这样的子NFA合并跟操作符的操作数有关，对于$|$和$\sim$，会需要到$nfa1$和$nfa2$，而由于$*$是一元操作符，所以只需要到$nfa1$。
+
+上面对子NFA的组合进行了非常简略的描述，仅仅用了伪代码“$generate\quad symbol\quad NFA$”来表示，下面以操作符$|$为例阐述一下合并的过程。
+
+\input{pic_nfa1}

@@ -1,0 +1,79 @@
+\pagestyle{empty}
+%
+%
+%
+
+\enlargethispage{100cm}
+% Start of code
+% \begin{tikzpicture}[anchor=mid,>=latex',line join=bevel,]
+\begin{tikzpicture}[>=latex',line join=bevel,]
+  \pgfsetlinewidth{1bp}
+%%
+\pgfsetcolor{black}
+  % Edge: i -> begin_N_s
+  \draw [->] (52.737bp,50.66bp) .. controls (65.036bp,53.474bp) and (80.376bp,56.984bp)  .. (105.04bp,62.628bp);
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (76bp,63.5bp) node {$\epsilon$};
+  % Edge: begin_N_t -> end_N_t
+  \draw [->] (195.36bp,18bp) .. controls (212.27bp,18bp) and (231.37bp,18bp)  .. (258.92bp,18bp);
+  \draw (227bp,25.5bp) node {$N(t)$};
+  % Edge: end_N_s -> f
+  \draw [->] (337.48bp,63.396bp) .. controls (350.3bp,60.373bp) and (364.55bp,57.012bp)  .. (386.54bp,51.826bp);
+  \draw (364bp,65.5bp) node {$\epsilon$};
+  % Edge: i -> begin_N_t
+  \draw [->] (52.737bp,39.34bp) .. controls (65.146bp,36.5bp) and (80.651bp,32.953bp)  .. (105.51bp,27.266bp);
+  \draw (76bp,41.5bp) node {$\epsilon$};
+  % Edge: end_N_t -> f
+  \draw [->] (335.12bp,27.335bp) .. controls (348.49bp,30.994bp) and (363.71bp,35.156bp)  .. (386.54bp,41.402bp);
+  \draw (364bp,42.5bp) node {$\epsilon$};
+  % Edge: begin_N_s -> end_N_s
+  \draw [->] (195.78bp,72bp) .. controls (212.23bp,72bp) and (230.73bp,72bp)  .. (257.64bp,72bp);
+  \draw (227bp,79.5bp) node {$N(s)$};
+  % Node: f
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (408bp,47bp) ellipse (18bp and 18bp);
+  \draw (408bp,47bp) ellipse (22bp and 22bp);
+  \draw (408bp,47bp) node {$f$};
+\end{scope}
+  % Node: i
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (27bp,45bp) ellipse (27bp and 18bp);
+  \draw (27bp,45bp) node {$i$};
+\end{scope}
+  % Node: begin_N_t
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (147bp,18bp) ellipse (48bp and 18bp);
+  \draw (147bp,18bp) node {$begin[N(t)]$};
+\end{scope}
+  % Node: begin_N_s
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (147bp,72bp) ellipse (49bp and 18bp);
+  \draw (147bp,72bp) node {$begin[N(s)]$};
+\end{scope}
+  % Node: end_N_s
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (300bp,72bp) ellipse (42bp and 18bp);
+  \draw (300bp,72bp) node {$end[N(s)]$};
+\end{scope}
+  % Node: end_N_t
+\begin{scope}
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (300bp,18bp) ellipse (41bp and 18bp);
+  \draw (300bp,18bp) node {$end[N(t)]$};
+\end{scope}
+%
+\end{tikzpicture}
+% End of code
+

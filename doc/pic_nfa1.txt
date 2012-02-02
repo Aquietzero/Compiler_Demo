@@ -1,0 +1,17 @@
+digraph nfa1 {
+    rankdir=LR;
+    subgraph ns {
+        fontcolor = white
+        shape = "ellipse";
+        begin_N_s -> end_N_s [ label = "N(s)" ];
+    }
+    subgraph nt {
+        shape = "ellipse";
+        begin_N_t -> end_N_t [ label = "N(t)" ];
+    }
+    i -> begin_N_s [ label = "e" ]
+    i -> begin_N_t [ label = "e" ]
+    end_N_s -> f [ label = "e" ]
+    end_N_t -> f [ label = "e" ]
+    f [ shape = doublecircle]
+}
