@@ -30,13 +30,13 @@
 
 首先，正则表达式分为基本正则表达式以及扩展正则表达式。在不同编程语言里面所提供的正则表达式工具都是强大的扩展正则表达式，其中具有很多的操作符以及诸多强大的功能。而基本的正则表达式只有三种操作：
 
-\begin{tabular}{l|r}
-    $Operations$     & $Definitions\quad and\quad Demostration$ \\
+\begin{center}\begin{tabular}{c|c}
+    $\bf{Operations}$ & $\bf{Definitions}$ \\
     \hline
     $Union$          & $L \cup M = \{s|s \in L \| s \in M\}$  \\
     $concatenation$  & $LM = \{st|s \in L \&\& s \in M\}$  \\
     $Kleene closure$ & $L^* = \cup^\infty_{i=0} L^i$  \\
-\end{tabular}
+\end{tabular}\end{center}
 
 这三种操作已经可以完全表示扩展表达式中的其他操作，所以为了实现上的简洁，我实现的是基本正则表达式。
 
@@ -84,3 +84,77 @@ function insertConcatenation:
 \end{verbatim}
 
 这里在实现的时候有一个问题需要注意，那就是插入连接符的动作其实是对原字符串进行了修改，如果整个过程都在原字符串上面操作，那么在每次插入之后都必须显式将下标向前移动，以配合新插入的连接符。如果上面的步骤是在一个全新的字符串上面进行操作，那么就不会出现下标错位的问题。
+
+
+\section{中序表达式与后序表达式}
+
+在处理了连接符的问题以后，就可以开始考虑怎样把中序表达式转化为后序表达式了。首先必须明白为什么要将中序表达式转化为后序表达式。因为中序表达式具有二义性，而后序表达式没有，再者，在中序表达式中，括号仅仅起着分组的作用，并没有任何的运算功能，所以没有必要去保留。在后序表达式中，运算符均在其相关操作数的后方，所以可以直接根据操作符号的元数来进行操作数个数的选取。对于这一点来说，中序表达式是不能做到的，因为在运算符后方仍有与其相关的操作数。
+
+了解了中序表达式到后序表达式的重要性，我们还得明白整个转换过程的机理。由于中序表达式具有二义性，所以在转换的时候需要作出一些规定。看如下算术表达式：$a + b \times c$，其转化为后序表达式以后可以有两种形式：
+
+\begin{enumerate}
+    \item $a b + c \times$
+    \item $a b c \times +$
+\end{enumerate}
+
+可以看到，对于第一种转换方法，是先将$a$于$b$相加，然后再与$c$相乘，而对于第二种转换方法，则是先将$b$于$c$相乘，然后再与$a$相加，这样就说明了转换为后序表达式的时候会对运算符的优先级有所依赖，由此，在转换的时候需要根据运算符的优先级进行转换，使得转换出来的结果符合我们所需要的语义。那上面的例子来说，即我们需要的结果是第二种转换方式。
+
+根据正则表达式的语义，我们可以人为表示出各个运算符的优先级，具体看下表：
+
+\begin{center}\begin{tabular}{|c|c|}
+    \hline
+    \bf{Operator} & \bf{Precedency} \\ \hline
+    $($      & $0$        \\ \hline
+    $)$      & $0$        \\ \hline
+    $*$      & $9$        \\ \hline
+    $\sim$   & $8$        \\ \hline
+    $|$      & $7$        \\ \hline
+\end{tabular}\end{center}
+
+其实这个优先级的数字并没有太多的含义，只要数字之间能够体现其优先级的先后关系即可，这里对数字的选取其实也为了后面对更多运算符的添加预留了空间，所以才从7开始。之所以将括号的优先级设到最低，是因为它们仅仅是为了分组而已，并没有运算功能。下面给出中序表达式转成后序表达式的伪代码：
+
+\begin{verbatim}
+
+function toPosfix(precedencyTable, dimensionTable):
+  opStack = {}
+  postfix = {}
+
+  while True:
+    # 正则表达式的末尾
+    if symbol is endmarker:
+      while opStack is not empty:
+        postfix.push(opStack.pop())
+      break
+
+    # 遇到左括号
+    if symbol is ``('':
+      opStack.push(symbol)
+
+    # 遇到右括号
+    else if symbol is ``)'':
+      while !opStack.empty and opStack.top != ``('':
+        postfix.push(opStack.pop)
+      opStack.pop
+
+    # 遇到非括号的操作符
+    else if symbol is operator:
+      while !opStack.empty          and 
+            opStack.top is operator and
+            opStack.top.precedency >= symbol.precedency:
+        if symbol is not bracket:
+          opStack.push(symbol)
+
+    # 遇到操作数或字符
+    else:
+      postfix.push(symbol)
+
+  return postfix
+
+\end{verbatim}
+
+可以看到，在转换的过程中有多个情况处理。当遇到正则表达式的末尾时，应当把当前所有栈中残留的操作符都顺序抛出，以确保不会有操作符遗留在操作符栈中。当遇到左括号的时候，现将其压进栈中，等待与右括号的匹配。当遇到右括号的时候，应该抛出与它匹配的左括号与它之间的所有操作符，这相当于处理完一个组。当遇到其他操作符的时候，根据优先级进行处理，如果栈中有优先级比当前运算符高的，将其抛出，这避免了二义性，抛出完以后，再将当前的操作符压栈，这样也确保如果将来有优先级比它高的运算符，可以在更位于栈顶的地方。如果遇到的是操作数，那么可以直接将其输出到后续表达式中。
+
+
+\section{状态机图结构}
+
+理论上在得到后序正则表达式以后即可进行NFA的构建，但在此先用一个小节来谈谈NFA的结构。
