@@ -1,0 +1,63 @@
+\chapter{程序运行及代码结构}
+
+整体的代码框架在系统概述里面已经介绍过，这里稍微详细地介绍。本次项目将算法实现，外观呈现以及人机交互作为独立的三个部分，以致模块化非常的明显，下面将结合代码结构来谈一下有关算法以外的问题。具体的代码可以参见我的$Github$，地址为\url{https://github.com/Aquietzero/Compiler_Demo}。
+
+建议看代码的时候最好还是到我的$Github$去看，因为那里结构整洁，操作方便，并且有代码高亮，所以看起来比较舒服。再有，在上面给出的网址靠近底部的README部分，有一个演示的链接，点进去以后即可使用这一个编译算法演示系统。所以最好还是不要在我提交的文件夹里面看代码。
+
+\section{程序运行}
+
+如果想独立运行本系统，那也是可以的。支持本系统的最好的浏览器为$firefox$或者$chrome$，千万不要用$IE$或者$360$浏览器，因为我觉得没有必要为那些浏览器专门写特定的展示代码。用$firefox$或者$chrome$打开目录下面的“index.html”文件即可运行，在操作过程中请遵循系统中的提示。一般情况下，程序都有默认的输入，可以按照默认输入的格式来进行输入。
+
+还要说明一点，有部分功能虽然我实现了，但是并没有提供演示的接口，所以在上面阐述算法的时候就没有说到，例如正则表达式的抽象语法树的构建之类的算法。确实，我也感觉没有做好的东西就没有太大必要去阐述了。
+
+\section{整体代码结构}
+
+先看下面的整体代码结构，以下列出的是主要的代码部分，有一些中间生成文件并没有必要列出。整个系统的主要部分其实只有四个，分别是“algo”，“css”，“ui”以及“doc”。其中前三者的关系可以参见系统概述中给出的关系图，而“doc”正是本文档的源文件。其余的一些文件夹比如“imgs”里面存放的是系统展示页面所需要到的图像，“lib”里面存放的是系统所需要到的库文件，其实也就只有“jquery”，而“fonts”里面的是一些系统需要到的字体。
+
+\scriptsize
+\begin{verbatim}
+  Compiler_Demo
+    |__ algo
+    |    |__ array.js, id.js, lib.js
+    |    |__ grammar.js, production.js
+    |    |__ item.js
+    |    |__ ll_1.js, slr.js
+    |    |__ re.js, preprocRe.js
+    |    |__ nfa.js, dfa.js
+    |    |__ lexer.js
+    |    |__ toHtml.js
+    |    |__ compiler_demo.js
+    |    \__ tree.js
+    |
+    |__ css
+    |    |__ welcomePage.css, frame.css
+    |    |__ navigationPage.css
+    |    |__ inputPage.css, comfirmPage.css
+    |    |__ ll_1Page.css, lr_0Page.css, lr_1Page.css
+    |    \__ postfixPage.css, nfaPage.css, dfaPage.css, lexerPagee.css
+    |
+    |__ ui
+    |    |__ welcomePage.js, frame.js
+    |    |__ navigationPage.js
+    |    |__ inputPage.js, comfirmPage.js
+    |    |__ ll_1Page.js, lr_0Page.js, lr_1Page.js
+    |    \__ postfixPage.js, nfaPage.js, dfaPage.js, lexerPagee.js
+    |
+    |__ doc
+    |    |__ compiler_demo.tex
+    |    |__ general_idea.tex
+    |    |__ syntax_analysis.tex
+    |    |__ lexical_analysis.tex
+    |    |__ code_structure.tex
+    |    |__ pic_sys_structure.tex
+    |    \__ pic_nfa1.tex
+    |
+    |__ imgs
+    |__ fonts
+    |__ lib
+    |__ index.html
+    \__ README.md
+\end{verbatim}
+
+\normalsize
+看到上面的结构应该也挺一目了然的，每个文件的单独作用在这里就不细说了，因为每个文件的注释都说得非常明白，并且文件的名称也清晰指明了这个文件的作用。

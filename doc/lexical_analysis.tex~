@@ -424,10 +424,22 @@ Lexer:
 
 以上给出了词法分析器的数据结构，看上去有点复杂，其实里面包括了词法分析器建造过程中所用到的中间变量，虽然最终工作的只有$lexerDFA$，但是基于项目的目的，为了方便让各过程的结果都能方便打印出来，我还是将其各个部分的数据结构都内嵌到这个词法分析器里面去了。
 
-由于这一部分比较重要，所以在这里贴上分析的源代码，到此结束词法分析的讨论：
+由于这一部分比较重要，所以在这里贴上分析的源代码：
 
 \scriptsize
 \begin{verbatim}
+/* The parsing model : double pointer.
+ *
+ *    a b c    >=    1 2 3
+ *        ^            ^
+ *      tokPtr      currPos
+ *        ^
+ *     tokState
+ *  
+ *  currPos  : The current position of the parsing sentence.
+ *  tokPtr   : Records the last position of the previous matched token.
+ *  tokState : The corresponding DFA state of the tokPtr.
+ */
 Lexer.prototype.parse = function(input) {
 
     var dfa = this.lexerDFA;    
@@ -435,7 +447,9 @@ Lexer.prototype.parse = function(input) {
     var state = 0;
     var nfaState, token;
 
+    // Reset parsing information.
     this.parseRst = '';
+    this.parseMsg = '';
 
     prevTokPtr = 0;
     tokPtr = 0;
@@ -447,12 +461,21 @@ Lexer.prototype.parse = function(input) {
             continue;
 
         // Detect invalid symbol.
-        if (!this.lexerDFA.alphabet.contains(input[currPos]))
-            break
+        if (!this.lexerDFA.alphabet.contains(input[currPos])) {
+            this.parseMsg += 'The input ' + input[currPos] +
+                             ' is not a valid symbol in the alphabet.\n';
+            break;
+        }
 
+        // If the scanning has not reach the end, then the scanning can
+        // be freely continuing. But once the '#' appears, no more scanning
+        // is allowed. So at this time, the next state is set to be undefined.
         if (input[currPos] != '#') {
             state = dfa.states[state][input[currPos]];
 
+            // If the current state is one of the end state, then keep
+            // going scanning according to the maximum matching and
+            // record the current position.
             if (state && dfa.end.contains(dfa.endmarkerMove(state))) {
                 tokPtr = currPos;
                 tokState = dfa.endmarkerMove(state);
@@ -471,8 +494,13 @@ Lexer.prototype.parse = function(input) {
             currPos = tokPtr;
             
             // No further transition in the DFA.
-            if (currPos == prevTokPtr)
+            if (currPos == prevTokPtr) {
+                if (input[currPos + 1] != '#')
+                    this.parseMsg += "No further transition in the DFA with the symbol \'" +
+                                     input[currPos] + "\' in " + currPos + " and the comming symbol \'" + 
+                                     input[currPos + 1] + '\'\n'; 
                 break;
+            }
 
             if (token)
                 this.parseRst += token + ' ';
@@ -508,8 +536,12 @@ Lexer.prototype.parse = function(input) {
         token = this.nfaTokenMapping[nfaState];
         this.parseRst += token;
     }
+
+    if (this.parseRst == '')
+        this.parseMsg += 'The input sentence matches none of the patterns.';
+    if (this.parseRst != '' && this.parseMsg == '')
+        this.parseMsg += 'The input sentence is valid to the given pattern.';
+
 }
 
 \end{verbatim}
-
-\normalsize

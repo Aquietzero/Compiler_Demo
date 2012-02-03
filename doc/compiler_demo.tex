@@ -2,6 +2,7 @@
 \usepackage{verbatim}
 \usepackage{graphics}
 \usepackage{color}
+\usepackage{url}
 %\usepackage{hyperref}
 \usepackage{CJK}
 
@@ -29,16 +30,17 @@
 \newpage
 
 % contents
-\parskip 0.2em
+\pagestyle{plain}
 \pagenumbering{roman}
+\parskip 0.2em
 \renewcommand{\contentsname}{目录}
+\addcontentsline{toc}{chapter}{目录}
 \tableofcontents
 
 % preface
 \parskip 1em
 \chapter*{前言}
 \addcontentsline{toc}{chapter}{前言}
-\pagestyle{plain}
 
 \section*{对编译原理的一点感觉}
 \addcontentsline{toc}{section}{对编译原理的一点感觉}
@@ -59,13 +61,14 @@
 \newpage
 
 % main content
+\pagestyle{plain}
 \pagenumbering{arabic}
-\pagestyle{headings}
 
 \include{general_idea}
 \include{syntax_analysis}
 \include{lexical_analysis}
+\include{code_structure}
+\include{summary}
 
-\newpage
 \end{CJK}
 \end{document}
