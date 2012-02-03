@@ -318,3 +318,92 @@ NameID:
 解决了这个问题之后，后面的问题都将非常容易解决。书中给出了构建DFA的伪代码，将其翻译为程序语言并不难，只需要在新状态产生的时候调用上面的名字生成器产生标识就可以了。
 
 \section{一个简易的词法分析器}
+
+这个简易的词法分析器的工作步骤跟本章一开头所提出的步骤是一模一样的，下面从跟用户的交互过程进一步说说这个步骤：
+
+\begin{enumerate}
+    \item 用户输入描述词法的正则表达式群。
+    \item 用户按照一定格式输入每个正则表达式识别出来后所对应的动作。
+    \item 词法分析器将每个输入的正则表达式转换为后序形式。
+    \item 词法分析器为每个后序正则表达式建立NFA。
+    \item 词法分析器将这些得到的NFA都进行合并，并产生出一个词法NFA。
+    \item 词法分析器将这个统一的词法NFA转换为DFA。
+    \item 词法分析器将这个DFA的每个接受状态跟其对应的动作关联起来。
+    \item 用户输入所要识别的字符串。
+    \item 词法分析器对字符串进行分析，输出词法单元流。
+\end{enumerate}
+
+为了方便处理，我规定了一种输入格式，当然，这种格式有很大程度上是参考$lex$的格式，首先看看正则表达式的声明如下：
+
+\begin{verbatim}
+  letter -> a | b | c | d
+  digit  -> 1 | 2 | 3 | 4
+  id     -> letter ( letter | digit ) *
+  number -> digit digit *
+\end{verbatim}
+
+这样在处理的时候，首先将输入串根据行进行切分，然后根据“->”进行每行的此法单元名称及其正则声明的切割，比如第一行中，被切割为词法名称“$letter$”与正则定义“a|b|c|d”。这个正则定义根据后序转换，建立NFA两个步骤处理，之后我们得到的是下面的一个对应关系：
+
+\[
+    TokenName \rightarrow TokenNFA
+\]
+
+当每个词法单元的正则声明都进行这样的处理以后，我们可以得到如下的映射关系：
+
+\begin{eqnarray*}
+    TokenName_1 & \rightarrow & TokenNFA_1 \\
+    TokenName_2 & \rightarrow & TokenNFA_2 \\
+                & \vdots      &            \\
+    TokenName_n & \rightarrow & TokenNFA_n 
+\end{eqnarray*}
+
+紧接着把以上得到的NFA都合并起来。这里的子NFA生成以及合并受到之前讨论的命名问题的限制。还记得之前建造NFA的时候需要传入一个参数，指明NFA内部状态的起始标识号吗？在整个子NFA构建过程中，只使用一个$ID$生成器的实例，然后从$1$开始标识状态，每次新构建NFA的时候，都用前一个NFA的结束号加$1$为新的起始号，这样确保各个NFA的状态标识号是连续的整数，并没有任何重复。可以看以下的状态编号示意：
+
+\begin{eqnarray*}
+    TokenName_1 & \rightarrow & TokenNFA_1 (1\cdots id(NFA_1)) \\
+    TokenName_2 & \rightarrow & TokenNFA_2 (id(NFA_1)+1\cdots id(NFA_2)) \\
+                & \vdots      &            \\
+    TokenName_n & \rightarrow & TokenNFA_n (id(NFA_{n-1})+1\cdots id(NFA_n))
+\end{eqnarray*}
+
+如此编号完成以后，可以将以上众多NFA都合并起来，这样新的NFA编号就从$1$到$id(NFA_n)$了。当然，在合并以后也是需要将所有的结束状态都记住的，因为每个结束状态对应一个执行动作，这个关系什么情况下都不能丢失。对于正则表达式识别与对应的动作关系的输入，我也指定了输入规则，下面是一个例子：
+
+\begin{verbatim}
+  {id}     -> {return(ID);}
+  {number} -> {return(NUM);}
+  >=       -> {return(RELOP);}
+  <=       -> {return(RELOP);}
+  =        -> {return(RELOP);}
+  >        -> {return(RELOP);}
+  <        -> {return(RELOP);}
+\end{verbatim}
+
+由于JavaScript不能直接调用代码段，所以我只设定了最简单的返回动作，不过在概念上是通用的，只是我没能够实现而已。可以看出在动作定义里面，词法单元有的在上面已经定义过了，如$id$和$number$，但还有一些是默认的词法单元，如各关系符等。对于非默认的词法单元，直接采用上面根绝其正则定义所得到的NFA，而对于默认的词法单元，则另外根据其字符构建NFA，最后再将这些NFA合并起来即可。其实合并过程也就是添加一个开始状态，我将其的标识号标记为$0$，然后从这个开始状态为各个子NFA的开始状态伸展出边，这些边的触发字符为$\epsilon$，如此即可。然后同时保留着一张像下面给出的表：
+
+\begin{center}
+\begin{tabular}{c|c|c}
+    \bf{Token} & \bf{End States Set} & \bf{Action} \\ \hline
+    $token_1$  & $StateSet_1$        & $action_1$  \\
+    $token_2$  & $StateSet_2$        & $action_2$  \\
+    \vdots     & \vdots              & \vdots      \\
+    $token_n$  & $StateSet_n$        & $action_n$  \\
+\end{tabular}
+\end{center}
+
+这样只要知道此法单元或者结束状态就能够知道执行什么动作了。但在NFA中有一个重要的问题，那就是最长匹配的问题。在最长匹配里面，每次到达结束状态都不能立刻确定执行什么动作，因为总有可能在后面遇到更长的满足当前输入串的模式，所以需要有一种方法来解决这个问题。
+
+有一个简便的方法可以解决。那就是用两个浮动的指针，一个记录前一次到达状态机结束状态时候，输入串的位置；另一个记录这一次到达状态机结束状态时，输入串的位置。可以用下面的简图来说明这个问题：
+
+\begin{center}
+\begin{tabular}{cccccc}
+    \hline
+    $matched$ \vline & $\cdots$ & \vline $c_m$ \vline & $\cdots$ & \vline $c_n$ \vline & $\cdots$ \\
+    \hline
+           &  & $\uparrow$ &          & $\uparrow$ &          \\
+           &  & $previous$ &          & $current$ &          \\
+\end{tabular}
+\end{center}
+
+观察上面的图，在$matched$部分，是指已经能够匹配的部分。在$matched$到$previous$部分是指可以匹配但仍没有确定的部分，而在$matched$到$current$部分是新的可以确定的部分。每当出现这样的情况，会更新$previous$指针，使其指向$current$的位置，并继续将$current$向右扫描。直至下一次出现这样的情况或遇到输入串的末端。如果$current$一直扫描到最后都没有能匹配上更长的正则表达式，那么$previous$的部分就被确定下来。可以简单地把$previous$指针看作是一步回退的作用。而在这种情况下，一步回退已经足够了。
+
+当然，以上只是讨论了在实现中一些需要注意的问题，其实整体流程书中都说得很详细，在此就略过了。并且这一部分的代码也很多，所以这里并不贴出，具体请参见代码。代码中有比较详细的注释。
